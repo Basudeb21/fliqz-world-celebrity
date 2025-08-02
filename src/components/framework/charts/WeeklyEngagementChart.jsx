@@ -1,101 +1,149 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, useWindowDimensions } from 'react-native';
-import { LineChart } from 'react-native-chart-kit';
+import Svg, { Path, G, Text as SvgText, Line, Circle, Defs, LinearGradient, Stop, Rect } from 'react-native-svg';
+import * as d3 from 'd3-shape';
 import { Colors } from '../../../constants';
 
-const WeeklyEngagementLineChart = React.memo(() => {
+const WeeklyEngagementChart = React.memo(() => {
     const window = useWindowDimensions();
-    const [isMounted, setIsMounted] = React.useState(false);
+    const [isMounted, setIsMounted] = useState(false);
 
-    React.useEffect(() => {
+    const chartWidth = window.width - 64;
+    const chartHeight = 220;
+    const padding = { top: 20, right: 20, bottom: 40, left: 40 };
+
+    useEffect(() => {
         setIsMounted(true);
         return () => setIsMounted(false);
     }, []);
 
     if (!isMounted) return null;
 
-    const data = {
-        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        datasets: [
-            {
-                data: [1200, 1850, 1700, 2100, 2400, 1800, 1200],
-                color: () => Colors.PINK,
-                strokeWidth: 3
-            },
-            {
-                data: [300, 420, 380, 520, 570, 430, 320],
-                color: () => Colors.YELLOW,
-                strokeWidth: 3
-            },
-            {
-                data: [150, 230, 200, 270, 310, 250, 170],
-                color: () => Colors.GREEN,
-                strokeWidth: 3
-            }
-        ]
+    const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    const datasets = [
+        { data: [1200, 1850, 1700, 2100, 2400, 1800, 1200], color: Colors.PINK, label: 'Likes' },
+        { data: [300, 420, 380, 520, 570, 430, 320], color: Colors.YELLOW, label: 'Comments' },
+        { data: [150, 230, 200, 270, 310, 250, 170], color: Colors.GREEN, label: 'Shares' }
+    ];
+
+    const xScale = (index) => padding.left + (index * (chartWidth - padding.left - padding.right)) / (labels.length - 1);
+
+    const allData = datasets.flatMap(d => d.data);
+    const yMax = Math.max(...allData) * 1.1;
+    const yMin = Math.min(...allData) * 0.9;
+    const yScale = (value) => chartHeight - padding.bottom - ((value - yMin) / (yMax - yMin)) * (chartHeight - padding.top - padding.bottom);
+
+    const createPath = (data) => {
+        const line = d3.line()
+            .curve(d3.curveLinear)
+            .x((_, i) => xScale(i))
+            .y(d => yScale(d));
+        return line(data);
     };
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Weekly Engagement Metrics</Text>
 
-            <LineChart
-                data={data}
-                width={window.width - 64}
-                height={220}
-                chartConfig={chartConfig}
-                bezier
-                style={styles.chart}
-                yAxisInterval={500}
-                fromZero={false}
-                withVerticalLines={false}
-                propsForDots={{
-                    0: { r: 6, strokeWidth: 2, stroke: Colors.WHITE, fill: Colors.PINK },
-                    1: { r: 6, strokeWidth: 2, stroke: Colors.WHITE, fill: Colors.YELLOW },
-                    2: { r: 6, strokeWidth: 2, stroke: Colors.WHITE, fill: Colors.GREEN }
-                }}
-            />
+            <Svg width={chartWidth} height={chartHeight} style={styles.chart}>
+                <Defs>
+                    <LinearGradient id="background" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <Stop offset="0%" stopColor={Colors.WHITE} />
+                        <Stop offset="100%" stopColor={Colors.WHITE} />
+                    </LinearGradient>
+                </Defs>
+                <Rect x="0" y="0" width={chartWidth} height={chartHeight} fill="url(#background)" rx="12" ry="12" />
+
+                {[500, 1000, 1500, 2000, 2500].map((value) => {
+                    if (value > yMax) return null;
+                    return (
+                        <Line
+                            key={`grid-${value}`}
+                            x1={padding.left}
+                            y1={yScale(value)}
+                            x2={chartWidth - padding.right}
+                            y2={yScale(value)}
+                            stroke={Colors.THEME}
+                            strokeWidth={0.5}
+                            strokeDasharray="4"
+                        />
+                    );
+                })}
+
+                {[500, 1000, 1500, 2000, 2500].map((value) => {
+                    if (value > yMax) return null;
+                    return (
+                        <SvgText
+                            key={`y-label-${value}`}
+                            x={padding.left - 10}
+                            y={yScale(value) + 4}
+                            fontSize="10"
+                            textAnchor="end"
+                            fill={Colors.PLACEHOLDER}
+                        >
+                            {value}
+                        </SvgText>
+                    );
+                })}
+
+                <G>
+                    {labels.map((label, index) => (
+                        <SvgText
+                            key={`label-${index}`}
+                            x={xScale(index)}
+                            y={chartHeight - 15}
+                            fontSize="10"
+                            textAnchor="middle"
+                            fill={Colors.PLACEHOLDER}
+                        >
+                            {label}
+                        </SvgText>
+                    ))}
+                </G>
+
+                {datasets.map((dataset, datasetIndex) => (
+                    <G key={`dataset-${datasetIndex}`}>
+                        <Path
+                            d={createPath(dataset.data)}
+                            fill="none"
+                            stroke={dataset.color}
+                            strokeWidth={3}
+                        />
+                        {dataset.data.map((value, index) => (
+                            <Circle
+                                key={`point-${datasetIndex}-${index}`}
+                                cx={xScale(index)}
+                                cy={yScale(value)}
+                                r={6}
+                                fill={dataset.color}
+                                stroke={Colors.THEME}
+                                strokeWidth={2}
+                            />
+                        ))}
+                    </G>
+                ))}
+            </Svg>
 
             <View style={styles.footer}>
-                <View style={styles.legendItem}>
-                    <View style={[styles.legendIndicator, { backgroundColor: Colors.PINK }]} />
-                    <Text style={styles.legendText}>Likes</Text>
-                </View>
-                <View style={styles.legendItem}>
-                    <View style={[styles.legendIndicator, { backgroundColor: Colors.YELLOW, borderRadius: 100 }]} />
-                    <Text style={styles.legendText}>Comments</Text>
-                </View>
-                <View style={styles.legendItem}>
-                    <View style={[styles.legendIndicator, { backgroundColor: Colors.GREEN, borderRadius: 100 }]} />
-                    <Text style={styles.legendText}>Shares</Text>
-                </View>
+                {datasets.map((dataset, index) => (
+                    <View key={`legend-${index}`} style={styles.legendItem}>
+                        <View style={[styles.legendIndicator, { backgroundColor: dataset.color }]} />
+                        <Text style={styles.legendText}>{dataset.label}</Text>
+                    </View>
+                ))}
             </View>
         </View>
     );
 });
 
-const chartConfig = {
-    backgroundGradientFrom: Colors.BLUE,
-    backgroundGradientTo: Colors.BLUE,
-    decimalPlaces: 0,
-    color: () => Colors.WHITE,
-    labelColor: () => Colors.WHITE,
-    style: {
-        borderRadius: 12
-    },
-    propsForLabels: {
-        fontSize: 10
-    }
-};
-
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: Colors.BLUE,
+        backgroundColor: Colors.WHITE,
         borderRadius: 12,
         padding: 16,
         margin: 16,
         overflow: 'hidden',
-        shadowColor: Colors.WHITE,
+        shadowColor: Colors.BLACK,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 4,
@@ -105,7 +153,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 8,
-        color: Colors.WHITE,
+        color: Colors.THEME,
     },
     chart: {
         marginVertical: 8,
@@ -133,9 +181,8 @@ const styles = StyleSheet.create({
     },
     legendText: {
         fontSize: 12,
-        color: Colors.WHITE,
+        color: Colors.BLACK,
     },
 });
 
-
-export default WeeklyEngagementLineChart;
+export default WeeklyEngagementChart;

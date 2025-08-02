@@ -1,9 +1,11 @@
-import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Colors } from '../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 
 const StoryHighlight = ({ image, userName, onPress }) => {
+    console.log(image);
+
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.storyContainer} onPress={onPress}>

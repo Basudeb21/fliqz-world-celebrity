@@ -1,23 +1,30 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { Colors, Images } from '../../../constants'
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
+import { Colors } from '../../../constants'
+import { scale, verticalScale } from 'react-native-size-matters'
+import API from '../../../api/common/API'
 
 const AuctionCard = ({ product, onPress }) => {
     return (
         <TouchableOpacity style={styles.card} onPress={onPress}>
-            <Image style={styles.image} source={{ uri: product.productImage }} />
+            <Image
+                style={styles.image}
+                source={{
+                    uri: `${API.STORAGE_URL}${product.images[0]}`
+                }}
+            />
+
             <View style={styles.content}>
-                <Text style={styles.productName}>{product.productName}</Text>
-                <Text style={styles.productDescription}>{product.content}</Text>
+                <Text style={styles.productName}>{product.name}</Text>
+                <Text style={styles.productDescription}>{product.description}</Text>
                 <View style={styles.row}>
                     <View>
                         <Text style={styles.bidTxt}>Min Bid</Text>
-                        <Text style={styles.minBidAmmount}>{product.minBid}</Text>
+                        <Text style={styles.minBidAmmount}>{product.min_budget}</Text>
                     </View>
                     <View>
                         <Text style={styles.bidTxt}>Currrent Bid</Text>
-                        <Text style={styles.currentBidAmmount}>{product.currentBid}</Text>
+                        <Text style={styles.currentBidAmmount}>{product.latest_bid || product.min_budget}</Text>
                     </View>
                 </View>
             </View>

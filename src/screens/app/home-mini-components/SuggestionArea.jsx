@@ -1,9 +1,9 @@
-import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import { Colors, Images } from '../../../constants'
-import SuggestionUserCard from '../../../components/framework/card/SuggestionUserCard'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { SuggestionUserCard } from '../../../components/framework/card'
 
 const SuggestionArea = () => {
     const suggestionUsers = [

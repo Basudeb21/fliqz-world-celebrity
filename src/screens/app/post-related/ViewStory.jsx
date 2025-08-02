@@ -10,10 +10,10 @@ import {
     TouchableWithoutFeedback,
 } from 'react-native';
 import { Colors } from '../../../constants';
-import StoryHead from '../../../components/framework/navbar/StoryHead';
 import { useNavigation } from '@react-navigation/native';
-import StoryViewButtonGroup from '../../../components/framework/button/StoryViewButtonGroup';
 import { dummyStoryModal } from '../../../data/dummyStoryList';
+import { StoryViewButtonGroup } from '../../../components/framework/button';
+import { StoryHead } from '../../../components/framework/navbar';
 
 const { width } = Dimensions.get('window');
 

@@ -1,10 +1,12 @@
 import React, { useRef, useState } from 'react';
 import { FlatList, ImageBackground, StyleSheet, View, Dimensions, TouchableOpacity } from 'react-native';
 import { scale, verticalScale } from 'react-native-size-matters';
-import Spacer from '../../../components/framework/boots/Spacer';
-import ThreeDots from '../../../components/framework/micro/ThreeDots';
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons'
 import { Colors } from '../../../constants';
+import API from '../../../api/common/API';
+import { likePressSound } from '../../../sound/SoundManager';
+import { Spacer, ThreeDots } from '../boots';
+import { GradientIcon } from '../icon';
 
 const { width } = Dimensions.get('window');
 
@@ -20,6 +22,7 @@ const ProductScrollingWithIndegator = ({ imageList }) => {
 
     const onPressIsFavorite = () => {
         setIsFavorite(!isFavorite)
+        likePressSound()
     }
     return (
         <View style={styles.container}>
@@ -34,12 +37,13 @@ const ProductScrollingWithIndegator = ({ imageList }) => {
                 scrollEventThrottle={16}
                 renderItem={({ item }) => (
                     <View style={styles.imageWrapper}>
-                        <ImageBackground source={{ uri: item }} style={styles.image}>
+                        <ImageBackground source={{ uri: API.STORAGE_URL + item }} style={styles.image}>
                             <TouchableOpacity style={styles.iconWrapper} onPress={onPressIsFavorite}>
-                                <MaterialIcons
-                                    color={Colors.THEME}
+                                <GradientIcon
+                                    IconPack={MaterialIcons}
                                     name={isFavorite ? "favorite" : "favorite-border"}
                                     size={24}
+                                    colors={[Colors.BUTTON_GRADIENT_ONE, Colors.BUTTON_GRADIENT_TWO]}
                                 />
                             </TouchableOpacity>
                         </ImageBackground>

@@ -1,9 +1,8 @@
-import { StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import LinearGradient from 'react-native-linear-gradient';
 import { Colors } from '../../../constants';
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-import Spacer from '../boots/Spacer';
+import { verticalScale } from 'react-native-size-matters';
 
 const GradientIconButtonNoText = ({ Icon, iconName, iconSize, height = 33, width = "100%", onPress }) => {
     return (

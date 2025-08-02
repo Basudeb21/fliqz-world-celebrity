@@ -1,12 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
-import BackpressTopBar from '../../../../../components/framework/navbar/BackpressTopBar'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
-import PasswordInputBox from '../../../../../components/framework/input/PasswordInputBox'
-import Spacer from '../../../../../components/framework/boots/Spacer'
-import GradientTextButton from '../../../../../components/framework/button/GradientTextButton'
 import { Colors } from '../../../../../constants'
+import { Spacer } from '../../../../../components/framework/boots'
+import { GradientTextButton } from '../../../../../components/framework/button'
+import { PasswordInputBox } from '../../../../../components/framework/input'
+import { BackpressTopBar } from '../../../../../components/framework/navbar'
+
 
 const ChangePassword = () => {
     return (

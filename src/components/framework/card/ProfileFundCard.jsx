@@ -3,7 +3,7 @@ import React from 'react'
 import Ionicons from 'react-native-vector-icons/dist/Ionicons'
 import { Colors } from '../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
-import Spacer from '../boots/Spacer'
+import { Spacer } from '../boots'
 
 const ProfileFundCard = () => {
     return (

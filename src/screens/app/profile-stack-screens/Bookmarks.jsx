@@ -5,15 +5,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import Fontisto from 'react-native-vector-icons/Fontisto'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Octicons from 'react-native-vector-icons/Octicons'
-import BackpressTopBar from '../../../components/framework/navbar/BackpressTopBar'
-import SearchBar from '../../../components/framework/input/SearchBar'
 import { Colors, Images } from '../../../constants'
-import BookmarkTabDetails from './sub-screen/BookmarkTabDetails'
-import NoContantPage from './sub-screen/NoContantPage'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { verticalScale } from 'react-native-size-matters'
-import GradientIcon from '../../../components/framework/icon/GradientIcon'
-
+import { BackpressTopBar } from '../../../components/framework/navbar'
+import { SearchBar } from '../../../components/framework/input'
+import { BookmarkTabDetails, NoContantPage } from './sub-screen'
+import { GradientIcon } from '../../../components/framework/icon'
 const Tab = createMaterialTopTabNavigator()
 
 const AllScreen = () => <BookmarkTabDetails />

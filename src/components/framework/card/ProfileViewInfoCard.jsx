@@ -1,21 +1,21 @@
 import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Colors, Images } from '../../../constants'
+import { Colors } from '../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 
-const ProfileViewInfoCard = () => {
+const ProfileViewInfoCard = ({ data }) => {
     return (
         <View>
             <View style={styles.container}>
 
                 <View style={styles.infoContainer}>
-                    <ImageBackground source={{ uri: Images.POST_ONE }} style={styles.cover}>
+                    <ImageBackground source={{ uri: data.cover }} style={styles.cover}>
                         <Image
                             style={styles.image}
-                            source={{ uri: Images.CELEBRITY_AVATAR_ONE }}
+                            source={{ uri: data.avatar }}
                         />
                     </ImageBackground>
-                    <Text style={styles.fanName}>Fans_10</Text>
+                    <Text style={styles.fanName}>{data.name}</Text>
                     <View style={styles.counterContainer}>
                         <View style={styles.singleArea}>
                             <Text style={styles.counter}>1,200</Text>

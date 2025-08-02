@@ -1,16 +1,9 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationStrings } from '../constants';
-import EditProfile from '../screens/app/profile-stack-screens/EditProfile';
-import ChangePassword from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen/ChangePassword';
-import EditAddress from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen/EditAddress';
-import Payments from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen/Payments';
-import SubscriptionPrice from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen/SubscriptionPrice';
-import Privacy from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen/Privacy';
-import Verify from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen/Verify';
-import SupportTicket from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen/SupportTicket';
-import Promotion from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen/Promotion';
-import AddSupportTicketScreen from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen/AddSupportTicketScreen';
+import { EditProfile } from '../screens/app/profile-stack-screens';
+import { AddSupportTicketScreen, ChangePassword, EditAddress, Payments, Privacy, Promotion, SubscriptionPrice, SupportTicket, Verify } from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen';
+
 const SettingsStack = () => {
     const Stack = createNativeStackNavigator();
 

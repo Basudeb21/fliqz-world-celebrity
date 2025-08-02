@@ -2,8 +2,8 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import LinearGradient from 'react-native-linear-gradient';
 import { Colors } from '../../../constants';
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-import Spacer from '../boots/Spacer';
+import { scale, verticalScale } from 'react-native-size-matters';
+import { Spacer } from '../boots';
 const GradientIconButton = ({ Icon, iconName, iconSize, height = 33, label = "Swipe to next", fontSize = 18, width = "100%", onPress }) => {
     return (
         <TouchableOpacity onPress={onPress} activeOpacity={0.8} style={{ width }}>

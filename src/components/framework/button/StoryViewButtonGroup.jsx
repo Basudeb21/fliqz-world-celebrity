@@ -8,9 +8,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { likePressSound, subscibePressSound } from '../../../sound/SoundManager';
-import SendTipsModal from '../modal/SendTipsModal';
 import { scale } from 'react-native-size-matters';
 import { useNavigation } from '@react-navigation/native';
+import { SendTipsModal } from '../modal';
 
 const StoryViewButtonGroup = ({ onPause, onResume }) => {
     const [isFavorite, setIsFavorite] = useState(false);

@@ -2,11 +2,11 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { Colors } from '../../../constants';
-import Spacer from '../boots/Spacer';
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
-import GradientOutlineIconButton from '../button/GradientOutlineIconButton';
 import { followPressSounds, subscibePressSound } from '../../../sound/SoundManager';
+import { Spacer } from '../boots';
+import { GradientOutlineIconButton } from '../button';
 
 
 const SuggestionUserCard = ({ userImage }) => {

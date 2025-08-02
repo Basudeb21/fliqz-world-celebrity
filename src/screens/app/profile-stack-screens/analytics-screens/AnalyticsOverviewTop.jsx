@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, FlatList } from 'react-native';
-import AnalycisCard from '../../../../components/framework/card/AnalycisCard';
 import { moderateScale, verticalScale } from 'react-native-size-matters';
+import { AnalycisCard } from '../../../../components/framework/card';
 
 const AnalyticsOverviewTop = ({ data }) => {
 

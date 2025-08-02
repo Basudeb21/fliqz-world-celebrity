@@ -10,8 +10,8 @@ import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 
 import { likePressSound, subscibePressSound } from '../../../sound/SoundManager';
 import { useNavigation } from '@react-navigation/native';
-import SendTipsModal from '../modal/SendTipsModal';
-import Spacer from '../boots/Spacer';
+import { SendTipsModal } from '../modal';
+import { Spacer } from '../boots';
 
 const LiveShowButtonGroup = ({ onLikePress }) => {
     const [isFavorite, setIsFavorite] = useState(false);

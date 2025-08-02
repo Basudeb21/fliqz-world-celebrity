@@ -1,0 +1,7 @@
+export { default as BottomModal } from "./BottomModal";
+export { default as CommentPressModal } from "./CommentPressModal";
+export { default as PaymentModal } from "./PaymentModal";
+export { default as PostThreeDotsModal } from "./PostThreeDotsModal";
+export { default as PrivacyModal } from "./PrivacyModal";
+export { default as SendTipsModal } from "./SendTipsModal";
+export { default as TicketModal } from "./TicketModal";

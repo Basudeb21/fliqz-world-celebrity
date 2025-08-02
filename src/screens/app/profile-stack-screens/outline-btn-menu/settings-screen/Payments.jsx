@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
-import UnderMaintainence from '../../../../../components/project-components/UnderMaintainence'
-import BackpressTopBar from '../../../../../components/framework/navbar/BackpressTopBar'
+import { BackpressTopBar } from '../../../../../components/framework/navbar'
+import { UnderMaintainence } from '../../../../../components/project-components'
 
 const Payments = () => {
     return (

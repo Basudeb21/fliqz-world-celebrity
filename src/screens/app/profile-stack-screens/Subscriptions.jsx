@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { StyleSheet, View, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import BackpressTopBar from '../../../components/framework/navbar/BackpressTopBar';
-import Spacer from '../../../components/framework/boots/Spacer';
 import { Colors } from '../../../constants';
-import SimpleTable from '../../../components/framework/tables/SimpleTable';
 import { dummySubscriptionData } from '../../../data/dummySubscriptionData';
+import { Spacer } from '../../../components/framework/boots';
+import { BackpressTopBar } from '../../../components/framework/navbar';
+import { SimpleTable } from '../../../components/framework/tables';
 
 const SubscriptionsTab = () => (
     <View style={styles.tabContainer}>

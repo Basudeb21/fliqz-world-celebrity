@@ -1,13 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import BackpressTopBar from '../../../../../components/framework/navbar/BackpressTopBar'
-import Spacer from '../../../../../components/framework/boots/Spacer'
-import HR from '../../../../../components/framework/boots/HR'
 import { Colors } from '../../../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Feather from 'react-native-vector-icons/dist/Feather'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { HR, Spacer } from '../../../../../components/framework/boots'
+import { BackpressTopBar } from '../../../../../components/framework/navbar'
 
 
 const Verify = () => {

@@ -1,7 +1,8 @@
 import { FlatList, Image, StyleSheet } from 'react-native'
 import React from 'react'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
-import Spacer from '../boots/Spacer'
+import API from '../../../api/common/API'
+import { Spacer } from '../boots'
 
 const AvailableProductGroup = ({ images = [] }) => {
     return (
@@ -10,7 +11,7 @@ const AvailableProductGroup = ({ images = [] }) => {
             keyExtractor={(item, index) => index.toString()}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => (
-                <Image source={{ uri: item }} style={styles.img} />
+                <Image source={{ uri: API.STORAGE_URL + item }} style={styles.img} />
 
             )}
             horizontal

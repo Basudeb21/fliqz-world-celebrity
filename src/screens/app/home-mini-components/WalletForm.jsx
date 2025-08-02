@@ -1,12 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import TextInputBox from '../../../components/framework/input/TextInputBox'
-import Spacer from '../../../components/framework/boots/Spacer'
-import TextArea from '../../../components/framework/input/TextArea'
-import GradientTextButton from '../../../components/framework/button/GradientTextButton'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 import { Colors } from '../../../constants'
+import { Spacer } from '../../../components/framework/boots'
+import { TextArea, TextInputBox } from '../../../components/framework/input'
+import { GradientTextButton } from '../../../components/framework/button'
 
 const WalletForm = () => {
     return (

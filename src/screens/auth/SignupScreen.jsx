@@ -4,23 +4,16 @@ import { Colors, Images, NavigationStrings, Strings } from '../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import FastImage from 'react-native-fast-image';
 import { useNavigation } from '@react-navigation/native';
-import Checkbox from '../../components/framework/input/CheckBox';
-import PasswordInputBox from '../../components/framework/input/PasswordInputBox';
-import PhoneNumberInput from '../../components/framework/input/PhoneNumberInput';
-import TextInputBox from '../../components/framework/input/TextInputBox';
-import GradientTextButton from '../../components/framework/button/GradientTextButton';
-import OutLineButton from '../../components/framework/button/OutLineButton';
-import Link from '../../components/framework/boots/Link';
-import Spacer from '../../components/framework/boots/Spacer';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import SocialIconButton from '../../components/framework/button/SocialIconButton';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
-import HR from '../../components/framework/boots/HR';
-import PrivacyModal from '../../components/framework/modal/PrivacyModal';
 import { termsOfData } from '../../data/termsOfUseData';
 import { privacyAndPolicyData } from '../../data/privacyAndPolicyData';
-import RegisterApi from '../../api/auth/RegisterApi';
+import { GradientTextButton, OutLineButton, SocialIconButton } from '../../components/framework/button';
+import { HR, Link, Spacer } from '../../components/framework/boots';
+import { Checkbox, PasswordInputBox, PhoneNumberInput, TextInputBox } from '../../components/framework/input';
+import { PrivacyModal } from '../../components/framework/modal';
+import { RegisterApi } from '../../api/auth';
 
 const SignupScreen = () => {
 

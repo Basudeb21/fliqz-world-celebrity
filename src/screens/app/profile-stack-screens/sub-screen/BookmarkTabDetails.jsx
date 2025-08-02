@@ -5,8 +5,8 @@ import Fontisto from 'react-native-vector-icons/Fontisto'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { moderateScale } from 'react-native-size-matters'
 import { Colors } from '../../../../constants'
-import PostImage from '../../../../components/framework/iamge/PostImage'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { PostImage } from '../../../../components/framework/iamge'
 
 const BookmarkTabDetails = () => {
     const route = useRoute();

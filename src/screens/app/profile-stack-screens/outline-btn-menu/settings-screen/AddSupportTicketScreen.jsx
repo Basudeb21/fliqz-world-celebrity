@@ -1,12 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
-import BackpressTopBar from '../../../../../components/framework/navbar/BackpressTopBar'
 import { Colors } from '../../../../../constants'
-import DropdownBox from '../../../../../components/framework/navbar/DropdownBox'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
-import TextInputBox from '../../../../../components/framework/input/TextInputBox'
-import TextAreaBox from '../../../../../components/framework/input/TextAreaBox'
-import GradientTextButton from '../../../../../components/framework/button/GradientTextButton'
+import { GradientTextButton } from '../../../../../components/framework/button'
+import { BackpressTopBar, DropdownBox } from '../../../../../components/framework/navbar'
+import { TextAreaBox, TextInputBox } from '../../../../../components/framework/input'
+
 
 const AddSupportTicketScreen = () => {
     const categoryOptions = [

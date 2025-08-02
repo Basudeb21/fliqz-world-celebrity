@@ -1,6 +1,6 @@
 import { Animated, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import { scale, verticalScale } from 'react-native-size-matters';
 
 import { Colors } from '../../../constants';
 

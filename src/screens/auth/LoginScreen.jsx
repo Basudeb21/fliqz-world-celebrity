@@ -13,17 +13,14 @@ import { Colors, Images, NavigationStrings, Strings } from '../../constants';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import FastImage from 'react-native-fast-image';
 import { useNavigation } from '@react-navigation/native';
-import GradientTextButton from '../../components/framework/button/GradientTextButton';
-import OutLineButton from '../../components/framework/button/OutLineButton';
-import Link from '../../components/framework/boots/Link';
-import Spacer from '../../components/framework/boots/Spacer';
-import PasswordInputBox from '../../components/framework/input/PasswordInputBox';
-import TextInputBox from '../../components/framework/input/TextInputBox';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import LoginApi from '../../api/auth/LoginApi';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../redux-store/slices/authSlice';
+import { GradientTextButton, OutLineButton } from '../../components/framework/button';
+import { Link, Spacer } from '../../components/framework/boots';
+import { PasswordInputBox, TextInputBox } from '../../components/framework/input';
+import { LoginApi } from '../../api/auth';
 
 const LoginScreen = () => {
     const [userName, setUserName] = useState('');

@@ -1,11 +1,10 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
-import CartProduct from '../framework/cart/CartProduct'
-import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import GradientIconButton from '../framework/button/GradientIconButton';
-import Spacer from '../framework/boots/Spacer';
-import { moderateScale, verticalScale } from 'react-native-size-matters';
+import { moderateScale } from 'react-native-size-matters';
+import { CartProduct } from '../framework/cart';
+import { GradientIconButton } from '../framework/button';
+import { Spacer } from '../framework/boots';
 
 const CartItem = () => {
 

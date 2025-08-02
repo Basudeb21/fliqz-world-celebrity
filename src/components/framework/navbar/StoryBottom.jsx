@@ -1,7 +1,6 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
-import SearchBar from '../input/SearchBar'
-import ReplyInput from '../input/ReplyInput'
+import { ReplyInput } from '../input'
 
 const StoryBottom = () => {
     return (

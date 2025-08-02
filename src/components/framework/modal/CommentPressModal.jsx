@@ -1,4 +1,4 @@
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Modal, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { moderateScale, scale } from 'react-native-size-matters';
 import { Colors } from '../../../constants';
@@ -6,9 +6,36 @@ import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/dist/FontAwesome5';
+import { useSelector } from 'react-redux';
+import { DeleteCommentApi } from '../../../api/app/post';
 
 
-const CommentPressModal = ({ visible, onClose }) => {
+const CommentPressModal = ({ visible, onClose, post_item, onDelete, onEditRequest }) => {
+
+    const token = useSelector(state => state.auth.token);
+
+    const handleEdit = () => {
+        onEditRequest?.(post_item.id, post_item.message);
+        onClose();
+    };
+
+    const handleDelete = async () => {
+        try {
+            const result = await DeleteCommentApi(token, post_item.post_id, post_item.id);
+            if (result?.success) {
+                ToastAndroid.show(result.message, ToastAndroid.SHORT);
+                onDelete?.(post_item.comment_id);
+                onClose();
+            } else {
+                ToastAndroid.show('Failed to delete comment', ToastAndroid.SHORT);
+            }
+        } catch (error) {
+            console.error('Delete Error:', error);
+            ToastAndroid.show('Error deleting comment', ToastAndroid.SHORT);
+        }
+    };
+
+
     return (
         <Modal
             visible={visible}
@@ -32,7 +59,7 @@ const CommentPressModal = ({ visible, onClose }) => {
                             color={Colors.THEME}
                             size={24}
                         />
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={handleDelete}>
                             <Text style={styles.btnLabel}>Delete</Text>
                         </TouchableOpacity>
                     </View>
@@ -62,7 +89,7 @@ const CommentPressModal = ({ visible, onClose }) => {
                             color={Colors.THEME}
                             size={24}
                         />
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={handleEdit}>
                             <Text style={styles.btnLabel}>Edit</Text>
                         </TouchableOpacity>
                     </View>

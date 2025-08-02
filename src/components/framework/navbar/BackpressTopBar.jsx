@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/dist/Ionicons'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-
 import { useNavigation } from '@react-navigation/native';
 import { Colors } from '../../../constants';
 
@@ -44,20 +43,21 @@ const styles = StyleSheet.create({
         paddingHorizontal: moderateScale(16),
     },
     sideContainer: {
-        flex: 1,
+        width: "10%",
         justifyContent: 'center',
         alignItems: 'flex-start',
     },
     centerContainer: {
-        flex: 2,
-        justifyContent: 'center',
+        flex: 1,
+        justifyContent: "flex-start",
+        alignItems: 'center',
     },
     title: {
         color: Colors.BLACK,
-        fontSize: scale(22),
-        fontWeight: "500",
-        position: "absolute",
-        left: -35
+        fontSize: scale(18),
+        fontWeight: "600",
+        textAlign: "center",
+        alignSelf: "flex-start",
     },
 
 })

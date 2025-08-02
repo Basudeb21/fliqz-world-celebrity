@@ -29,6 +29,7 @@ export default {
     PROFILE_HELP_AND_SUPPORT_SCREEN: "ProfileHelpSupport",
     PROFILE_SETTINGS_SCREEN: "ProfileScreen",
     PROFILE_EVENT_DETAILS: "EventDetails",
+    PROFILE_EVENT_UPDATE: "EventUpdate",
 
 
     // Splash Screens
@@ -79,6 +80,11 @@ export default {
     PROFILE_AUTION_ITEM_SCREEN: "AuctionItemScreen",
     PROFILE_ALL_BIDS: "AllBids",
     PROFILE_ADD_NEW_EVENT: "AddNewEvent",
+    PROFILE_ADD_NEW_AUCTION: "AddNewAuction",
+    PROFILE_EDIT_AUCTION_ITEM: "EditAuctionItem",
+    PROFILE_ADD_NEW_PRODUCT: "AddNewProduct",
+
+
 
     // Settings Stack Screens
     SETTINGS_EDIT_PROFILE_SCREEN: "EditProfile",

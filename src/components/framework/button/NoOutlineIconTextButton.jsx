@@ -3,9 +3,8 @@ import React from 'react'
 import Feather from 'react-native-vector-icons/dist/Feather'
 import { Colors } from '../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
-import Spacer from '../boots/Spacer'
-import HR from '../boots/HR'
-import GradientIcon from '../icon/GradientIcon'
+import { HR, Spacer } from '../boots'
+import { GradientIcon } from '../icon'
 
 const NoOutlineIconTextButton = ({ Icon, iconName, text, onPress }) => {
     return (

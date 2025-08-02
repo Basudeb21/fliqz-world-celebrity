@@ -2,7 +2,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Colors } from '../../../constants';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-import HR from '../boots/HR';
+import { HR } from '../boots';
 
 const RefaralCard = ({ image, fanName, fanActiveTime, ammount, onPress }) => {
     return (

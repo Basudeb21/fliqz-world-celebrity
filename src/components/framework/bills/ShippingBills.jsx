@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Colors } from '../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
-import Spacer from '../boots/Spacer'
+import { Spacer } from '../boots'
 
 const ShippingBills = () => {
     return (

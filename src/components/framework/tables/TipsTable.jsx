@@ -2,8 +2,7 @@ import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { Colors } from '../../../constants';
-import Spacer from '../boots/Spacer';
-import HR from '../boots/HR';
+import { HR, Spacer } from '../boots';
 
 
 const COLUMN_WIDTHS = {

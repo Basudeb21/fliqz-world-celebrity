@@ -1,0 +1,9 @@
+export { default as AddSupportTicketScreen } from "./AddSupportTicketScreen";
+export { default as ChangePassword } from "./ChangePassword";
+export { default as EditAddress } from "./EditAddress";
+export { default as Payments } from "./Payments";
+export { default as Privacy } from "./Privacy";
+export { default as Promotion } from "./Promotion";
+export { default as SubscriptionPrice } from "./SubscriptionPrice";
+export { default as SupportTicket } from "./SupportTicket";
+export { default as Verify } from "./Verify";

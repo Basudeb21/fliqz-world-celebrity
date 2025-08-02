@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import { Colors } from '../../constants'
 import Entypo from 'react-native-vector-icons/Entypo';
-import TextInputBox from '../framework/input/TextInputBox';
-import Spacer from '../framework/boots/Spacer';
+import { TextInputBox } from '../framework/input';
+import { Spacer } from '../framework/boots';
 
 const InputFormContainer = ({ head }) => {
     const [hideBtn, setHideBtn] = useState(true)

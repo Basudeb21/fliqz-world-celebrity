@@ -7,7 +7,7 @@ import SplashStack from './src/navigation/SplashStack';
 
 import { Provider } from 'react-redux';
 import { store } from './src/redux-store/store';
-import LoadingScreen from './src/screens/splash/LoadingScreen';
+import InternetStatusPopup from './src/utils/InternetStatusPopup';
 
 const App = () => {
   const [showSplash, setShowSplash] = useState(true);
@@ -29,6 +29,7 @@ const App = () => {
       <NavigationContainer>
         <SplashStack />
       </NavigationContainer>
+      <InternetStatusPopup />
     </Provider>
   );
 };

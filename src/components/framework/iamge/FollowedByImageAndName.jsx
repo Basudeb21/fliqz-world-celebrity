@@ -1,6 +1,6 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
+import { moderateScale } from 'react-native-size-matters'
 import CommonSuggestionImageGroup from './CommonSuggestionImageGroup';
 
 const FollowedByImageAndName = ({ images = [] }) => {

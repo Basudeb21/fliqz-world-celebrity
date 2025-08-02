@@ -1,21 +1,23 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { Colors, Images, NavigationStrings } from '../../../constants'
+import { Colors, NavigationStrings } from '../../../constants'
 import Ionicons from 'react-native-vector-icons/dist/Ionicons'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
-import GradientTextButton from '../button/GradientTextButton'
 import { useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
+import { GradientTextButton } from '../button'
 
-const ProfileCard = ({ userName }) => {
+const ProfileCard = () => {
     const navigation = useNavigation();
     const user = useSelector((state) => state.auth.user);
+    console.log(user);
+
     const onPressViewProfile = () => {
         navigation.navigate(NavigationStrings.HOME_STACK, {
             screen: NavigationStrings.HOME_FRIEND_PROFILE_PAGE,
-            params: { userName }
-        })
-    }
+            params: { user }
+        });
+    };
     return (
         <View style={styles.card}>
             <View style={styles.rowOne}>

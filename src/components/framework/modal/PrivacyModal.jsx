@@ -3,8 +3,8 @@ import React from 'react'
 import { Colors } from '../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import Entypo from 'react-native-vector-icons/Entypo'
-import Spacer from '../boots/Spacer'
-import GradientTextButton from '../button/GradientTextButton'
+import { Spacer } from '../boots'
+import { GradientTextButton } from '../button'
 
 const PrivacyModal = ({ visible, onClose, head, contentType, updateDate, data }) => {
 

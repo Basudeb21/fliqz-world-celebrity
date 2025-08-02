@@ -1,7 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Colors } from '../../../constants'
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 
 const Link = ({ label, onPress }) => {
     return (

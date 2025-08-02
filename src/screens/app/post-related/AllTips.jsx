@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import TipsTable from '../../../components/framework/tables/TipsTable'
 import { TipsData } from '../../../data/TipsData'
-import BackpressTopBar from '../../../components/framework/navbar/BackpressTopBar'
 import { Colors } from '../../../constants'
+import { BackpressTopBar } from '../../../components/framework/navbar'
+import { TipsTable } from '../../../components/framework/tables'
 
 const AllTips = () => {
     const tipsData = TipsData;

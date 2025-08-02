@@ -1,13 +1,12 @@
 import { FlatList, StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
-import ChatBackPressTopBar from '../../../components/framework/navbar/ChatBackPressTopBar';
 import { Colors } from '../../../constants';
-import ProfileTopCard from '../../../components/framework/card/ProfileTopCard';
-import ChatSend from '../../../components/framework/chat/ChatSend';
-import ChatRecive from '../../../components/framework/chat/ChatRecive';
-import MessageSendArea from '../../../components/framework/input/MessageSendArea';
 import { verticalScale } from 'react-native-size-matters';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { ProfileTopCard } from '../../../components/framework/card';
+import { ChatBackPressTopBar } from '../../../components/framework/navbar';
+import { ChatReceive, ChatSend } from '../../../components/framework/chat';
+import { MessageSendArea } from '../../../components/framework/input';
 
 const FriendChatScreen = ({ route }) => {
     const { user } = route.params;
@@ -40,7 +39,7 @@ const FriendChatScreen = ({ route }) => {
                     keyExtractor={(item) => item.id}
                     contentContainerStyle={styles.scrollContent}
                     renderItem={({ item }) => (
-                        item.type == "send" ? <ChatSend label={item.label} /> : <ChatRecive label={item.label} />
+                        item.type == "send" ? <ChatSend label={item.label} /> : <ChatReceive label={item.label} />
                     )}
                 />
             </View>

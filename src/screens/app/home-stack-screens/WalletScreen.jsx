@@ -1,16 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
-import BackpressTopBar from '../../../components/framework/navbar/BackpressTopBar';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import HR from '../../../components/framework/boots/HR';
 import { moderateScale, verticalScale } from 'react-native-size-matters';
-import Spacer from '../../../components/framework/boots/Spacer';
-import ProfileFundCard from '../../../components/framework/card/ProfileFundCard';
-import GradientTextButton from '../../../components/framework/button/GradientTextButton';
-import OutLineButton from '../../../components/framework/button/OutLineButton';
 import { Colors } from '../../../constants';
+import { BackpressTopBar } from '../../../components/framework/navbar';
+import { HR, Spacer } from '../../../components/framework/boots';
+import { ProfileFundCard } from '../../../components/framework/card';
+import { GradientTextButton, OutLineButton } from '../../../components/framework/button';
 import WalletForm from '../home-mini-components/WalletForm';
-import AllTransactions from '../home-mini-components/AllTransactions';
+import { AllTransactions } from '../home-mini-components';
 
 const WalletScreen = () => {
     const [addFundForm, setAddFundForm] = useState(true);

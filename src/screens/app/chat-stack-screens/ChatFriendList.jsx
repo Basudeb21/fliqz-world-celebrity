@@ -1,13 +1,12 @@
-import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import { Colors, Images, NavigationStrings } from '../../../constants';
 import { useNavigation } from '@react-navigation/native';
-import BackPressTopbarWithIcon from '../../../components/framework/navbar/BackPressTopbarWithIcon';
-import ChatFriendCard from '../../../components/framework/card/ChatFriendCard';
-import Spacer from '../../../components/framework/boots/Spacer';
-import SearchBar from '../../../components/framework/input/SearchBar';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import BackpressTopBar from '../../../components/framework/navbar/BackpressTopBar';
+import { ChatFriendCard } from '../../../components/framework/card';
+import { Spacer } from '../../../components/framework/boots';
+import { BackpressTopBar } from '../../../components/framework/navbar';
+import { SearchBar } from '../../../components/framework/input';
 
 const ChatFriendList = () => {
     const users = [

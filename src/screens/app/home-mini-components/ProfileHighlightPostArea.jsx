@@ -1,10 +1,9 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import RoundHighLight from '../../../components/framework/iamge/RoundHighLight'
-import { Colors, Images } from '../../../constants'
-import { moderateScale, verticalScale } from 'react-native-size-matters'
-import Spacer from '../../../components/framework/boots/Spacer'
+import { Images } from '../../../constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { Spacer } from '../../../components/framework/boots'
+import { RoundHighLight } from '../../../components/framework/iamge'
 
 const ProfileHighlightPostArea = () => {
     const highlight = [

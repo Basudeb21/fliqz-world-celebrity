@@ -1,5 +1,5 @@
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { Modal, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react'
 import { Colors } from '../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import Feather from 'react-native-vector-icons/dist/Feather'
@@ -8,15 +8,52 @@ import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons'
 import Entypo from 'react-native-vector-icons/dist/Entypo'
 import Octicons from 'react-native-vector-icons/dist/Octicons'
 import { followPressSounds, subscibePressSound } from '../../../sound/SoundManager'
+import { useSelector } from 'react-redux'
+import { BlockUserApi, FollowUserApi } from '../../../api/app/user'
 
-const PostThreeDotsModal = ({ visible, onClose }) => {
+const PostThreeDotsModal = ({ id, visible, onClose, followState, blockState }) => {
     const iconSize = 20;
+    const [isFollowed, setIsFollowed] = useState(followState);
+    const [isBlocked, setIsBlocked] = useState(followState);
+    const token = useSelector(state => state.auth.token);
     const onPressSubscribe = () => {
-        subscibePressSound()
+        subscibePressSound();
     }
 
-    const onPressFollow = () => {
-        followPressSounds()
+    const onPressFollow = async () => {
+        try {
+            const result = await FollowUserApi(token, id);
+
+            console.log("result : ", result);
+
+            if (result?.success) {
+                setIsFollowed(!isFollowed);
+                ToastAndroid.show(result.message, ToastAndroid.SHORT);
+                followPressSounds();
+            } else {
+                console.warn('Follow API failed:', result?.message || 'Unknown error');
+            }
+        } catch (error) {
+            console.error('Follow API Error:', error);
+        }
+    }
+
+    const onPressBlock = async () => {
+        try {
+            const result = await BlockUserApi(token, id);
+
+            console.log("result : ", result);
+
+            if (result?.success) {
+                setIsBlocked(!isBlocked);
+                ToastAndroid.show(result.message, ToastAndroid.SHORT);
+                followPressSounds();
+            } else {
+                console.log('Block API failed:', result?.message || 'Unknown error');
+            }
+        } catch (error) {
+            console.error('Block API Error:', error);
+        }
     }
 
     return (
@@ -40,19 +77,18 @@ const PostThreeDotsModal = ({ visible, onClose }) => {
                         <Feather name="copy" size={iconSize} color={Colors.THEME} />
                         <Text style={styles.txt}>Copy Link</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.row}>
-                        <Ionicons name="add-circle-outline" size={iconSize} color={Colors.THEME} />
-                        <Text style={styles.txt}>Add Bookmark</Text>
-                    </TouchableOpacity>
                     <TouchableOpacity style={styles.row} onPress={onPressFollow}>
-                        <Ionicons name="person-add-outline" size={iconSize} color={Colors.THEME} />
+                        <Ionicons
+                            name={isFollowed ? "person-add" : "person-add-outline"}
+                            size={iconSize}
+                            color={Colors.THEME} />
                         <Text style={styles.txt}>Follow</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.row} onPress={onPressSubscribe}>
                         <MaterialIcons name="subscriptions" size={iconSize} color={Colors.THEME} />
                         <Text style={styles.txt}>Subscription</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.row}>
+                    <TouchableOpacity style={styles.row} onPress={onPressBlock}>
                         <Entypo name="block" size={16} color={Colors.THEME} />
                         <Text style={styles.txt}>Block</Text>
                     </TouchableOpacity>

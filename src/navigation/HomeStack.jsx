@@ -1,16 +1,10 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationStrings } from '../constants';
-import { CartScreen, NotificationScreen, SearchScreen, WalletScreen } from '../screens/app/home-stack-screens';
-import CheckoutPage from '../screens/app/home-stack-screens/CheckoutPage';
-import OrderSuccessfull from '../screens/app/home-stack-screens/OrderSuccessfull';
-import ViewOrder from '../screens/app/profile-stack-screens/sub-screen/ViewOrder';
-import FansProfilePage from '../screens/app/home-stack-screens/FansProfilePage';
-import ShopPage from '../screens/app/home-stack-screens/ShopPage';
-import ShopItemInfoPage from '../screens/app/home-stack-screens/ShopItemInfoPage';
-import ViewTicket from '../screens/app/profile-stack-screens/sub-screen/ViewTicket';
-import ViewStory from '../screens/app/post-related/ViewStory';
-import ViewProfilePost from '../screens/app/post-related/ViewProfilePost';
+import { FansProfilePage, NotificationScreen, SearchScreen, WalletScreen } from '../screens/app/home-stack-screens';
+import { CartScreen, CheckoutPage, OrderSuccessfull, ShopItemInfoPage, ShopPage, ViewOrder } from '../screens/app/profile-stack-screens/outline-btn-menu/shop';
+import { ViewTicket } from '../screens/app/profile-stack-screens/sub-screen';
+import { ViewProfilePost, ViewStory } from '../screens/app/post-related';
 const HomeStack = () => {
     const Stack = createNativeStackNavigator();
 

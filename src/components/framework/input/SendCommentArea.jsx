@@ -1,23 +1,19 @@
-import { StyleSheet, TextInput, TouchableOpacity, View, Keyboard } from 'react-native';
+import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import { Colors } from '../../../constants';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { moderateScale, verticalScale } from 'react-native-size-matters';
-import GradientIcon from '../icon/GradientIcon';
-import { postDonePressSounds } from '../../../sound/SoundManager';
+import { GradientIcon } from '../icon';
 
-import React, { useState } from 'react';
 
-const SendCommentArea = ({ placeholder, bgColor, fontColor, onSendComment }) => {
-    const [value, setValue] = useState('');
+const SendCommentArea = ({
+    placeholder = "",
+    bgColor,
+    fontColor,
+    value,
+    setValue,
+    onPress
+}) => {
 
-    const onPressPostComment = () => {
-        if (value.trim()) {
-            onSendComment?.(value.trim());
-            setValue('');
-            postDonePressSounds();
-            Keyboard.dismiss();
-        }
-    };
 
     return (
         <View style={[styles.container, { backgroundColor: bgColor || Colors.LIGHT_GRAY }]}>
@@ -30,13 +26,13 @@ const SendCommentArea = ({ placeholder, bgColor, fontColor, onSendComment }) => 
                 onChangeText={setValue}
                 multiline={true}
                 scrollEnabled={true}
-                onSubmitEditing={onPressPostComment}
+                onSubmitEditing={onPress}
                 blurOnSubmit={false}
             />
             <View style={styles.btnContainer}>
                 <TouchableOpacity
                     style={styles.icon}
-                    onPress={onPressPostComment}
+                    onPress={onPress}
                 >
                     <GradientIcon
                         name={"send-circle"}
@@ -48,7 +44,7 @@ const SendCommentArea = ({ placeholder, bgColor, fontColor, onSendComment }) => 
             </View>
         </View>
     );
-}
+};
 
 export default SendCommentArea;
 

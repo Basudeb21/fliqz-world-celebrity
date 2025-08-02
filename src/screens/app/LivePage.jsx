@@ -3,8 +3,8 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import { NavigationStrings, Strings } from '../../constants'
-import GradientTextButton from '../../components/framework/button/GradientTextButton'
-import BackpressTopBar from '../../components/framework/navbar/BackpressTopBar'
+import { GradientTextButton } from '../../components/framework/button'
+import { BackpressTopBar } from '../../components/framework/navbar'
 
 const LivePage = () => {
     const navigation = useNavigation();

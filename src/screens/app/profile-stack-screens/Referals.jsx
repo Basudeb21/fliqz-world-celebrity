@@ -1,12 +1,11 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import RefaralCard from '../../../components/framework/card/RefaralCard'
 import { Colors, Images } from '../../../constants'
-import BackpressTopBar from '../../../components/framework/navbar/BackpressTopBar'
 import { moderateScale, scale } from 'react-native-size-matters'
-import Spacer from '../../../components/framework/boots/Spacer'
-import InviteLinkCard from '../../../components/framework/card/InviteLinkCard'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { Spacer } from '../../../components/framework/boots'
+import { InviteLinkCard, RefaralCard } from '../../../components/framework/card'
+import { BackpressTopBar } from '../../../components/framework/navbar'
 
 const Referals = () => {
     const referalUser = [

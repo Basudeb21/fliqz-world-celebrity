@@ -3,9 +3,8 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-
 import { Colors } from '../../../constants';
-import GradientIcon from '../icon/GradientIcon';
+import { GradientIcon } from '../icon';
 
 const ChatBackPressTopBar = ({ info }) => {
     const navigation = useNavigation();
@@ -29,11 +28,11 @@ const ChatBackPressTopBar = ({ info }) => {
             <View style={styles.centerContainer}>
                 <Image
                     style={styles.image}
-                    source={{ uri: info.image }}
+                    source={{ uri: info.avatar }}
                 />
                 <View>
-                    <Text style={styles.title}>{info.fanName}</Text>
-                    <Text style={styles.time}>{info.fanActiveTime}</Text>
+                    <Text style={styles.title}>{info.name}</Text>
+                    <Text style={styles.time}>{"20m ago"}</Text>
                 </View>
             </View>
 

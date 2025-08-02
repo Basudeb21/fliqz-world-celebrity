@@ -2,10 +2,9 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { scale } from 'react-native-size-matters'
 import { Colors } from '../../constants'
-import GradientTextButton from '../framework/button/GradientTextButton'
-import Spacer from '../framework/boots/Spacer'
 import { useNavigation } from '@react-navigation/native'
-
+import { GradientTextButton } from '../framework/button'
+import { Spacer } from '../framework/boots'
 const UnderMaintainence = () => {
     const navigation = useNavigation();
     const handleBackPress = () => {

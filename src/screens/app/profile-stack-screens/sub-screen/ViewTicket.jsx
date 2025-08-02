@@ -6,8 +6,8 @@ import Ionicons from 'react-native-vector-icons/dist/Ionicons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { Colors, Images } from '../../../../constants'
-import GradientTextButton from '../../../../components/framework/button/GradientTextButton'
-import TicketModal from '../../../../components/framework/modal/TicketModal'
+import { GradientTextButton } from '../../../../components/framework/button'
+import { TicketModal } from '../../../../components/framework/modal'
 
 
 const ViewTicket = () => {

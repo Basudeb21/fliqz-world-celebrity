@@ -1,16 +1,37 @@
-import { Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { Image, Modal, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react'
 import { Colors, Images } from '../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import Entypo from 'react-native-vector-icons/dist/Entypo'
-import AmmountInput from '../input/AmmountInput'
-import GradientTextButton from '../button/GradientTextButton'
-import Spacer from '../boots/Spacer'
 import { paymentDoneSendPressSounds } from '../../../sound/SoundManager'
+import { useSelector } from 'react-redux'
+import { AmmountInput } from '../input'
+import { GradientTextButton } from '../button'
+import { Spacer } from '../boots'
+import { SendTipsApi } from '../../../api/app/post'
 
-const SendTipsModal = ({ visible, onClose }) => {
-    const onPressSendTips = () => {
-        paymentDoneSendPressSounds()
+const SendTipsModal = ({ visible, data, onClose }) => {
+    const [price, setPrice] = useState();
+    const token = useSelector(state => state.auth.token);
+
+    const onPressSendTips = async () => {
+
+        try {
+            const result = await SendTipsApi(token, data.id);
+            console.log("result : ", result);
+
+            if (result?.success) {
+                ToastAndroid.show(result.message, ToastAndroid.SHORT);
+                paymentDoneSendPressSounds();
+                setPrice("");
+            } else {
+                console.warn('Like API failed:', result?.message || 'Unknown error');
+            }
+        } catch (error) {
+            console.error('Like API Error:', error);
+        }
+
+
     }
     return (
         <Modal
@@ -43,7 +64,7 @@ const SendTipsModal = ({ visible, onClose }) => {
                         <View style={styles.tipsContainer}>
                             <Text style={styles.tipSLabel}>Send a tip to the user</Text>
                             <View style={styles.tipsInput}>
-                                <AmmountInput />
+                                <AmmountInput value={price} setValue={setPrice} placeholder='Enter the ammount' />
                             </View>
 
                         </View>

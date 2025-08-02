@@ -1,7 +1,7 @@
 import { StyleSheet, TextInput } from 'react-native';
 import React, { useState } from 'react';
 import { Colors } from '../../../constants';
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import { scale, verticalScale } from 'react-native-size-matters';
 
 const TextAreaBox = ({
     value,

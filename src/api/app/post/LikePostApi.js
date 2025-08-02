@@ -11,7 +11,6 @@ const LikePostApi = async (token, post_no) => {
             }
         })
 
-        console.log(response.data);
 
         return response.data;
 

@@ -2,8 +2,8 @@ import { StyleSheet, Text, View, Image, TouchableWithoutFeedback } from 'react-n
 import React from 'react';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { Colors } from '../../../constants';
-import BottomBar from '../../../components/framework/navbar/shared-post-components/BottomBar';
-import Spacer from '../../../components/framework/boots/Spacer';
+import { Spacer } from '../../../components/framework/boots';
+import { BottomBar } from '../../../components/framework/navbar';
 
 const ViewProfilePost = () => {
     const route = useRoute();

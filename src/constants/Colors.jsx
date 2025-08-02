@@ -2,6 +2,7 @@ export default {
     BLACK: "#000000",
     WHITE: "#FFFFFF",
     THEME: "#DD101F",
+    THEME_TRANSPARENT: 'rgba(221, 16, 31, 0.3)',
     SILVER: "#777777",
     DULL_WHITE: "#dedcde",
     FADE: "#f0f0f0",

@@ -1,11 +1,9 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-import BottomBar from '../navbar/shared-post-components/BottomBar'
-import Topbar from '../navbar/shared-post-components/Topbar'
+import { moderateScale, verticalScale } from 'react-native-size-matters';
 import { Colors } from '../../../constants';
-import HR from '../boots/HR';
-import Spacer from '../boots/Spacer';
+import { BottomBar, Topbar } from '../navbar';
+import { HR, Spacer } from '../boots';
 
 
 const SharedPost = ({
@@ -18,7 +16,8 @@ const SharedPost = ({
 
     return (
         <View style={styles.container}>
-            <Topbar userAvatar={userAvatar} userName={userName} />
+            <Topbar userAvatar={userAvatar} userName={userName} postText={data.text} data={data} />
+            <Text style={styles.postTxt}>{data.text}</Text>
 
             {crowdfunding && crowdfunding.title ? (
                 <Text style={styles.crowdfundingTitle}>
@@ -57,4 +56,10 @@ const styles = StyleSheet.create({
         color: Colors.BLACK,
         marginStart: moderateScale(20)
     },
+    postTxt: {
+        // marginTop: verticalScale(3),
+        marginBottom: verticalScale(4),
+        marginStart: moderateScale(20),
+        fontWeight: "500"
+    }
 })

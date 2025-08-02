@@ -3,7 +3,8 @@ import React from 'react'
 import { Colors } from '../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import Feather from 'react-native-vector-icons/dist/Feather'
-import GradientIcon from '../icon/GradientIcon'
+import { GradientIcon } from '../icon'
+
 
 const OutlineIconButton = ({ Icon, iconName, label, onPress }) => {
     return (

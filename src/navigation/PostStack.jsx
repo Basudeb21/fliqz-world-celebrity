@@ -1,10 +1,9 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationStrings } from '../constants';
-import AllComments from '../screens/app/post-related/AllComments';
-import AllReacts from '../screens/app/post-related/AllReacts';
-import AllTips from '../screens/app/post-related/AllTips';
-import LiveShows from '../screens/app/post-related/LiveShows';
+import { AllComments, AllReacts, AllTips } from '../screens/app/post-related';
+import { LiveShows } from '../components/framework/tables';
+
 
 const PostStack = () => {
     const Stack = createNativeStackNavigator();

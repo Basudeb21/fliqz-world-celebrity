@@ -1,11 +1,9 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import Feather from 'react-native-vector-icons/dist/Feather'
 import { Colors } from '../../../constants'
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
-import TransactionCard from '../../../components/framework/card/TransactionCard'
 import { dummyTransaction } from '../../../data/dummyTransaction'
-import Spacer from '../../../components/framework/boots/Spacer'
+import { TransactionCard } from '../../../components/framework/card'
+import { Spacer } from '../../../components/framework/boots'
 
 const AllTransactions = () => {
 

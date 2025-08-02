@@ -1,10 +1,9 @@
-import { Image, ImageBackground, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import { Colors, Images } from '../../../constants'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import HR from '../boots/HR'
-import Spacer from '../boots/Spacer'
+import { HR, Spacer } from '../boots'
 
 const TicketModal = ({ visible, onClose }) => {
     return (

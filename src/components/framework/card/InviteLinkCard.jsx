@@ -2,11 +2,11 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Colors } from '../../../constants'
 import { scale, verticalScale } from 'react-native-size-matters'
-import Spacer from '../boots/Spacer'
-import TextInputBoxWhite from '../input/TextInputBoxWhite'
 import Ionicons from 'react-native-vector-icons/dist/Ionicons'
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome'
-import IconButton from '../button/IconButton'
+import { Spacer } from '../boots'
+import { TextInputBoxWhite } from '../input'
+import { IconButton } from '../button'
 
 
 const InviteLinkCard = () => {

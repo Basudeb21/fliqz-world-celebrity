@@ -2,9 +2,9 @@ import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'reac
 import React, { useState } from 'react';
 import { Colors } from '../../../constants';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-import CommentPressModal from '../modal/CommentPressModal'; // Adjust the path if needed
+import { CommentPressModal } from '../modal';
 
-const CommentCard = ({ image, userName, comment, time }) => {
+const CommentCard = ({ post_item, onDelete, onEditRequest }) => {
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -13,14 +13,14 @@ const CommentCard = ({ image, userName, comment, time }) => {
                 style={styles.container}
                 onLongPress={() => setShowModal(true)}
             >
-                <Image source={{ uri: image }} style={styles.image} />
+                <Image source={{ uri: post_item.user.avatar }} style={styles.image} />
                 <View style={styles.rightContent}>
                     <View style={styles.commentContainer}>
-                        <Text style={styles.userName}>{userName}</Text>
-                        <Text style={styles.comment}>{comment}</Text>
+                        <Text style={styles.userName}>{post_item.user.name}</Text>
+                        <Text style={styles.comment}>{post_item.message}</Text>
                     </View>
                     <View style={styles.lowerContainer}>
-                        <Text style={styles.time}>{time}</Text>
+                        <Text style={styles.time}>{post_item.created}</Text>
                         <TouchableOpacity>
                             <Text style={styles.replyTxt}>Reply</Text>
                         </TouchableOpacity>
@@ -31,10 +31,14 @@ const CommentCard = ({ image, userName, comment, time }) => {
             <CommentPressModal
                 visible={showModal}
                 onClose={() => setShowModal(false)}
+                post_item={post_item}
+                onDelete={onDelete}
+                onEditRequest={onEditRequest}
             />
         </>
     );
 };
+
 
 export default CommentCard;
 

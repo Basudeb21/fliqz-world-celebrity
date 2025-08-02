@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, useWindowDimensions, BackHandler } from 'react-native';
 import { TabView, TabBar } from 'react-native-tab-view';
-import BackpressTopBar from '../../../components/framework/navbar/BackpressTopBar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from '../../../constants';
 import {
@@ -10,11 +9,9 @@ import {
     overviewDataArray,
     postsDataArray,
 } from '../../../data/analyticsData';
-import OverviewScreen from './analytics-screens/OverviewScreen';
-import FollowersGrowthChart from '../../../components/framework/charts/FollowersGrowthChart';
-import FollowersGrowthLossChart from '../../../components/framework/charts/FollowersGrowthLossChart';
-import WeeklyEngagementChart from '../../../components/framework/charts/WeeklyEngagementChart';
-import RecentPostPerformanceChart from '../../../components/framework/charts/RecentPostPerformanceChart';
+import { FollowersGrowthChart, FollowersGrowthLossChart, RecentPostPerformanceChart, WeeklyEngagementChart } from '../../../components/framework/charts';
+import { BackpressTopBar } from '../../../components/framework/navbar';
+import { OverviewScreen } from './analytics-screens';
 
 export default function Analytics() {
     const layout = useWindowDimensions();
@@ -26,7 +23,6 @@ export default function Analytics() {
         { key: 'posts', title: 'Posts' },
     ]);
 
-    // Handle back press
     React.useEffect(() => {
         const backHandler = BackHandler.addEventListener(
             'hardwareBackPress',

@@ -1,11 +1,12 @@
 import { StyleSheet, FlatList, View } from 'react-native';
 import React from 'react';
-import BackpressTopBar from '../../../../../components/framework/navbar/BackpressTopBar';
 import { Colors, NavigationStrings } from '../../../../../constants';
-import FloatingActionButton from '../../../../../components/framework/button/FloattingActionButton';
-import SupportCard from '../../../../../components/framework/card/SupportCard';
 import { dummyTickets } from '../../../../../data/dummyTickets';
 import { useNavigation } from '@react-navigation/native';
+import { FloatingActionButton } from '../../../../../components/framework/button';
+import { SupportCard } from '../../../../../components/framework/card';
+import { BackpressTopBar } from '../../../../../components/framework/navbar';
+
 
 const SupportTicket = () => {
     const navigation = useNavigation();

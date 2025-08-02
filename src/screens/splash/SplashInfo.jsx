@@ -1,18 +1,14 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, View } from 'react-native'
 import React, { useState } from 'react'
-import { Colors, Images, NavigationStrings } from '../../constants'
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-
+import { Colors, NavigationStrings } from '../../constants'
+import { moderateScale, verticalScale } from 'react-native-size-matters';
 import { useNavigation } from '@react-navigation/native'
-import SplashBodyTxt from '../../components/project-components/SplashBodyTxt'
-import SplashHead from '../../components/project-components/SplashHead'
-import SplashHeadTxt from '../../components/project-components/SplashHeadTxt'
-import GradientIconButton from '../../components/framework/button/GradientIconButton'
-import Spacer from '../../components/framework/boots/Spacer'
-import ThreeDots from '../../components/framework/micro/ThreeDots'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { BODY_ARR, BTN_LABEL_ARR, HEAD_TXT_ARR, SPLASH_IMG_ARR } from '../../data/SplashScreenData';
+import { GradientIconButton } from '../../components/framework/button';
+import { SplashBodyTxt, SplashHead, SplashHeadTxt } from '../../components/project-components';
+import { Spacer, ThreeDots } from '../../components/framework/boots';
 
 
 const SplashInfo = () => {

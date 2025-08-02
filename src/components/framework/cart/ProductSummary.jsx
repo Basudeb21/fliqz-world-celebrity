@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Colors } from '../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
-import Spacer from '../boots/Spacer';
+import { Spacer } from '../boots';
 
 const ProductSummary = () => {
     const [hideBill, setHideBill] = useState(true)

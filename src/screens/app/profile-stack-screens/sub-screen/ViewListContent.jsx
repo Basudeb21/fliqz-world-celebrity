@@ -1,9 +1,10 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import ListItemViewCard from '../../../../components/framework/card/ListItemViewCard'
-import BackpressTopBar from '../../../../components/framework/navbar/BackpressTopBar'
-import { Images } from '../../../../constants'
-import Spacer from '../../../../components/framework/boots/Spacer'
+import { Colors, Images } from '../../../../constants'
+import { ListItemViewCard } from '../../../../components/framework/card'
+import { Spacer } from '../../../../components/framework/boots'
+import { BackpressTopBar } from '../../../../components/framework/navbar'
+
 const ViewListContent = ({ route }) => {
     const { type } = route.params;
     const user = [
@@ -42,7 +43,7 @@ const ViewListContent = ({ route }) => {
                         fanID={item.fanID}
                     />
                 )}
-                ListFooterComponent={<Spacer height={90} />}
+                ListFooterComponent={<Spacer height={5} />}
                 contentContainerStyle={styles.scrollContent}
             />
 

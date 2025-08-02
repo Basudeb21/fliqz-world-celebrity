@@ -1,26 +1,28 @@
-import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import React from 'react'
-import ProfileViewInfoCard from '../../../components/framework/card/ProfileViewInfoCard';
-import GradientTextButton from '../../../components/framework/button/GradientTextButton';
 import { moderateScale } from 'react-native-size-matters';
-import GradientIconButtonNoText from '../../../components/framework/button/GradientIconButtonNoText';
 import Entypo from 'react-native-vector-icons/dist/Entypo'
-import Spacer from '../../../components/framework/boots/Spacer';
 import { Colors, Images, NavigationStrings } from '../../../constants';
-import ProfileHighlightPostArea from '../home-mini-components/ProfileHighlightPostArea';
-import NoContantPage from '../profile-stack-screens/sub-screen/NoContantPage';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+
 import Fontisto from 'react-native-vector-icons/Fontisto'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Octicons from 'react-native-vector-icons/Octicons'
-import FansPostHistoryOnProfile from './FansPostHistoryOnProfile';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import FollowedByImageAndName from '../../../components/framework/iamge/FollowedByImageAndName';
-import GradientIcon from '../../../components/framework/icon/GradientIcon';
-import BackpressTopBar from '../../../components/framework/navbar/BackpressTopBar';
 import { subscibePressSound } from '../../../sound/SoundManager';
+import { ProfileViewInfoCard } from '../../../components/framework/card';
+import { NoContantPage } from '../profile-stack-screens/sub-screen';
+import FansPostHistoryOnProfile from './FansPostHistoryOnProfile';
+import { BackpressTopBar } from '../../../components/framework/navbar';
+import { FollowedByImageAndName } from '../../../components/framework/iamge';
+import { GradientIconButtonNoText } from '../../../components/framework/button';
+import { Spacer } from '../../../components/framework/boots';
+import { ProfileHighlightPostArea } from '../home-mini-components';
+import { GradientIcon } from '../../../components/framework/icon';
 const Tab = createMaterialTopTabNavigator()
 
 const AllScreen = () => <FansPostHistoryOnProfile />
@@ -90,14 +92,14 @@ const BookmarksTabs = () => {
 }
 
 
-const FansProfilePage = ({ route }) => {
-    const { userName } = route.params;
+const FansProfilePage = () => {
+    const route = useRoute();
+    const { user } = route.params;
+
     const navigation = useNavigation();
     const openShopClick = () => {
         navigation.navigate(NavigationStrings.HOME_SHOP_SCREEN)
     }
-
-
 
     const imgs = [
         Images.CELEBRITY_AVATAR_ONE,
@@ -105,8 +107,6 @@ const FansProfilePage = ({ route }) => {
         Images.CELEBRITY_AVATAR_THREE,
 
     ]
-
-    const user = { image: Images.CELEBRITY_AVATAR_ONE, fanName: "Fans_123", fanActiveTime: "10 min ago" }
 
     const onPressSubscribe = () => {
         subscibePressSound()
@@ -126,15 +126,45 @@ const FansProfilePage = ({ route }) => {
                 contentContainerStyle={{ flexGrow: 1 }}
                 showsVerticalScrollIndicator={false}
             >
-                <BackpressTopBar title={userName} color={Colors.WHITE} />
-                <ProfileViewInfoCard />
+                <BackpressTopBar title={user.name} color={Colors.WHITE} />
+                <ProfileViewInfoCard data={user} />
                 <Spacer height={25} />
                 <FollowedByImageAndName images={imgs} />
                 <Spacer height={25} />
                 <View style={styles.btnContainer}>
-                    <GradientTextButton width='25%' label='Subscribe' fontSize={14} onPress={onPressSubscribe} />
-                    <GradientTextButton width='25%' label='Message' fontSize={14} onPress={onPressMessage} />
-                    <GradientTextButton width='25%' label='Shop' fontSize={14} onPress={openShopClick} />
+                    <GradientIconButtonNoText
+                        Icon={MaterialCommunityIcons}
+                        iconName={"youtube-subscription"}
+                        iconSize={20}
+                        width='15%'
+                        onPress={onPressSubscribe}
+                    />
+                    <GradientIconButtonNoText
+                        Icon={Ionicons}
+                        iconName={"chatbubble-ellipses-sharp"}
+                        iconSize={20}
+                        width='15%'
+                        onPress={onPressMessage}
+                    />
+                    <GradientIconButtonNoText
+                        Icon={Entypo}
+                        iconName={"shop"}
+                        iconSize={20}
+                        width='15%'
+                        onPress={openShopClick}
+                    />
+                    <GradientIconButtonNoText
+                        Icon={FontAwesome5}
+                        iconName={"hammer"}
+                        iconSize={20}
+                        width='15%'
+                    />
+                    <GradientIconButtonNoText
+                        Icon={FontAwesome5}
+                        iconName={"user-plus"}
+                        iconSize={20}
+                        width='15%'
+                    />
                     <GradientIconButtonNoText
                         Icon={Entypo}
                         iconName={"chevron-down"}

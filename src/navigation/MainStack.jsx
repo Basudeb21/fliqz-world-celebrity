@@ -1,11 +1,12 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationStrings } from '../constants';
+import { BottomNavbar } from '../components/framework/navbar';
 import HomeStack from './HomeStack';
 import ChatStack from './ChatStack';
-import BottomNavbar from '../components/framework/navbar/BottomNavbar';
 import ProfileStack from './ProfileStack';
 import PostStack from './PostStack';
+
 
 const MainStack = () => {
     const Stack = createNativeStackNavigator();

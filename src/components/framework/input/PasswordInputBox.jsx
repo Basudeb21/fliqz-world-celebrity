@@ -1,8 +1,7 @@
 import { StyleSheet, TextInput, View, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
-import { moderateScale, scale } from 'react-native-size-matters';
+import { scale } from 'react-native-size-matters';
 import LinearGradient from 'react-native-linear-gradient';
-
 import { Colors } from '../../../constants';
 import Icon from 'react-native-vector-icons/Feather';
 

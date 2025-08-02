@@ -3,12 +3,12 @@ import React, { useEffect } from 'react';
 import { Colors, Images, NavigationStrings, Strings } from '../../constants';
 import FastImage from 'react-native-fast-image';
 import { useNavigation } from '@react-navigation/native';
-import LoadingBar from '../../components/framework/boots/LoadingBar';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../redux-store/slices/authSlice';
+import { LoadingBar } from '../../components/framework/boots';
 
 const LoadingScreen = () => {
     const navigation = useNavigation();
@@ -20,10 +20,8 @@ const LoadingScreen = () => {
                 const userData = await AsyncStorage.getItem('userData');
                 const parsed = userData ? JSON.parse(userData) : null;
 
-                console.log("Parsed DATA : ", parsed);
 
                 if (parsed?.token) {
-                    console.log("Token found. Dispatching login...");
 
                     dispatch(loginSuccess({
                         user: parsed.data,

@@ -1,9 +1,8 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import HR from '../boots/HR'
-import CommonSuggestionImageGroup from '../iamge/CommonSuggestionImageGroup'
-import Spacer from '../boots/Spacer'
 import { Colors } from '../../../constants'
+import { HR, Spacer } from '../boots'
+import { CommonSuggestionImageGroup } from '../iamge'
 
 const ListCardItem = ({ type, ammount, imgs, onPress }) => {
     return (

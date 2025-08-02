@@ -4,28 +4,24 @@ import { Colors } from '../../../constants';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import LinearGradient from 'react-native-linear-gradient';
 
-const AmmountInput = ({ value, setValue, placeholder = "Placeholder", width }) => {
-    const [data, setData] = useState(0);
+const AmmountInput = ({ value = 0, setValue, placeholder = "Placeholder", width }) => {
     const [isFocused, setIsFocused] = useState(false);
 
     const onPressUp = () => {
-        const updated = data + 1;
-        setData(updated);
+        const updated = (parseInt(value) || 0) + 1;
         setValue?.(updated);
     };
 
     const onPressDown = () => {
-        const updated = data > 0 ? data - 1 : 0;
-        setData(updated);
+        const updated = (parseInt(value) || 0) > 0 ? parseInt(value) - 1 : 0;
         setValue?.(updated);
     };
 
     const handleChange = (text) => {
         const num = parseInt(text.replace(/\D/g, ''), 10);
-        const updated = !isNaN(num) ? num : 0;
-        setData(updated);
-        setValue?.(updated);
+        setValue?.(!isNaN(num) ? num : "");
     };
 
     return (
@@ -34,14 +30,22 @@ const AmmountInput = ({ value, setValue, placeholder = "Placeholder", width }) =
                 styles.inputWrapper,
                 { borderColor: isFocused ? Colors.THEME : Colors.PLACEHOLDER }
             ]}>
-                <FontAwesome
-                    name="dollar"
-                    size={16}
-                    color={Colors.THEME}
-                    style={styles.dollarIcon}
-                />
+                <LinearGradient
+                    colors={[Colors.BUTTON_GRADIENT_TWO, Colors.BUTTON_GRADIENT_ONE]}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                    style={styles.dollarIconGradient}
+                >
+                    <FontAwesome
+                        name="dollar"
+                        size={16}
+                        color={Colors.WHITE}
+                        style={styles.icon}
+                    />
+                </LinearGradient>
+
                 <TextInput
-                    value={data.toString()}
+                    value={value?.toString()}
                     onChangeText={handleChange}
                     placeholder={placeholder}
                     keyboardType='numeric'
@@ -65,6 +69,7 @@ const AmmountInput = ({ value, setValue, placeholder = "Placeholder", width }) =
 
 export default AmmountInput;
 
+
 const styles = StyleSheet.create({
     inputWrapper: {
         flexDirection: 'row',
@@ -72,15 +77,12 @@ const styles = StyleSheet.create({
         borderWidth: scale(1),
         borderRadius: scale(5),
     },
-    dollarIcon: {
-        marginRight: moderateScale(8),
-        backgroundColor: Colors.SUGGESTION_USER_BORDER,
-        height: "100%",
-        paddingHorizontal: moderateScale(10),
-        alignSelf: "center",
+    dollarIconGradient: {
+        height: '100%',
+        paddingHorizontal: moderateScale(15),
         borderTopLeftRadius: scale(5),
         borderBottomLeftRadius: scale(5),
-        verticalAlign: "middle"
+        alignItems: 'center',
     },
     txtInputBox: {
         flex: 1,
@@ -88,6 +90,7 @@ const styles = StyleSheet.create({
         paddingRight: scale(30),
         fontSize: scale(13),
         color: Colors.BLACK,
+        marginStart: moderateScale(10)
     },
     btnIncDsc: {
         justifyContent: 'space-between',
@@ -95,4 +98,10 @@ const styles = StyleSheet.create({
         marginVertical: verticalScale(5),
         marginEnd: moderateScale(10)
     },
+    icon: {
+        position: "absolute",
+        flex: 1,
+        height: "100%",
+        verticalAlign: "middle"
+    }
 });

@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import LinearGradient from 'react-native-linear-gradient'
 import { Colors } from '../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 

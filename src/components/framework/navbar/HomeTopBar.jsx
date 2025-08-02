@@ -2,13 +2,12 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import FastImage from 'react-native-fast-image';
 import { moderateScale, verticalScale } from 'react-native-size-matters';
-import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import Entypo from 'react-native-vector-icons/dist/Entypo';
 import FontAwesome5 from 'react-native-vector-icons/dist/FontAwesome5';
 import { Colors, Images } from '../../../constants';
-import Spacer from '../boots/Spacer';
-import GradientIcon from '../icon/GradientIcon';
+import { Spacer } from '../boots';
+import { GradientIcon } from '../icon';
 
 
 
@@ -18,7 +17,7 @@ const HomeTopBar = ({ notificationOnPress, searchOnPress, walletOnPress, cartOnP
     return (
         <View style={styles.container}>
             <FastImage
-                source={Images.BLACK_LOGO}
+                source={Images.WHITE_LOGO}
                 style={styles.logo}
                 resizeMode={FastImage.resizeMode.contain}
             />
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         maxHeight: verticalScale(65),
-        minHeight: verticalScale(65)
+        minHeight: verticalScale(50)
     },
     iconContainer: {
         flexDirection: "row",
@@ -82,9 +81,9 @@ const styles = StyleSheet.create({
         justifyContent: "space-evenly"
     },
     logo: {
-        width: moderateScale(150),
+        width: moderateScale(90),
         height: verticalScale(60),
         marginTop: verticalScale(-6),
-        marginLeft: (-20)
+        marginLeft: (10)
     },
 })

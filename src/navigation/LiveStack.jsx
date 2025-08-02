@@ -1,7 +1,7 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationStrings } from '../constants';
-import LiveShows from '../screens/app/post-related/LiveShows';
+import { LiveShows } from '../components/framework/tables';
 const LiveStack = () => {
     const Stack = createNativeStackNavigator();
 

@@ -3,7 +3,7 @@ import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { useNavigation } from '@react-navigation/native';
-import { Colors, Images } from '../../../constants';
+import { Colors } from '../../../constants';
 import { useSelector } from 'react-redux';
 
 const BackpressProfileTopBar = ({ title }) => {

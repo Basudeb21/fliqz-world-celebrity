@@ -1,9 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import FastImage from 'react-native-fast-image';
-import Images from '../../constants/Images';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-import { Colors } from '../../constants';
+import { Colors, Images } from '../../constants';
 import Entypo from 'react-native-vector-icons/Entypo';
 
 const SplashHead = () => {

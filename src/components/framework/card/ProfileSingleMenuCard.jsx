@@ -2,7 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Colors } from '../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
-import GradientIcon from '../icon/GradientIcon'
+import { GradientIcon } from '../icon'
 
 const ProfileSingleMenuCard = ({ Icon, iconName, text, onPress }) => {
     return (

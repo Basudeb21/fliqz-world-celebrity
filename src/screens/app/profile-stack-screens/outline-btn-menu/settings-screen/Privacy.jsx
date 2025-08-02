@@ -1,10 +1,10 @@
 import { StyleSheet, Switch, Text, View } from 'react-native'
 import React, { useState } from 'react'
-import BackpressTopBar from '../../../../../components/framework/navbar/BackpressTopBar'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Colors } from '../../../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
-import Spacer from '../../../../../components/framework/boots/Spacer'
+import { Spacer } from '../../../../../components/framework/boots'
+import { BackpressTopBar } from '../../../../../components/framework/navbar'
 
 const Privacy = () => {
     const [isPublicEnabled, setIsPublicEnabled] = useState(false);

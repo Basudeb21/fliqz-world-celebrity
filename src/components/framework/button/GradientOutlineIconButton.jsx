@@ -3,7 +3,7 @@ import React from 'react'
 import LinearGradient from 'react-native-linear-gradient'
 import { Colors } from '../../../constants'
 import { scale, verticalScale } from 'react-native-size-matters'
-import GradientIcon from '../icon/GradientIcon'
+import { GradientIcon } from '../icon'
 
 const GradientOutlineIconButton = ({
     Icon,

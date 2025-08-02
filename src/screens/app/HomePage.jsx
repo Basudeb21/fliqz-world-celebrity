@@ -9,11 +9,11 @@ import {
 import { Colors, NavigationStrings } from '../../constants';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-import HomeTopBar from '../../components/framework/navbar/HomeTopBar';
-import { StoryHighlightArea, SuggestionArea } from './home-mini-components';
-import SharedPost from '../../components/framework/card/SharedPost';
-import Spacer from '../../components/framework/boots/Spacer';
-import GetAllPostsApi from '../../api/app/post/GetAllPostList';
+import { SharedPost } from '../../components/framework/card';
+import { Spacer } from '../../components/framework/boots';
+import { GetAllPostsApi } from '../../api/app/post';
+import { HomeTopBar } from '../../components/framework/navbar';
+import { StoryHighlightArea } from './post-related';
 
 let backPressedOnce = false;
 
@@ -27,6 +27,8 @@ const HomePage = () => {
     const [lastPage, setLastPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const [refreshing, setRefreshing] = useState(false);
+
+    console.log(token);
 
     useEffect(() => {
         if (!token || !user) {
@@ -59,7 +61,6 @@ const HomePage = () => {
     const fetchPosts = async (page = 1, isRefreshing = false) => {
         if (!token || loading) return;
         setLoading(true);
-        console.log(token);
 
         try {
             const data = await GetAllPostsApi(token, page);
@@ -83,7 +84,7 @@ const HomePage = () => {
                     });
                 }
             } else {
-                console.warn('Invalid post format:', data);
+                console.log('Invalid post format:', data);
             }
         } catch (error) {
             console.log('Error fetching posts:', error);

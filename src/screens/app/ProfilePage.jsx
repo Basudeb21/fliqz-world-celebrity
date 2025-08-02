@@ -1,8 +1,5 @@
 import { FlatList, StyleSheet, View } from 'react-native'
 import React from 'react'
-import BackpressProfileTopBar from '../../components/framework/navbar/BackpressProfileTopBar'
-import ProfileCard from '../../components/framework/card/ProfileCard'
-import ProfileSingleMenuCard from '../../components/framework/card/ProfileSingleMenuCard'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome'
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons'
@@ -14,12 +11,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux-store/slices/authSlice';
 import Octicons from 'react-native-vector-icons/dist/Octicons'
 import FontAwesome6 from 'react-native-vector-icons/dist/FontAwesome6'
-import OutlineIconButton from '../../components/framework/button/OutlineIconButton'
-import Spacer from '../../components/framework/boots/Spacer'
-import OutLineButton from '../../components/framework/button/OutLineButton'
 import { useNavigation } from '@react-navigation/native'
 import { Colors, NavigationStrings, Strings } from '../../constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { ProfileCard, ProfileSingleMenuCard } from '../../components/framework/card'
+import { OutLineButton, OutlineIconButton } from '../../components/framework/button'
+import { Spacer } from '../../components/framework/boots'
+import { BackpressProfileTopBar } from '../../components/framework/navbar'
 
 const ProfilePage = () => {
 
@@ -147,7 +145,7 @@ const ProfilePage = () => {
                 ListHeaderComponent={
                     <View>
                         <BackpressProfileTopBar title={userName} />
-                        <ProfileCard userName={userName} />
+                        <ProfileCard />
                         <Spacer height={90} />
 
                     </View>

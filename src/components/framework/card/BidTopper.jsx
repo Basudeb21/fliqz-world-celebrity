@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
-import GradientIcon from '../icon/GradientIcon';
 import { Colors } from '../../../constants';
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import { moderateScale, scale } from 'react-native-size-matters';
+import { GradientIcon } from '../icon';
 
-const BidTopper = () => {
+const BidTopper = ({ name, amount, date }) => {
     return (
         <View style={styles.card}>
             <GradientIcon
@@ -14,10 +14,9 @@ const BidTopper = () => {
                 colors={[Colors.ICON_GRADIENT_ONE, Colors.ICON_GRADIENT_Two]}
                 size={50}
             />
-            <Text style={styles.name}>Jhon Dow</Text>
-            <Text style={styles.ammount}>$2,000</Text>
-            <Text style={styles.date}>3D ago</Text>
-
+            <Text style={styles.name}>{name}</Text>
+            <Text style={styles.ammount}>₹{amount}</Text>
+            <Text style={styles.date}>{date}</Text>
         </View>
     );
 };

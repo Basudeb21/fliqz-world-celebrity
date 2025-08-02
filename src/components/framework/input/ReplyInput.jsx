@@ -1,7 +1,7 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Colors } from '../../../constants';
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import { moderateScale, verticalScale } from 'react-native-size-matters';
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome'
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons'
 

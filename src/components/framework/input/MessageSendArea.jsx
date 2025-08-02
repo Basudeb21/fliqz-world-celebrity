@@ -5,8 +5,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Fontisto from 'react-native-vector-icons/Fontisto'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
-import GradientIcon from '../icon/GradientIcon'
 import { messageSendPressSounds } from '../../../sound/SoundManager'
+import { GradientIcon } from '../icon'
 
 const MessageSendArea = ({ placeholder, value, setValue }) => {
     const onPressSendMessage = () => {

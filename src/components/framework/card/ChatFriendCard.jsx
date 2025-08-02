@@ -3,11 +3,11 @@ import React from 'react'
 import { Colors } from '../../../constants';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-
-import HR from '../boots/HR';
-import GradientIcon from '../icon/GradientIcon';
+import { HR } from '../boots';
+import { GradientIcon } from '../icon';
 
 const ChatFriendCard = ({ image, fanName, fanActiveTime, onPress }) => {
+    const { id, name, avatar } = route.params;
     return (
         <TouchableOpacity onPress={onPress}>
             <View style={styles.container}>

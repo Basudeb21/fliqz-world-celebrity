@@ -1,9 +1,9 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
-import OutlineQuantityInputBox from '../input/OutlineQuantityInputBox'
 import { Colors, Images } from '../../../constants'
-import Spacer from '../boots/Spacer'
+import { OutlineQuantityInputBox } from '../input'
+import { Spacer } from '../boots'
 const CartProduct = () => {
     return (
         <View style={styles.productContainer}>

@@ -1,14 +1,13 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Colors } from '../../../constants'
-import Spacer from '../boots/Spacer'
-import HR from '../boots/HR'
 import { scale } from 'react-native-size-matters'
-import GradientIcon from '../icon/GradientIcon'
+import { HR, Spacer } from '../boots'
+import { GradientIcon } from '../icon'
 
-const IconTxtHRInputButton = ({ Icon, icnonName, label }) => {
+const IconTxtHRInputButton = ({ Icon, icnonName, label, onPress }) => {
     return (
-        <TouchableOpacity >
+        <TouchableOpacity onPress={onPress}>
             <View style={styles.row}>
                 <GradientIcon
                     name={icnonName}

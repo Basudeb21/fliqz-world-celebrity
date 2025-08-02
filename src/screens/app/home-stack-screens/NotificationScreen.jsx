@@ -1,11 +1,11 @@
 import { FlatList, StyleSheet } from 'react-native'
 import React from 'react'
-import { Colors, Images } from '../../../constants'
-import NotificationCard from '../../../components/framework/card/NotificationCard'
-import BackpressTopBar from '../../../components/framework/navbar/BackpressTopBar'
-import Spacer from '../../../components/framework/boots/Spacer'
+import { Colors } from '../../../constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { dummyNotifications } from '../../../data/dummyNotification'
+import { NotificationCard } from '../../../components/framework/card'
+import { BackpressTopBar } from '../../../components/framework/navbar'
+import { Spacer } from '../../../components/framework/boots'
 
 
 

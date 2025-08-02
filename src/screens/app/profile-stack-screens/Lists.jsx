@@ -1,12 +1,12 @@
-import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { FlatList, StyleSheet } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import BackpressTopBar from '../../../components/framework/navbar/BackpressTopBar'
-import ListCardItem from '../../../components/framework/card/ListCardItem'
 import { Colors, Images, NavigationStrings } from '../../../constants'
-import Spacer from '../../../components/framework/boots/Spacer'
 import { useNavigation } from '@react-navigation/native'
-import FloatingActionButton from '../../../components/framework/button/FloattingActionButton'
+import { FloatingActionButton } from '../../../components/framework/button'
+import { Spacer } from '../../../components/framework/boots'
+import { ListCardItem } from '../../../components/framework/card'
+import { BackpressTopBar } from '../../../components/framework/navbar'
 
 const Lists = () => {
     const users = [
@@ -19,7 +19,6 @@ const Lists = () => {
     const onPressViewCard = (type) => {
         navigation.navigate(NavigationStrings.HOME_VIEW_LIST_CONTENT, { type });
     };
-
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
             <BackpressTopBar title={"Lists"} />

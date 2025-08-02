@@ -1,7 +1,7 @@
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-import { Colors, Images, NavigationStrings } from '../../../constants';
+import { Colors, NavigationStrings } from '../../../constants';
 import HR from './HR';
 import Spacer from './Spacer';
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';

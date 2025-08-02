@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import AnalyticsOverviewTop from './AnalyticsOverviewTop';
 import { Colors } from '../../../../constants';
-import { verticalScale } from 'react-native-size-matters';
+import AnalyticsOverviewTop from './AnalyticsOverviewTop';
+
 
 const OverviewScreen = ({ data }) => {
     console.log("...", data);

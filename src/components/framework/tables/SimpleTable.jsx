@@ -1,11 +1,10 @@
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
-import { Colors, Images } from '../../../constants'
+import { Colors } from '../../../constants'
 import Entypo from 'react-native-vector-icons/dist/Entypo'
-import HR from '../boots/HR'
-import Spacer from '../boots/Spacer'
-import SearchBar from '../input/SearchBar'
+import { HR, Spacer } from '../boots'
+import { SearchBar } from '../input'
 
 const SimpleTable = ({ data }) => {
     return (

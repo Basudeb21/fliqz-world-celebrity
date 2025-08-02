@@ -1,17 +1,16 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import BackpressTopBar from '../../../../components/framework/navbar/BackpressTopBar'
 import { Colors, NavigationStrings } from '../../../../constants'
 import { moderateScale } from 'react-native-size-matters'
-import NoOutlineIconTextButton from '../../../../components/framework/button/NoOutlineIconTextButton'
-import HR from '../../../../components/framework/boots/HR'
-import Spacer from '../../../../components/framework/boots/Spacer'
 import FontAwesome5 from 'react-native-vector-icons/dist/FontAwesome5'
 import Entypo from 'react-native-vector-icons/dist/Entypo'
 import FontAwesome6 from 'react-native-vector-icons/dist/FontAwesome6'
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons'
 import Fontisto from 'react-native-vector-icons/dist/Fontisto'
 import { useNavigation } from '@react-navigation/native'
+import { NoOutlineIconTextButton } from '../../../../components/framework/button'
+import { HR, Spacer } from '../../../../components/framework/boots'
+import { BackpressTopBar } from '../../../../components/framework/navbar'
 
 
 

@@ -3,10 +3,10 @@ import React from 'react'
 import Fontisto from 'react-native-vector-icons/Fontisto'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { moderateScale } from 'react-native-size-matters'
-import PostImage from '../../../components/framework/iamge/PostImage'
 import { Colors, NavigationStrings } from '../../../constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
+import { PostImage } from '../../../components/framework/iamge'
 
 const FansPostHistoryOnProfile = ({ data = [] }) => {
     console.log('Received data:', data);

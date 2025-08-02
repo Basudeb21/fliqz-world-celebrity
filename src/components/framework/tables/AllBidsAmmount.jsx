@@ -1,16 +1,48 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-import { bidsTable } from '../../../data/bidsTable';
+import React, { useEffect, useState } from 'react';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { Colors } from '../../../constants';
 import LinearGradient from 'react-native-linear-gradient';
+import { useSelector } from 'react-redux';
+import { DateFormat } from '../../../utils/DateFormat';
+import { GetBidListApi } from '../../../api/app/auction';
 
-const AllBidsAmmount = () => {
+
+const AllBidsAmmount = ({ slug }) => {
+    const [bidsTable, setBidsTable] = useState([]);
+    const { token } = useSelector(state => state.auth);
+
+    useEffect(() => {
+        let isMounted = true;
+
+        const fetchBids = async () => {
+            const res = await GetBidListApi(token, slug);
+            console.log("API Response:", res);
+
+            if (res?.data && isMounted) {
+                const formatted = res.data.map((item, index) => ({
+                    id: item.id,
+                    rank: index + 1,
+                    name: item.user.name,
+                    ammount: item.bid_amount,
+                    time: DateFormat(item.created_at),
+                }));
+                setBidsTable(formatted);
+            }
+        };
+
+        fetchBids();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [slug]);
+
     const renderItem = ({ item }) => (
         <View style={styles.row}>
             <Text style={[styles.cell, styles.rank]}>{item.rank}</Text>
             <Text style={[styles.cell, styles.name]}>{item.name}</Text>
-            <Text style={[styles.cell, styles.amount]}>{item.ammount}</Text>
+            <Text style={[styles.cell, styles.amount]}>₹ {item.ammount}</Text>
             <Text style={[styles.cell, styles.time]}>{item.time}</Text>
         </View>
     );
@@ -27,17 +59,23 @@ const AllBidsAmmount = () => {
                 <Text style={[styles.headerCell, styles.time]}>Time</Text>
             </LinearGradient>
 
-            <FlatList
-                data={bidsTable}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={renderItem}
-                contentContainerStyle={styles.listContent}
-            />
+            {bidsTable.length === 0 ? (
+                <Text style={{ textAlign: 'center', marginTop: 20 }}>No bids found</Text>
+            ) : (
+                <FlatList
+                    data={bidsTable}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={renderItem}
+                    contentContainerStyle={styles.listContent}
+                />
+            )}
         </View>
     );
+
 };
 
 export default AllBidsAmmount;
+
 
 const styles = StyleSheet.create({
     container: {

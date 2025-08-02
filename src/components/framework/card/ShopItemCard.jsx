@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { Colors, Images } from '../../../constants'
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import { Colors } from '../../../constants'
+import { scale, verticalScale } from 'react-native-size-matters';
 
 const ShopItemCard = ({ image, productName, desc, price, onPress }) => {
     const summery = desc.substring(0, 20);

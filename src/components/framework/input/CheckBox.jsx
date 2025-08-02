@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import { Colors } from '../../../constants';
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 
 const Checkbox = () => {
     const [isChecked, setIsChecked] = useState(false);
