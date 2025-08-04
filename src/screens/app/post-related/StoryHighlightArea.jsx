@@ -75,7 +75,6 @@ const StoryHighlightArea = () => {
                     showsHorizontalScrollIndicator={false}
                     ItemSeparatorComponent={() => <Spacer width={10} />}
                 />
-
             </View>
 
             {storyModal && (
@@ -85,6 +84,7 @@ const StoryHighlightArea = () => {
                     content={storyModalData}
                 />
             )}
+
         </SafeAreaView>
     );
 };
