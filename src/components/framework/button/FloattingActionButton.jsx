@@ -1,10 +1,16 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import {
+    StyleSheet,
+    TouchableOpacity
+} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { scale } from 'react-native-size-matters';
 import { Colors } from '../../../constants';
 
-const FloatingActionButton = ({ onPress, style }) => {
+const FloatingActionButton = ({
+    onPress,
+    style
+}) => {
 
     return (
         <TouchableOpacity style={[styles.fab, style]} onPress={onPress}>

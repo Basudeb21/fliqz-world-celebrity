@@ -17,7 +17,9 @@ const COLUMN_WIDTHS = {
     actions: moderateScale(30),
 };
 
-const OrderTable = ({ data }) => {
+const OrderTable = ({
+    data
+}) => {
     const navigation = useNavigation();
     const onPressViewOrderDetails = () => {
         navigation.navigate(NavigationStrings.VIEW_ORDER)
@@ -25,16 +27,34 @@ const OrderTable = ({ data }) => {
     return (
         <View>
             <View style={[styles.row, styles.head]}>
-                <Text style={[styles.headTxt, { width: COLUMN_WIDTHS.product }]}>Products</Text>
-                <Text style={[styles.headTxt, { width: COLUMN_WIDTHS.quantity }]}>Quantity</Text>
-                <Text style={[styles.headTxt, { width: COLUMN_WIDTHS.date }]}>Date</Text>
-                <Text style={[styles.headTxt, { width: COLUMN_WIDTHS.price }]}>Price</Text>
-                <Text style={[styles.headTxt, { width: COLUMN_WIDTHS.status }]}>Status</Text>
-                <Text style={[styles.headTxt, { width: COLUMN_WIDTHS.actions }]}>{' '}</Text>
+                <Text style={[styles.headTxt, { width: COLUMN_WIDTHS.product }]}>
+                    Products
+                </Text>
+                <Text style={[styles.headTxt, { width: COLUMN_WIDTHS.quantity }]}>
+                    Quantity
+                </Text>
+                <Text style={[styles.headTxt, { width: COLUMN_WIDTHS.date }]}>
+                    Date
+                </Text>
+                <Text style={[styles.headTxt, { width: COLUMN_WIDTHS.price }]}>
+                    Price
+                </Text>
+                <Text style={[styles.headTxt, { width: COLUMN_WIDTHS.status }]}>
+                    Status
+                </Text>
+                <Text style={[styles.headTxt, { width: COLUMN_WIDTHS.actions }]}>
+                    {' '}
+                </Text>
             </View>
 
-            <Spacer height={10} />
-            <HR height={1} width="94%" center={true} />
+            <Spacer
+                height={10}
+            />
+            <HR
+                height={1}
+                width="94%"
+                center={true}
+            />
 
             <FlatList
                 data={data}
@@ -42,25 +62,69 @@ const OrderTable = ({ data }) => {
                 renderItem={({ item }) => (
                     <>
                         <View style={[styles.row, styles.bodyRow]}>
-                            <View style={[styles.userInfoContainer, { width: COLUMN_WIDTHS.product }]}>
-                                <Image source={{ uri: item.image }} style={styles.image} />
-                                <View style={styles.userNameContainer}>
-                                    <Text style={styles.userName}>{item.orderType}</Text>
+                            <View
+                                style={[styles.userInfoContainer,
+                                { width: COLUMN_WIDTHS.product }]}
+                            >
+                                <Image
+                                    source={{ uri: item.image }}
+                                    style={styles.image}
+                                />
+                                <View
+                                    style={styles.userNameContainer}
+                                >
+                                    <Text
+                                        style={styles.userName}>
+                                        {item.orderType}
+                                    </Text>
                                 </View>
                             </View>
 
-                            <Text style={[styles.status, { width: COLUMN_WIDTHS.quantity }]}>{item.quantity}</Text>
-                            <Text style={[styles.status, { width: COLUMN_WIDTHS.date }]}>{item.orderDate}</Text>
-                            <Text style={[styles.status, { width: COLUMN_WIDTHS.price }]}>{item.orderPrice}</Text>
-                            <Text style={[styles.status, { width: COLUMN_WIDTHS.status }]}>{item.status}</Text>
+                            <Text
+                                style={[styles.status,
+                                { width: COLUMN_WIDTHS.quantity }]}
+                            >
+                                {item.quantity}
+                            </Text>
+                            <Text
+                                style={[styles.status,
+                                { width: COLUMN_WIDTHS.date }]}
+                            >
+                                {item.orderDate}
+                            </Text>
+                            <Text
+                                style={[styles.status,
+                                { width: COLUMN_WIDTHS.price }]}
+                            >
+                                {item.orderPrice}
+                            </Text>
+                            <Text
+                                style={[styles.status,
+                                { width: COLUMN_WIDTHS.status }]}
+                            >
+                                {item.status}
+                            </Text>
 
-                            <TouchableOpacity style={{ width: COLUMN_WIDTHS.actions }} onPress={onPressViewOrderDetails}>
-                                <FontAwesome name="eye" size={16} color={Colors.THEME} />
+                            <TouchableOpacity
+                                style={{ width: COLUMN_WIDTHS.actions }}
+                                onPress={onPressViewOrderDetails}
+                            >
+                                <FontAwesome
+                                    name="eye"
+                                    size={16}
+                                    color={Colors.THEME}
+                                />
                             </TouchableOpacity>
                         </View>
 
-                        <Spacer height={10} />
-                        <HR height={1} width="94%" center={true} />
+                        <Spacer
+                            height={10}
+                        />
+                        <HR
+                            height={1}
+                            width="94%"
+                            center={true}
+                        />
                     </>
                 )}
                 ListFooterComponent={<Spacer height={10} />}

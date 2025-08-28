@@ -1,7 +1,8 @@
-// UpdateAuctionItemApi.js
 import axios from "axios";
 import API from "../../common/API";
-import { ToastAndroid } from "react-native";
+import {
+    ToastAndroid
+} from "react-native";
 
 const UpdateAuctionItemApi = async ({
     token,

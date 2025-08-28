@@ -1,8 +1,13 @@
 import axios from "axios";
 import API from "../../common/API";
-import { ToastAndroid } from "react-native";
+import {
+    ToastAndroid
+} from "react-native";
 
-const GetBidListApi = async (token, slug) => {
+const GetBidListApi = async (
+    token,
+    slug
+) => {
     try {
         if (!token) {
             ToastAndroid.show("Token not found...", ToastAndroid.SHORT);

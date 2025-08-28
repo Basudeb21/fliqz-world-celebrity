@@ -1,7 +1,12 @@
 import axios from "axios";
 import API from "../../common/API";
 
-const AddNewPostApi = async (token, text, price = 0, attachments = []) => {
+const AddNewPostApi = async (
+    token,
+    text,
+    price = 0,
+    attachments = []
+) => {
     try {
         const formData = new FormData();
 

@@ -1,7 +1,15 @@
 import axios from "axios";
 import API from "../../common/API";
 
-const AddNewAuctionApi = async ({ token, name, description, min_budget, start_date, end_date, images }) => {
+const AddNewAuctionApi = async ({
+    token,
+    name,
+    description,
+    min_budget,
+    start_date,
+    end_date,
+    images
+}) => {
     try {
         const formData = new FormData();
         formData.append("name", name);

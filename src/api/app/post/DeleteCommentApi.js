@@ -1,7 +1,11 @@
 import axios from "axios";
 import API from "../../common/API";
 
-const DeleteCommentApi = async (token, post_no, comment_no) => {
+const DeleteCommentApi = async (
+    token,
+    post_no,
+    comment_no
+) => {
     try {
 
         const response = await axios.post(`${API.BASE_URL}post/${post_no}/comment/${comment_no}/delete`, {}, {

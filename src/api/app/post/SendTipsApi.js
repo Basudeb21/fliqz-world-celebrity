@@ -1,7 +1,11 @@
 import axios from "axios";
 import API from "../../common/API";
 
-const SendTipsApi = async (token, post_no, price = 0) => {
+const SendTipsApi = async (
+    token,
+    post_no,
+    price = 0
+) => {
     try {
 
         const response = await axios.post(`${API.BASE_URL}post/${post_no}/send-tip`, {

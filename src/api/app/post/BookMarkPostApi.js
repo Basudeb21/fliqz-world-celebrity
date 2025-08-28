@@ -1,7 +1,10 @@
 import axios from "axios";
 import API from "../../common/API";
 
-const BookMarkPostApi = async (token, post_no) => {
+const BookMarkPostApi = async (
+    token,
+    post_no
+) => {
     try {
 
         const response = await axios.post(`${API.BASE_URL}post/${post_no}/bookmark`, {}, {

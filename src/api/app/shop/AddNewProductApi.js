@@ -1,6 +1,8 @@
 import axios from "axios";
 import API from "../../common/API";
-import { ToastAndroid } from "react-native";
+import {
+    ToastAndroid
+} from "react-native";
 
 const AddNewProductApi = async (
     token,

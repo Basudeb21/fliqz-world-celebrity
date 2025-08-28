@@ -5,7 +5,6 @@ import {
     Dimensions,
     FlatList,
     RefreshControl,
-    Text
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
@@ -101,7 +100,6 @@ const AuctionTab = ({ type }) => {
 };
 
 const AllAuctions = () => {
-
     return (
         <View style={styles.scene}>
             <AuctionTab type="all" />

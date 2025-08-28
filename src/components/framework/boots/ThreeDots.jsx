@@ -1,10 +1,20 @@
-import { StyleSheet, View } from 'react-native';
+import {
+    StyleSheet,
+    View
+} from 'react-native';
 import React from 'react';
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import {
+    moderateScale,
+    scale,
+    verticalScale
+} from 'react-native-size-matters';
 import { Colors } from '../../../constants';
 import Spacer from '../boots/Spacer';
 
-const ThreeDots = ({ active = 1, total = 3 }) => {
+const ThreeDots = ({
+    active = 1,
+    total = 3
+}) => {
     const dots = Array.from({ length: total }, (_, i) => i + 1);
 
     return (

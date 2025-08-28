@@ -1,7 +1,11 @@
 import axios from "axios";
 import API from "../../common/API";
 
-const BidOnItemApi = async (token, slug, bid_amount) => {
+const BidOnItemApi = async (
+    token,
+    slug,
+    bid_amount
+) => {
     try {
         const response = await axios.post(`${API.BASE_URL}auctions/${slug}/bid`, {
             bid_amount

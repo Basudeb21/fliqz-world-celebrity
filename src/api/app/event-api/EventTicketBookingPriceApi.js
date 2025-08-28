@@ -1,7 +1,11 @@
 import axios from "axios";
 import API from "../../common/API";
 
-const EventTicketBookingPriceApi = async (token, event_id, quantity) => {
+const EventTicketBookingPriceApi = async (
+    token,
+    event_id,
+    quantity
+) => {
     try {
 
         const response = await axios.post(`${API.BASE_URL}events/book-an-event`, {

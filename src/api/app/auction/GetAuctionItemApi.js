@@ -1,7 +1,10 @@
 import axios from "axios";
 import API from "../../common/API";
 
-const GetAuctionItemApi = async ({ token, slug }) => {
+const GetAuctionItemApi = async ({
+    token,
+    slug
+}) => {
     try {
         const response = await axios.get(`${API.BASE_URL}creator/auctions/${slug}`, {
             headers: {

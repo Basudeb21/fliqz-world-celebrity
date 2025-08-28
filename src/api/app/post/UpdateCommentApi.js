@@ -1,7 +1,12 @@
 import axios from "axios";
 import API from "../../common/API";
 
-const UpdateCommentApi = async (token, post_no, comment_no, message) => {
+const UpdateCommentApi = async (
+    token,
+    post_no,
+    comment_no,
+    message
+) => {
     try {
 
         const response = await axios.post(`${API.BASE_URL}post/${post_no}/comment/${comment_no}/update`, {

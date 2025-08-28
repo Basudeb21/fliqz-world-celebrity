@@ -1,7 +1,10 @@
 import axios from "axios";
 import API from "../common/API";
 
-const LoginApi = async (email_username, password) => {
+const LoginApi = async (
+    email_username,
+    password
+) => {
     try {
         const response = await axios.post(`${API.BASE_URL}login`, {
             email_username,

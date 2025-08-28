@@ -1,7 +1,10 @@
 import axios from "axios";
 import API from "../../common/API";
 
-const FollowUserApi = async (token, user_id) => {
+const FollowUserApi = async (
+    token,
+    user_id
+) => {
     try {
 
         const response = await axios.post(`${API.BASE_URL}list/${user_id}/follow`, {}, {

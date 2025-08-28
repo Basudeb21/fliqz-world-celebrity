@@ -1,16 +1,54 @@
-import { FlatList, StyleSheet, ToastAndroid, View } from 'react-native';
-import React, { useState, useEffect } from 'react';
-import { Images, NavigationStrings } from '../../../constants';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+    FlatList,
+    StyleSheet,
+    ToastAndroid,
+    View
+} from 'react-native';
+
+import React, {
+    useState,
+    useEffect
+} from 'react';
+
+import {
+    Images,
+    NavigationStrings
+} from '../../../constants';
+
+import {
+    SafeAreaView
+} from 'react-native-safe-area-context';
+
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Feather from 'react-native-vector-icons/Feather';
-import { useNavigation } from '@react-navigation/native';
-import { Spacer } from '../../../components/framework/boots';
-import { SelfStoryHighLight, StoryHighlight } from '../../../components/framework/story';
-import { BottomModal } from '../../../components/framework/modal';
-import { GetStoriesApi } from '../../../api/app/story';
-import { useSelector } from 'react-redux';
+
+import {
+    useNavigation
+} from '@react-navigation/native';
+
+import {
+    Spacer
+} from '../../../components/framework/boots';
+
+import {
+    SelfStoryHighLight,
+    StoryHighlight
+} from '../../../components/framework/story';
+
+import {
+    BottomModal
+} from '../../../components/framework/modal';
+
+import {
+    GetStoriesApi
+} from '../../../api/app/story';
+
+import {
+    useSelector
+} from 'react-redux';
+
+import API from '../../../api/common/API';
 
 const StoryHighlightArea = () => {
     const [storyModal, setStoryModal] = useState(false);
@@ -19,9 +57,25 @@ const StoryHighlightArea = () => {
     const navigation = useNavigation();
 
     const storyModalData = [
-        { id: 1, Icon: Fontisto, iconName: "photograph", text: "View Stories" },
-        { id: 2, Icon: Feather, iconName: "upload", text: "Upload Stories" },
-        { id: 3, Icon: FontAwesome5, iconName: "camera-retro", text: "Open Camera" },
+        {
+            id: 1,
+            Icon: Fontisto,
+            iconName: "photograph",
+            text: "View Stories"
+        },
+
+        {
+            id: 2,
+            Icon: Feather,
+            iconName: "upload",
+            text: "Upload Stories"
+        },
+        {
+            id: 3,
+            Icon: FontAwesome5,
+            iconName: "camera-retro",
+            text: "Open Camera"
+        },
     ];
 
     useEffect(() => {
@@ -50,11 +104,16 @@ const StoryHighlightArea = () => {
 
     const renderStoryItem = ({ item }) => (
         <StoryHighlight
-            image={item.image_url}
-            userName={item.user.name}
+            image={API.STORAGE_URL + item.image_url}
+            userName={
+                item.user.name.length > 9
+                    ? item.user.name.slice(0, 9) + '...'
+                    : item.user.name
+            }
             onPress={() => openStory(item.image_url, item.user.name, item.id)}
         />
     );
+
 
     return (
         <SafeAreaView>

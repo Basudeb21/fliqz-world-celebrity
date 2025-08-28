@@ -1,11 +1,25 @@
 import React from 'react';
-import { ActivityIndicator, View, StyleSheet } from 'react-native';
+import {
+    ActivityIndicator,
+    View,
+    StyleSheet
+} from 'react-native';
 import { Colors } from '../../../constants';
 
-const Loader = ({ size = 'large', color = Colors.THEME, fullScreen = false }) => {
+const Loader = ({
+    size = 'large',
+    color = Colors.THEME,
+    fullScreen = false
+}) => {
     return (
-        <View style={[styles.container, fullScreen && styles.fullScreen]}>
-            <ActivityIndicator size={size} color={color} />
+        <View style={[
+            styles.container,
+            fullScreen && styles.fullScreen
+        ]}>
+            <ActivityIndicator
+                size={size}
+                color={color}
+            />
         </View>
     );
 };

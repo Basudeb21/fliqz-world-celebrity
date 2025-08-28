@@ -7,31 +7,63 @@ import { Spacer } from '../boots'
 const ShippingBills = () => {
     return (
         <View style={styles.container}>
-            <Text style={styles.topic}>Shipping Details</Text>
-            <Text style={styles.owner}>Jhon Doe</Text>
-            <Text style={styles.address}>1600 Westheimer Rd, Houston, Texas, 77006, United States</Text>
-            <Text style={styles.phoneNumber}>Phone Number: +91 9876543210</Text>
+            <Text style={styles.topic}>
+                Shipping Details
+            </Text>
+            <Text style={styles.owner}>
+                Jhon Doe
+            </Text>
+            <Text style={styles.address}>
+                1600 Westheimer Rd, Houston, Texas, 77006, United States
+            </Text>
+            <Text style={styles.phoneNumber}>
+                Phone Number: +91 9876543210
+            </Text>
             <Spacer height={20} />
-            <Text style={styles.topic}>Payment Details</Text>
-            <Text style={styles.summary}>Payment Summary</Text>
-            <Text style={styles.tickitCut}>---------------------------</Text>
+            <Text style={styles.topic}>
+                Payment Details
+            </Text>
+            <Text style={styles.summary}>
+                Payment Summary
+            </Text>
+            <Text style={styles.tickitCut}>
+                ---------------------------
+            </Text>
             <View>
                 <View style={styles.row}>
-                    <Text style={styles.dataItem}>Price ( 1item)</Text>
-                    <Text style={styles.dataAmmount}>$80.00</Text>
+                    <Text style={styles.dataItem}>
+                        Price ( 1item)
+                    </Text>
+                    <Text style={styles.dataAmmount}>
+                        $80.00
+                    </Text>
                 </View>
                 <View style={styles.row}>
-                    <Text style={styles.dataItem}>Fees</Text>
-                    <Text style={styles.dataAmmount}>$0.25</Text>
+                    <Text style={styles.dataItem}>
+                        Fees
+                    </Text>
+                    <Text style={styles.dataAmmount}>
+                        $0.25
+                    </Text>
                 </View>
                 <View style={styles.row}>
-                    <Text style={styles.dataItem}>Discount</Text>
-                    <Text style={styles.dataAmmount}>$0.00</Text>
+                    <Text style={styles.dataItem}>
+                        Discount
+                    </Text>
+                    <Text style={styles.dataAmmount}>
+                        $0.00
+                    </Text>
                 </View>
-                <Text style={styles.tickitCut}>---------------------------</Text>
+                <Text style={styles.tickitCut}>
+                    ---------------------------
+                </Text>
                 <View style={styles.row}>
-                    <Text style={styles.dataItem}>Total</Text>
-                    <Text style={styles.dataAmmount}>$80.25</Text>
+                    <Text style={styles.dataItem}>
+                        Total
+                    </Text>
+                    <Text style={styles.dataAmmount}>
+                        $80.25
+                    </Text>
                 </View>
             </View>
 

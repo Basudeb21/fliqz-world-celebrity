@@ -2,7 +2,10 @@ import axios from "axios";
 import API from "../../common/API";
 import { ToastAndroid } from "react-native";
 
-const GetAllEventsApi = async (token, page = 1) => {
+const GetAllEventsApi = async (
+    token,
+    page = 1
+) => {
     try {
         if (!token) {
             ToastAndroid.show("Token not found...", ToastAndroid.SHORT);

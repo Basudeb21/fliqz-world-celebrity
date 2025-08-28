@@ -25,7 +25,9 @@ const LoadingBar = () => {
                 <Animated.View style={[styles.completeLoadingBar, { width: widthInterpolated }]} />
             </View>
 
-            <Text style={styles.loadingTxt}>Loading exclusive deals</Text>
+            <Text style={styles.loadingTxt}>
+                Loading exclusive deals
+            </Text>
         </View>
     )
 }

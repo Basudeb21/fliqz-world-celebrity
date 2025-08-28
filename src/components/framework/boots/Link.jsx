@@ -2,10 +2,15 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Colors } from '../../../constants'
 
-const Link = ({ label, onPress }) => {
+const Link = ({
+    label,
+    onPress
+}) => {
     return (
         <TouchableOpacity onPress={onPress}>
-            <Text style={styles.txt}>{label}</Text>
+            <Text style={styles.txt}>
+                {label}
+            </Text>
         </TouchableOpacity>
     )
 }
