@@ -181,7 +181,7 @@ const ProfilePage = () => {
                         <View style={{ justifyContent: "center", alignItems: "center" }}>
                             <OutLineButton label_two={Strings.LOGOUT} width={"90%"} onPress={onPressLogout} />
                         </View>
-                        <Spacer height={10} />
+                        <Spacer height={50} />
 
                     </>
                 }

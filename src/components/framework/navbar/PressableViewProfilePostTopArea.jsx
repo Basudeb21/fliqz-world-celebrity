@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         flexDirection: "row"
     },
     userAvatar: {
-        height: verticalScale(50),
+        height: verticalScale(42),
         width: moderateScale(50),
         borderRadius: scale(100),
 

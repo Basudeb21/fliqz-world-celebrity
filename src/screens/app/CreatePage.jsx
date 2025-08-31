@@ -5,10 +5,10 @@ import {
     ToastAndroid,
     View,
     Text,
-    ScrollView,
     Image,
     KeyboardAvoidingView,
-    TouchableOpacity
+    TouchableOpacity,
+    FlatList,
 } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -16,12 +16,19 @@ import { moderateScale, verticalScale } from 'react-native-size-matters';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
 import { Colors } from '../../constants';
 import { useSelector } from 'react-redux';
 import { postDonePressSounds } from '../../sound/SoundManager';
 import ImagePicker from 'react-native-image-crop-picker';
-import { GradientTextButton, IconTxtHRInputButton, OutLineButton } from '../../components/framework/button';
-import { Spacer } from '../../components/framework/boots';
+import {
+    GradientTextButton,
+    IconTxtHRInputButton,
+    OutLineButton,
+} from '../../components/framework/button';
+import { Loader, Spacer } from '../../components/framework/boots';
 import { BackpressTopBar } from '../../components/framework/navbar';
 import { TextArea } from '../../components/framework/input';
 import { AddNewPostApi } from '../../api/app/post';
@@ -34,13 +41,14 @@ const CreatePage = () => {
 
     const requestStoragePermission = async () => {
         if (Platform.OS !== 'android') return true;
-
         try {
             const granted = await PermissionsAndroid.requestMultiple([
                 PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES,
                 PermissionsAndroid.PERMISSIONS.READ_MEDIA_VIDEO,
             ]);
-            return Object.values(granted).every(status => status === PermissionsAndroid.RESULTS.GRANTED);
+            return Object.values(granted).every(
+                (status) => status === PermissionsAndroid.RESULTS.GRANTED
+            );
         } catch (err) {
             console.warn('Permission error:', err);
             return false;
@@ -48,10 +56,7 @@ const CreatePage = () => {
     };
 
     const handleMediaPick = async () => {
-        console.log('handleMediaPick called');
         const permissionGranted = await requestStoragePermission();
-        console.log('Permissions granted?', permissionGranted);
-
         if (!permissionGranted) {
             ToastAndroid.show('Permission denied', ToastAndroid.SHORT);
             return;
@@ -66,15 +71,14 @@ const CreatePage = () => {
                 compressImageQuality: 0.8,
             });
 
-            const selected = media.map(file => ({
+            const selected = media.map((file) => ({
                 uri: file.path,
                 type: file.mime,
                 name: file.filename || file.path.split('/').pop(),
             }));
 
-            setAttachments(prev => [...prev, ...selected]);
+            setAttachments((prev) => [...prev, ...selected]);
         } catch (error) {
-            console.log('Image Picker Error:', error);
             if (error?.message !== 'User cancelled image selection') {
                 ToastAndroid.show(`Error: ${error.message}`, ToastAndroid.LONG);
             }
@@ -82,21 +86,21 @@ const CreatePage = () => {
         setLoading(false);
     };
 
-
     const handelSetPost = async () => {
         if (!text.trim()) return;
         setLoading(true);
         try {
             const result = await AddNewPostApi(token, text, 1, attachments);
-            console.log('result : ', result);
-
             if (result?.success == true) {
                 ToastAndroid.show(result.message, ToastAndroid.SHORT);
                 setText('');
                 setAttachments([]);
                 postDonePressSounds();
             } else {
-                console.warn('Post API failed:', result?.message || 'Unknown error');
+                console.warn(
+                    'Post API failed:',
+                    result?.message || 'Unknown error'
+                );
             }
         } catch (error) {
             console.error('Post API Error:', error);
@@ -105,74 +109,110 @@ const CreatePage = () => {
         }
     };
 
+    /** Button List */
+    const buttonItems = [
+        {
+            Icon: Fontisto,
+            icnonName: 'photograph',
+            label: 'Photos/Videos',
+            onPress: handleMediaPick,
+        },
+        {
+            Icon: Ionicons,
+            icnonName: 'notifications',
+            label: 'Notification',
+        },
+        { Icon: AntDesign, icnonName: 'calendar', label: 'Schedule' },
+        { Icon: FontAwesome5, icnonName: 'dollar-sign', label: 'Price' },
+        { Icon: FontAwesome5, icnonName: 'poll', label: 'Poll' },
+        { Icon: MaterialIcons, icnonName: 'quiz', label: 'Quiz' },
+    ];
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
             <KeyboardAvoidingView style={{ flex: 1 }}>
                 <BackpressTopBar title={'New Post'} />
-                <View style={styles.container}>
-                    <TextArea
-                        placeholder="Write a new post, drag and drop files to add attachments."
-                        height={150}
-                        value={text}
-                        setValue={setText}
-                    />
 
-                    <View style={styles.iconBtnContainer}>
-                        <IconTxtHRInputButton
-                            Icon={Fontisto}
-                            icnonName={'photograph'}
-                            label={'Photos/Videos'}
-                            onPress={handleMediaPick}
-                        />
-                        <Spacer height={15} />
-                        <IconTxtHRInputButton
-                            Icon={Ionicons}
-                            icnonName={'notifications'}
-                            label={'Notification'}
-                        />
-                        <Spacer height={15} />
-                        <IconTxtHRInputButton
-                            Icon={AntDesign}
-                            icnonName={'calendar'}
-                            label={'Schedule'}
-                        />
-                    </View>
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 10 }}>
-                        {attachments.map((item, index) => (
-                            <View key={index} style={styles.mediaWrapper}>
-                                <Image
-                                    source={{ uri: item.uri }}
-                                    style={styles.thumbnail}
-                                    resizeMode="cover"
+                <View style={{ flex: 1, paddingHorizontal: 20 }}>
+                    <FlatList
+                        data={[]}
+                        ListHeaderComponent={
+                            <>
+                                <TextArea
+                                    placeholder="Write a new post, drag and drop files to add attachments."
+                                    height={150}
+                                    value={text}
+                                    setValue={setText}
                                 />
-                                <TouchableOpacity
-                                    style={styles.removeBtn}
-                                    onPress={() =>
-                                        setAttachments((prev) =>
-                                            prev.filter((_, i) => i !== index)
-                                        )
-                                    }
-                                >
-                                    <Text style={styles.removeBtnText}>×</Text>
-                                </TouchableOpacity>
-                            </View>
-                        ))}
-                    </ScrollView>
+                                <Spacer height={20} />
+                                <FlatList
+                                    data={buttonItems}
+                                    keyExtractor={(_, index) => index.toString()}
+                                    scrollEnabled={false}
+                                    renderItem={({ item }) => (
+                                        <View style={{ marginBottom: 15 }}>
+                                            <IconTxtHRInputButton
+                                                Icon={item.Icon}
+                                                icnonName={item.icnonName}
+                                                label={item.label}
+                                                onPress={item.onPress}
+                                            />
+                                        </View>
+                                    )}
+                                />
 
-                    <View style={styles.btnArea}>
-                        <Spacer height={40} />
-                        <OutLineButton label_two={'Clear'} onPress={() => setText('')} />
-                        <Spacer height={15} />
-                        <GradientTextButton label="Post" width="100%" onPress={handelSetPost} loading={false} />
-                    </View>
+                                {/* Attachments Preview (FlatList Horizontal) */}
+                                <FlatList
+                                    data={attachments}
+                                    horizontal
+                                    keyExtractor={(_, index) => index.toString()}
+                                    showsHorizontalScrollIndicator={false}
+                                    contentContainerStyle={{ marginTop: 10 }}
+                                    renderItem={({ item, index }) => (
+                                        <View style={styles.mediaWrapper}>
+                                            <Image
+                                                source={{ uri: item.uri }}
+                                                style={styles.thumbnail}
+                                                resizeMode="cover"
+                                            />
+                                            <TouchableOpacity
+                                                style={styles.removeBtn}
+                                                onPress={() =>
+                                                    setAttachments((prev) =>
+                                                        prev.filter(
+                                                            (_, i) => i !== index
+                                                        )
+                                                    )
+                                                }
+                                            >
+                                                <Text style={styles.removeBtnText}>
+                                                    ×
+                                                </Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    )}
+                                />
+
+                                <View style={styles.btnArea}>
+                                    <OutLineButton
+                                        label_two={'Clear'}
+                                        onPress={() => setText('')}
+                                    />
+                                    <Spacer height={15} />
+                                    <GradientTextButton
+                                        label="Post"
+                                        width="100%"
+                                        onPress={handelSetPost}
+                                        loading={loading}
+                                    />
+                                    <Spacer height={40} />
+                                </View>
+                            </>
+                        }
+                    />
                 </View>
 
-                {loading && (
-                    <View style={styles.loadingOverlay}>
-                        <ActivityIndicator size="large" color={Colors.THEME} />
-                    </View>
-                )}
-
+                {loading && <Loader color={Colors.THEME} />}
             </KeyboardAvoidingView>
         </SafeAreaView>
     );
@@ -181,29 +221,16 @@ const CreatePage = () => {
 export default CreatePage;
 
 const styles = StyleSheet.create({
-    container: {
-        marginHorizontal: moderateScale(20),
-        marginTop: verticalScale(10),
-        flex: 1,
-    },
-    iconBtnContainer: {
-        marginTop: verticalScale(20),
+    scrollContainer: {
+        paddingHorizontal: moderateScale(20),
+        paddingTop: verticalScale(10),
+        paddingBottom: verticalScale(40),
     },
     btnArea: {
+        marginTop: 30,
         backgroundColor: Colors.WHITE,
-        position: 'absolute',
-        bottom: verticalScale(30),
-        width: "100%"
-    },
-    loadingOverlay: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(0,0,0,0.3)',
-        justifyContent: 'center',
-        alignItems: 'center',
+        paddingHorizontal: moderateScale(20),
+        paddingBottom: verticalScale(40),
     },
     thumbnail: {
         width: 100,
@@ -233,5 +260,4 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         lineHeight: 20,
     },
-
 });

@@ -1,65 +1,88 @@
-import { FlatList, StyleSheet } from 'react-native';
-import React, { useState } from 'react';
-import { Colors, Images, NavigationStrings } from '../../../constants';
+import { FlatList, StyleSheet, ActivityIndicator, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Colors, NavigationStrings } from '../../../constants';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ChatFriendCard } from '../../../components/framework/card';
+import ChatFriendCard from '../../../components/framework/card/ChatFriendCard'; // ✅ Import correctly
 import { Spacer } from '../../../components/framework/boots';
 import { BackpressTopBar } from '../../../components/framework/navbar';
 import { SearchBar } from '../../../components/framework/input';
+import AllChatsApi from '../../../api/app/chat/AllChatsApi';
+import { useSelector } from 'react-redux';
 
 const ChatFriendList = () => {
-    const users = [
-        { id: 1, image: Images.CELEBRITY_AVATAR_ONE, fanName: "Fans_10", fanActiveTime: "active 10m ago" },
-        { id: 2, image: Images.CELEBRITY_AVATAR_TWO, fanName: "Fans_12", fanActiveTime: "active 1m ago" },
-        { id: 3, image: Images.CELEBRITY_AVATAR_THREE, fanName: "Fans_18", fanActiveTime: "active 10d ago" },
-        { id: 4, image: Images.CELEBRITY_AVATAR_FOUR, fanName: "Fans_21", fanActiveTime: "active 25m ago" },
-        { id: 5, image: Images.CELEBRITY_AVATAR_FIVE, fanName: "Fans_65", fanActiveTime: "active 4s ago" },
-        { id: 6, image: Images.CELEBRITY_AVATAR_ONE, fanName: "Fans_11", fanActiveTime: "active 50s ago" },
-        { id: 7, image: Images.CELEBRITY_AVATAR_TWO, fanName: "Fans_1", fanActiveTime: "active 1d ago" },
-        { id: 8, image: Images.CELEBRITY_AVATAR_THREE, fanName: "Fans_7", fanActiveTime: "active 12m ago" },
-        { id: 9, image: Images.CELEBRITY_AVATAR_FOUR, fanName: "Fans_74", fanActiveTime: "active 10m ago" },
-        { id: 10, image: Images.CELEBRITY_AVATAR_FIVE, fanName: "Fans_89", fanActiveTime: "active 10m ago" },
-        { id: 12, image: Images.CELEBRITY_AVATAR_ONE, fanName: "Fans_69", fanActiveTime: "active 11m ago" },
-        { id: 13, image: Images.CELEBRITY_AVATAR_TWO, fanName: "Fans_45", fanActiveTime: "active 14m ago" },
-
-
-    ]
-
     const [searchTxt, setSearchTxt] = useState("");
-    const navigation = useNavigation();
-    const onPressChatClick = (user) => {
-        navigation.navigate(NavigationStrings.CHAT_STACK, {
-            screen: NavigationStrings.FRIEND_CHAT_SCREEN,
-            params: { user }
-        })
-    }
+    const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(false);
 
+    const navigation = useNavigation();
+    const token = useSelector(state => state.auth.token);
+
+    useEffect(() => {
+        const fetchChats = async () => {
+            setLoading(true);
+            try {
+                const res = await AllChatsApi({ token });
+
+                console.log("API Response: ", res); // ✅ Debug
+
+                if (res.success && Array.isArray(res.data)) {
+                    setUsers(res.data);
+                } else {
+                    setUsers([]);
+                }
+            } catch (error) {
+                console.log("Fetch Chats Error: ", error);
+                setUsers([]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchChats();
+    }, [token]);
+
+    const onPressChatClick = (user) => {
+        navigation.navigate(NavigationStrings.FRIEND_CHAT_SCREEN, { user });
+    };
+
+    const filteredUsers = users.filter(user =>
+        user.name?.toLowerCase().includes(searchTxt.toLowerCase()) ||
+        user.username?.toLowerCase().includes(searchTxt.toLowerCase())
+    );
 
     return (
-        <SafeAreaView style={styles.container}>
-            <BackpressTopBar title={"MyProfile_4321"} />
-            <FlatList
-                ListHeaderComponent={
-                    <>
-                        <Spacer height={20} />
-                        <SearchBar value={searchTxt} setValue={setSearchTxt} placeholder={"Search"} />
-                    </>
-                }
-                data={users}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (
-                    <ChatFriendCard
-                        image={item.image}
-                        fanName={item.fanName}
-                        fanActiveTime={item.fanActiveTime}
-                        onPress={() => onPressChatClick(item)}
-                    />
-                )}
-                ListFooterComponent={<Spacer height={100} />}
-                contentContainerStyle={styles.scrollContent}
-            />
-        </SafeAreaView>
+        <View style={styles.container}>
+            <BackpressTopBar title={"My Chats"} />
+
+            {loading ? (
+                <ActivityIndicator size="large" color={Colors.THEME} style={{ marginTop: 30 }} />
+            ) : (
+                <FlatList
+                    ListHeaderComponent={
+                        <View style={{ flex: 1 }}>
+                            <Spacer height={20} />
+                            <SearchBar value={searchTxt} setValue={setSearchTxt} placeholder={"Search"} />
+                        </View>
+                    }
+                    data={filteredUsers}
+                    keyExtractor={(item, index) => item.id?.toString() || index.toString()}
+                    renderItem={({ item }) => (
+                        <ChatFriendCard
+                            image={item.avatar}
+                            fanName={item.name || item.username}
+                            fanActiveTime={item.last_text_time || "Offline"}
+                            lastMessage={item.last_text || ""}
+                            unreadCount={item.unread_msg_count || 0}
+                            onPress={() => onPressChatClick(item)}
+                        />
+                    )}
+                    ListFooterComponent={<Spacer height={100} />}
+                    contentContainerStyle={styles.scrollContent}
+                />
+
+            )}
+        </View>
     );
 };
 
@@ -67,6 +90,10 @@ export default ChatFriendList;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: Colors.WHITE
+        backgroundColor: Colors.WHITE,
+        height: '100%'
+    },
+    scrollContent: {
+        paddingBottom: 20,
     }
 });

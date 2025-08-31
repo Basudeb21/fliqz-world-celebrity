@@ -8,13 +8,14 @@ import { GradientIconTextCard } from '../../../../components/framework/card'
 import { GradientIconButton } from '../../../../components/framework/button'
 import { Spacer } from '../../../../components/framework/boots'
 import { BackpressTopBar } from '../../../../components/framework/navbar'
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 
 
 const HelpAndSettingsScreen = () => {
     const cardContents = helpAndSupportCards;
 
     return (
-        <View style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
             <BackpressTopBar title={"Help and Support"} />
             <Spacer height={10} />
             <Text style={styles.updateTxt}>Last updated: 2025-05-06</Text>
@@ -38,10 +39,12 @@ const HelpAndSettingsScreen = () => {
                         <Text style={styles.bigTxt}>Looking for something else?</Text>
                         <Spacer height={20} />
                         <GradientIconButton Icon={MaterialIcons} iconName={"add-circle"} iconSize={20} label='Add Support Ticket' />
+                        <Spacer height={40} />
+
                     </>
                 }
             />
-        </View>
+        </SafeAreaView>
     )
 }
 

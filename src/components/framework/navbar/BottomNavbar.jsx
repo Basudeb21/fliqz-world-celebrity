@@ -8,10 +8,12 @@ import { Colors, NavigationStrings } from '../../../constants';
 import { ChatPage, CreatePage, HomePage, LivePage, ProfilePage } from '../../../screens/app';
 import { useSelector } from 'react-redux';
 import { GradientIcon } from '../icon';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 
 
 const BottomNavbar = () => {
+    const insets = useSafeAreaInsets();
     const Tab = createBottomTabNavigator();
     const iconSize = 24;
     const user = useSelector((state) => state.auth.user);
@@ -19,10 +21,15 @@ const BottomNavbar = () => {
     return (
         <Tab.Navigator
             screenOptions={{
-                tabBarStyle: styles.navBar,
+                tabBarStyle: {
+                    ...styles.navBar,
+                    height: 50 + insets.bottom, // increase height
+                    paddingBottom: insets.bottom, // safe padding
+                },
                 headerShown: false,
                 tabBarShowLabel: false,
             }}
+
         >
 
             <Tab.Screen
@@ -127,19 +134,20 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     navBar: {
-        height: 40,
-        // borderTopLeftRadius: 20,
-        // borderTopRightRadius: 20,
+        // height: 60, // give it enough height
         backgroundColor: Colors.WHITE,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        position: 'absolute',
     },
     img: {
-        width: moderateScale(27),
-        height: verticalScale(27),
+        width: moderateScale(30),
+        height: verticalScale(24),
         borderRadius: scale(100),
     },
     active: {
-        width: moderateScale(26),
-        height: verticalScale(26),
+        width: moderateScale(30),
+        height: verticalScale(24),
         borderRadius: scale(100),
         borderWidth: scale(2),
         borderColor: Colors.THEME

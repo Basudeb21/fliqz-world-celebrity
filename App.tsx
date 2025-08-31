@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StatusBar, Platform } from 'react-native';
+import { StatusBar, Platform, View } from 'react-native';
 import { Colors } from './src/constants';
 import NavigationBar from 'react-native-system-navigation-bar';
 import { NavigationContainer } from '@react-navigation/native';
@@ -11,8 +11,9 @@ import InternetStatusPopup from './src/utils/InternetStatusPopup';
 
 const App = () => {
   const [showSplash, setShowSplash] = useState(true);
+
   useEffect(() => {
-    if (Platform.OS === 'android') {
+    if (Platform.OS === 'android' || Platform.OS === 'ios') {
       NavigationBar.setNavigationColor(Colors.THEME, 'light');
     }
 
@@ -25,11 +26,14 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <StatusBar backgroundColor={Colors.THEME} barStyle="light-content" />
-      <NavigationContainer>
-        <SplashStack />
-      </NavigationContainer>
-      <InternetStatusPopup />
+
+      <View style={{ flex: 1, backgroundColor: Colors.THEME }}>
+        <StatusBar translucent backgroundColor={Colors.THEME} barStyle="light-content" />
+        <NavigationContainer>
+          <SplashStack />
+        </NavigationContainer>
+        <InternetStatusPopup />
+      </View>
     </Provider>
   );
 };

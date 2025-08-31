@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/native'
 import { NoOutlineIconTextButton } from '../../../../components/framework/button'
 import { HR, Spacer } from '../../../../components/framework/boots'
 import { BackpressTopBar } from '../../../../components/framework/navbar'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 
 
@@ -85,7 +86,7 @@ const SettingsScreen = () => {
 
     ]
     return (
-        <View style={{ backgroundColor: Colors.WHITE, flex: 1 }}>
+        <SafeAreaView style={{ backgroundColor: Colors.WHITE, flex: 1 }}>
             <BackpressTopBar title={"Settings"} />
             <Spacer height={10} />
             <Text style={styles.txt}>Manage your account</Text>
@@ -107,7 +108,7 @@ const SettingsScreen = () => {
 
 
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 

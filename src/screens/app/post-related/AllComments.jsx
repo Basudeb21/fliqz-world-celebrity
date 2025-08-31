@@ -5,6 +5,8 @@ import {
     View,
     Keyboard,
     ToastAndroid,
+    KeyboardAvoidingView,
+    Platform,
 } from 'react-native';
 import React, { useState, useRef } from 'react';
 import {
@@ -21,12 +23,15 @@ import { CommentCard } from '../../../components/framework/card';
 import { SendCommentApi, UpdateCommentApi } from '../../../api/app/post';
 import { BackpressTopBar } from '../../../components/framework/navbar';
 import { SendCommentArea } from '../../../components/framework/input';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const AllComments = () => {
     const route = useRoute();
     const initialComments = route.params?.comments || [];
     const postID = route.params?.postID;
     const token = useSelector(state => state.auth.token);
+    const insets = useSafeAreaInsets();
 
     const [value, setValue] = useState('');
     const [comments, setComments] = useState(initialComments);
@@ -35,30 +40,45 @@ const AllComments = () => {
 
     const flatListRef = useRef();
 
-
     const onPressPostComment = async () => {
         if (value.trim()) {
             try {
                 if (editingCommentId) {
-                    const result = await UpdateCommentApi(token, postID, editingCommentId, value.trim());
-                    console.log("UPD COM : ", result);
+                    const result = await UpdateCommentApi(
+                        token,
+                        postID,
+                        editingCommentId,
+                        value.trim()
+                    );
 
                     if (result?.success) {
                         setComments(prev =>
                             prev.map(c =>
-                                c.id === editingCommentId ? { ...c, message: value.trim() } : c
+                                c.id === editingCommentId
+                                    ? { ...c, message: value.trim() }
+                                    : c
                             )
                         );
-                        ToastAndroid.show("Comment updated", ToastAndroid.SHORT);
+                        ToastAndroid.show(
+                            'Comment updated',
+                            ToastAndroid.SHORT
+                        );
                     } else {
-                        ToastAndroid.show("Failed to update comment", ToastAndroid.SHORT);
+                        ToastAndroid.show(
+                            'Failed to update comment',
+                            ToastAndroid.SHORT
+                        );
                     }
                     setEditingCommentId(null);
                     setEditingInitialValue('');
                     setValue('');
                     Keyboard.dismiss();
                 } else {
-                    const result = await SendCommentApi(token, postID, value.trim());
+                    const result = await SendCommentApi(
+                        token,
+                        postID,
+                        value.trim()
+                    );
                     if (result?.success === true) {
                         postDonePressSounds();
                         setValue('');
@@ -67,12 +87,18 @@ const AllComments = () => {
                         setComments(prev => {
                             const updated = [result.data, ...prev];
                             setTimeout(() => {
-                                flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
+                                flatListRef.current?.scrollToOffset({
+                                    offset: 0,
+                                    animated: true,
+                                });
                             }, 100);
                             return updated;
                         });
                     } else {
-                        console.warn('Comment API failed:', result?.message || 'Unknown error');
+                        console.warn(
+                            'Comment API failed:',
+                            result?.message || 'Unknown error'
+                        );
                     }
                 }
             } catch (error) {
@@ -82,7 +108,6 @@ const AllComments = () => {
             ToastAndroid.show('Comment cannot be empty.', ToastAndroid.SHORT);
         }
     };
-
 
     const renderEmptyComponent = () => (
         <View style={styles.emptyContainer}>
@@ -94,7 +119,7 @@ const AllComments = () => {
     );
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <BackpressTopBar title={'Comments'} />
 
             <FlatList
@@ -104,8 +129,10 @@ const AllComments = () => {
                 renderItem={({ item }) => (
                     <CommentCard
                         post_item={item}
-                        onDelete={(deletedCommentId) => {
-                            setComments(prev => prev.filter(c => c.id !== deletedCommentId));
+                        onDelete={deletedCommentId => {
+                            setComments(prev =>
+                                prev.filter(c => c.id !== deletedCommentId)
+                            );
                         }}
                         onEditRequest={(id, message) => {
                             setEditingCommentId(id);
@@ -113,7 +140,6 @@ const AllComments = () => {
                             setValue(message);
                         }}
                     />
-
                 )}
                 ListEmptyComponent={renderEmptyComponent}
                 contentContainerStyle={
@@ -124,16 +150,27 @@ const AllComments = () => {
                 showsVerticalScrollIndicator={false}
             />
 
-            <View style={styles.sendCommentWrapper}>
-                <SendCommentArea
-                    placeholder={'Write a comment...'}
-                    postId={postID}
-                    onPress={onPressPostComment}
-                    value={value}
-                    setValue={setValue}
-                />
-            </View>
-        </View>
+            {/* ✅ Handles safe area + keyboard */}
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
+            >
+                <View
+                    style={[
+                        styles.sendCommentWrapper,
+                        { paddingBottom: insets.bottom },
+                    ]}
+                >
+                    <SendCommentArea
+                        placeholder={'Write a comment...'}
+                        postId={postID}
+                        onPress={onPressPostComment}
+                        value={value}
+                        setValue={setValue}
+                    />
+                </View>
+            </KeyboardAvoidingView>
+        </SafeAreaView>
     );
 };
 
@@ -159,11 +196,9 @@ const styles = StyleSheet.create({
     sendCommentWrapper: {
         backgroundColor: Colors.WHITE,
         width: '100%',
-        height: verticalScale(63),
+        minHeight: verticalScale(63),
         borderTopWidth: 1,
         borderTopColor: Colors.INPUTBOX_DEACTIVE_BORDER_COLOR,
-        position: 'absolute',
-        bottom: 0,
         justifyContent: 'center',
     },
     emptyContainer: {

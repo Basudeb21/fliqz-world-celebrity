@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
     BackHandler,
     FlatList,
-    SafeAreaView,
     StyleSheet,
     ToastAndroid,
 } from 'react-native';
@@ -14,6 +13,7 @@ import { Spacer } from '../../components/framework/boots';
 import { GetAllPostsApi } from '../../api/app/post';
 import { HomeTopBar } from '../../components/framework/navbar';
 import { StoryHighlightArea } from './post-related';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 let backPressedOnce = false;
 
@@ -21,6 +21,8 @@ const HomePage = () => {
     const navigation = useNavigation();
     const token = useSelector(state => state.auth.token);
     const user = useSelector(state => state.auth.user);
+
+
     const [allPosts, setAllPosts] = useState([]);
     const [filteredPosts, setFilteredPosts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -29,6 +31,7 @@ const HomePage = () => {
     const [refreshing, setRefreshing] = useState(false);
 
     console.log(token);
+    console.log(user);
 
     useEffect(() => {
         if (!token || !user) {

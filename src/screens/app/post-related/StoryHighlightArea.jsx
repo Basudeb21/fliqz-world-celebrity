@@ -155,6 +155,5 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 10,
-        paddingTop: 10,
     },
 });
