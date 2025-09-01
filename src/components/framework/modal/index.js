@@ -5,3 +5,4 @@ export { default as PostThreeDotsModal } from "./PostThreeDotsModal";
 export { default as PrivacyModal } from "./PrivacyModal";
 export { default as SendTipsModal } from "./SendTipsModal";
 export { default as TicketModal } from "./TicketModal";
+export { default as PollModal } from "./PollModal";

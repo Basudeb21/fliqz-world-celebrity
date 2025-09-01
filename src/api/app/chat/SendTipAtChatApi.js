@@ -1,7 +1,7 @@
 import axios from "axios";
 import API from "../../common/API";
 
-const SendMessageApi = async ({
+const SendTipAtChatApi = async ({
     token,
     id,
     price
@@ -29,4 +29,4 @@ const SendMessageApi = async ({
     }
 };
 
-export default SendMessageApi;
+export default SendTipAtChatApi;

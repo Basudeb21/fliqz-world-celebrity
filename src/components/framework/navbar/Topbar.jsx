@@ -9,7 +9,7 @@ import PressableViewProfilePostTopArea from './PressableViewProfilePostTopArea';
 import { GradientIcon } from '../icon';
 import { BookMarkPostApi } from '../../../api/app/post';
 
-const Topbar = ({ userAvatar, userName, postText, data }) => {
+const Topbar = ({ userAvatar, userName, postText, data, badges }) => {
     const [focused, setFocused] = useState(data.is_bookmarked);
     const token = useSelector(state => state.auth.token);
     const handleOnpress = async () => {
@@ -44,6 +44,7 @@ const Topbar = ({ userAvatar, userName, postText, data }) => {
                     userName={userName}
                     userID={"@u987654321"}
                     postText={postText}
+                    badges={badges}
                     onPress={handlePressProfileIcon}
                 />
             </View>

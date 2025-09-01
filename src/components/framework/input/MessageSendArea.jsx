@@ -8,10 +8,8 @@ import { moderateScale, verticalScale } from 'react-native-size-matters'
 import { messageSendPressSounds } from '../../../sound/SoundManager'
 import { GradientIcon } from '../icon'
 
-const MessageSendArea = ({ placeholder, value, setValue }) => {
-    const onPressSendMessage = () => {
-        messageSendPressSounds()
-    }
+const MessageSendArea = ({ placeholder, value, setValue, onPress }) => {
+
     return (
         <View style={styles.container}>
             <TextInput
@@ -41,7 +39,7 @@ const MessageSendArea = ({ placeholder, value, setValue }) => {
                         colors={[Colors.BUTTON_GRADIENT_ONE, Colors.BUTTON_GRADIENT_TWO]}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.icon} onPress={onPressSendMessage}>
+                <TouchableOpacity style={styles.icon} onPress={onPress}>
                     <GradientIcon
                         name={"send-circle"}
                         size={32}

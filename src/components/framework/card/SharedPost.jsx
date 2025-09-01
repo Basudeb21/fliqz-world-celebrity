@@ -11,12 +11,13 @@ const SharedPost = ({
     userAvatar,
     createdAt,
     crowdfunding,
-    data
+    data,
+    badges
 }) => {
 
     return (
         <View style={styles.container}>
-            <Topbar userAvatar={userAvatar} userName={userName} postText={data.text} data={data} />
+            <Topbar userAvatar={userAvatar} userName={userName} postText={data.text} data={data} badges={badges} />
             <Text style={styles.postTxt}>{data.text}</Text>
 
             {crowdfunding && crowdfunding.title ? (

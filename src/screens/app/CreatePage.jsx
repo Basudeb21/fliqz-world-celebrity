@@ -32,12 +32,13 @@ import { Loader, Spacer } from '../../components/framework/boots';
 import { BackpressTopBar } from '../../components/framework/navbar';
 import { TextArea } from '../../components/framework/input';
 import { AddNewPostApi } from '../../api/app/post';
-
+import { PollModal } from '../../components/framework/modal';
 const CreatePage = () => {
     const [text, setText] = useState('');
     const [loading, setLoading] = useState(false);
     const [attachments, setAttachments] = useState([]);
     const token = useSelector((state) => state.auth.token);
+    const [pollVisible, setPollVisible] = useState(false);
 
     const requestStoragePermission = async () => {
         if (Platform.OS !== 'android') return true;
@@ -124,7 +125,7 @@ const CreatePage = () => {
         },
         { Icon: AntDesign, icnonName: 'calendar', label: 'Schedule' },
         { Icon: FontAwesome5, icnonName: 'dollar-sign', label: 'Price' },
-        { Icon: FontAwesome5, icnonName: 'poll', label: 'Poll' },
+        { Icon: FontAwesome5, icnonName: 'poll', label: 'Poll', onPress: () => setPollVisible(true) },
         { Icon: MaterialIcons, icnonName: 'quiz', label: 'Quiz' },
     ];
 
@@ -138,6 +139,7 @@ const CreatePage = () => {
                         data={[]}
                         ListHeaderComponent={
                             <>
+                                <Spacer height={20} />
                                 <TextArea
                                     placeholder="Write a new post, drag and drop files to add attachments."
                                     height={150}
@@ -213,6 +215,9 @@ const CreatePage = () => {
                 </View>
 
                 {loading && <Loader color={Colors.THEME} />}
+                {
+                    pollVisible && <PollModal visible={pollVisible} onClose={() => setPollVisible(false)} />
+                }
             </KeyboardAvoidingView>
         </SafeAreaView>
     );

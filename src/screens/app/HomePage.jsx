@@ -162,6 +162,7 @@ const HomePage = () => {
                         createdAt={item.created}
                         crowdfunding={item.crowedfunding}
                         data={item}
+                        badges={item.user?.badge}
                     />
                 )}
                 ItemSeparatorComponent={() => <Spacer height={20} />}
