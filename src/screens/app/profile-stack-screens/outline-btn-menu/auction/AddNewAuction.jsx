@@ -13,6 +13,7 @@ import { GradientTextButton } from '../../../../../components/framework/button';
 import { AddNewAuctionApi } from '../../../../../api/app/auction';
 import { BackpressTopBar } from '../../../../../components/framework/navbar';
 import { DateInputBox, GalleryPickerBox, OutlineQuantityInputBox, TextAreaBox, TextInputBox } from '../../../../../components/framework/input';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const AddNewAuction = () => {
     const [images, setImages] = useState([]);
@@ -55,7 +56,7 @@ const AddNewAuction = () => {
     }
 
     return (
-        <View style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
             <BackpressTopBar title={'Add new auction'} />
             <KeyboardAvoidingView
                 style={{ flex: 1 }}
@@ -88,7 +89,7 @@ const AddNewAuction = () => {
                     <GradientTextButton label='Save' onPress={onPressAddNewAuction} />
                 </View>
             </KeyboardAvoidingView>
-        </View>
+        </SafeAreaView>
     );
 };
 

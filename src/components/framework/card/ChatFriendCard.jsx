@@ -5,7 +5,6 @@ import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { HR } from '../boots';
 
 const ChatFriendCard = ({ image, fanName, fanActiveTime, lastMessage, unreadCount, onPress }) => {
-    console.log("ChatFriendCard Props: ", { image, fanName, fanActiveTime, lastMessage, unreadCount });
 
     return (
         <TouchableOpacity onPress={onPress}>

@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     img: {
-        height: verticalScale(30),
+        height: verticalScale(25),
         width: moderateScale(30),
         borderRadius: scale(100),
         borderWidth: 2,

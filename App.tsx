@@ -1,19 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { StatusBar, Platform, View } from 'react-native';
+import {
+  StatusBar,
+  Platform,
+  View,
+  StyleSheet,
+} from 'react-native';
 import { Colors } from './src/constants';
 import NavigationBar from 'react-native-system-navigation-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import SplashStack from './src/navigation/SplashStack';
-
 import { Provider } from 'react-redux';
 import { store } from './src/redux-store/store';
 import InternetStatusPopup from './src/utils/InternetStatusPopup';
+
+const STATUSBAR_HEIGHT = Platform.OS === 'android' ? 24 : 20; // 👈 fallback height for older Android
 
 const App = () => {
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
-    if (Platform.OS === 'android' || Platform.OS === 'ios') {
+    StatusBar.setBarStyle('light-content', true);
+
+    if (Platform.OS === 'android' && Platform.Version >= 21) {
+      StatusBar.setBackgroundColor(Colors.THEME);
       NavigationBar.setNavigationColor(Colors.THEME, 'light');
     }
 
@@ -26,9 +35,18 @@ const App = () => {
 
   return (
     <Provider store={store}>
-
       <View style={{ flex: 1, backgroundColor: Colors.THEME }}>
-        <StatusBar translucent backgroundColor={Colors.THEME} barStyle="light-content" />
+        {/* ✅ Custom Fake StatusBar for old versions */}
+        {Platform.OS === 'android' && Platform.Version < 21 && (
+          <View style={[styles.statusBar, { backgroundColor: Colors.THEME }]} />
+        )}
+
+        {/* ✅ Native StatusBar for new versions */}
+        <StatusBar
+          backgroundColor={Colors.THEME}
+          barStyle="light-content"
+        />
+
         <NavigationContainer>
           <SplashStack />
         </NavigationContainer>
@@ -39,3 +57,10 @@ const App = () => {
 };
 
 export default App;
+
+const styles = StyleSheet.create({
+  statusBar: {
+    height: STATUSBAR_HEIGHT,
+    width: '100%',
+  },
+});

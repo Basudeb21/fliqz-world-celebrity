@@ -6,6 +6,8 @@ const GetChatByUserIDApi = async ({
     id
 }) => {
     try {
+        console.log("API PARAM TEST: ", token, "\n ID: ", id);
+
         const response = await axios.post(`${API.BASE_URL}message/${id}/details`,
             {},
             {
@@ -15,7 +17,7 @@ const GetChatByUserIDApi = async ({
             }
         );
 
-        console.log("CHAT RESPONSE: ", response.data.data);
+        console.log("CHAT RESPONSE: ", response.data);
 
         return response.data;
 

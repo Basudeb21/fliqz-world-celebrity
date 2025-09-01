@@ -9,6 +9,7 @@ import { ShopItemCard } from '../../../../../components/framework/card';
 import { BackpressTopBar } from '../../../../../components/framework/navbar';
 import { Loader } from '../../../../../components/framework/boots';
 import { MyProductListsApi } from '../../../../../api/app/shop';
+import { SafeAreaView } from 'react-native-safe-area-context';
 const ShopScreen = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -46,7 +47,7 @@ const ShopScreen = () => {
     );
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <BackpressTopBar title={"Shop"} />
             {loading ? (
                 <Loader />
@@ -61,7 +62,7 @@ const ShopScreen = () => {
                 />
             )}
             <FloatingActionButton onPress={onPressAddNewProduct} />
-        </View>
+        </SafeAreaView>
     );
 };
 

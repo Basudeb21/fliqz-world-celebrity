@@ -14,7 +14,7 @@ export default NumberTrack
 const styles = StyleSheet.create({
     number: {
         borderWidth: scale(3),
-        paddingHorizontal: moderateScale(6),
+        paddingHorizontal: moderateScale(8),
         paddingVertical: verticalScale(2),
         borderRadius: scale(100),
         fontSize: scale(12),

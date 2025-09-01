@@ -2,8 +2,7 @@ import { FlatList, StyleSheet, ActivityIndicator, View } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { Colors, NavigationStrings } from '../../../constants';
 import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import ChatFriendCard from '../../../components/framework/card/ChatFriendCard'; // ✅ Import correctly
+import ChatFriendCard from '../../../components/framework/card/ChatFriendCard';
 import { Spacer } from '../../../components/framework/boots';
 import { BackpressTopBar } from '../../../components/framework/navbar';
 import { SearchBar } from '../../../components/framework/input';
@@ -24,7 +23,6 @@ const ChatFriendList = () => {
             try {
                 const res = await AllChatsApi({ token });
 
-                console.log("API Response: ", res); // ✅ Debug
 
                 if (res.success && Array.isArray(res.data)) {
                     setUsers(res.data);
@@ -43,7 +41,10 @@ const ChatFriendList = () => {
     }, [token]);
 
     const onPressChatClick = (user) => {
-        navigation.navigate(NavigationStrings.FRIEND_CHAT_SCREEN, { user });
+        navigation.navigate(NavigationStrings.CHAT_STACK, {
+            screen: NavigationStrings.FRIEND_CHAT_SCREEN,
+            params: { user }
+        });
     };
 
     const filteredUsers = users.filter(user =>

@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     },
     image: {
         height: verticalScale(40),
-        width: moderateScale(40),
+        width: moderateScale(45),
         borderRadius: scale(100),
         marginEnd: moderateScale(15)
     },

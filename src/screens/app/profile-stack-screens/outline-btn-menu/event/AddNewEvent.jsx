@@ -9,6 +9,7 @@ import { GradientTextButton } from '../../../../../components/framework/button'
 import { BackpressTopBar } from '../../../../../components/framework/navbar'
 import { DateTimeInputBox, TextAreaBox, TextInputBox } from '../../../../../components/framework/input'
 import { AddEventApi } from '../../../../../api/app/event-api'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const AddNewEvent = () => {
     const token = useSelector((state) => state.auth.token);
@@ -49,7 +50,7 @@ const AddNewEvent = () => {
     }
 
     return (
-        <View>
+        <SafeAreaView>
             <BackpressTopBar title={"Add New Event"} />
             <View style={styles.form}>
                 <KeyboardAvoidingView >
@@ -88,7 +89,7 @@ const AddNewEvent = () => {
                 </KeyboardAvoidingView>
             </View>
 
-        </View>
+        </SafeAreaView>
     )
 }
 

@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: "100%",
         position: "absolute",
-        bottom: 20,
+        bottom: 60,
         gap: scale(10),
         alignItems: "center",
         justifyContent: "center",

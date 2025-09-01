@@ -101,8 +101,8 @@ const styles = StyleSheet.create({
     },
 
     userImg: {
+        width: moderateScale(45),
         height: verticalScale(40),
-        width: moderateScale(40),
         borderRadius: scale(100),
     },
     storyAddBtn: {

@@ -13,6 +13,7 @@ import { GradientTextButton } from '../../../../../components/framework/button'
 import { BackpressTopBar } from '../../../../../components/framework/navbar'
 import TimeDifference from '../../../../../utils/TimeDifference'
 import { PaymentModal } from '../../../../../components/framework/modal'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 
 const EventDetailsScreen = ({ route }) => {
@@ -29,7 +30,7 @@ const EventDetailsScreen = ({ route }) => {
     }
 
     return (
-        <View style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1 }}>
             <BackpressTopBar title={"Event Details"} />
             <Image source={{ uri: Images.EVENT_EIGHT }} style={styles.eventImg} />
             <Text style={styles.eventName}>{event.title}</Text>
@@ -127,7 +128,7 @@ const EventDetailsScreen = ({ route }) => {
                 }
 
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 
@@ -203,6 +204,6 @@ const styles = StyleSheet.create({
         marginTop: verticalScale(30),
         position: "absolute",
         width: "100%",
-        bottom: verticalScale(20)
+        bottom: verticalScale(45)
     }
 })

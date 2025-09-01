@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     },
     image: {
         height: verticalScale(70),
-        width: moderateScale(70),
+        width: moderateScale(80),
         borderRadius: scale(100)
     },
     fanName: {

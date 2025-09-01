@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     },
     normalTxt: {
         flexShrink: 1,
-        marginLeft: moderateScale(10), // fixed margin between image stack and text
+        marginLeft: moderateScale(15),
     },
     commonNames: {
         fontWeight: "600",

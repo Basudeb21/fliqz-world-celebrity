@@ -17,6 +17,7 @@ import { BackpressTopBar } from '../../../../../components/framework/navbar';
 import { AmmountInput, DateInputBox, GalleryPickerBox, TextAreaBox, TextInputBox } from '../../../../../components/framework/input';
 import { GetAuctionItemApi, UpdateAuctionItemApi } from '../../../../../api/app/auction';
 import { Loader } from '../../../../../components/framework/boots';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const EditAuctionItem = ({ route }) => {
     const { slug } = route.params;
@@ -93,7 +94,7 @@ const EditAuctionItem = ({ route }) => {
     }
 
     return (
-        <View style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
             <BackpressTopBar title={'Edit auction'} />
             <KeyboardAvoidingView
                 style={{ flex: 1 }}
@@ -136,7 +137,7 @@ const EditAuctionItem = ({ route }) => {
                     <GradientTextButton label="Update" onPress={onPressUpdateAuction} />
                 </View>
             </KeyboardAvoidingView>
-        </View>
+        </SafeAreaView>
     );
 };
 

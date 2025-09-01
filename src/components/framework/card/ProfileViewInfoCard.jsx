@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
         marginStart: moderateScale(100)
     },
     image: {
-        height: verticalScale(70),
-        width: moderateScale(70),
+        height: verticalScale(65),
+        width: moderateScale(75),
         borderRadius: scale(100),
         position: "absolute",
         bottom: -35,

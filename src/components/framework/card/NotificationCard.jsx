@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     },
     userImage: {
         width: moderateScale(50),
-        height: verticalScale(50),
+        height: verticalScale(42),
         borderRadius: scale(100),
     },
     infoContainer: {
