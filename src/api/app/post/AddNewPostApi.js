@@ -5,13 +5,34 @@ const AddNewPostApi = async (
     token,
     text,
     price = 0,
-    attachments = []
+    attachments = [],
+    poll = [],
+    quiz = [],
+    postWithStory = false
 ) => {
     try {
         const formData = new FormData();
 
-        formData.append('text', text);
         formData.append('price', price);
+        formData.append('post_with_story', postWithStory);
+
+        if (poll?.question && poll?.answers?.length > 0) {
+            formData.append("text", poll.question);
+            poll.answers.forEach((answer, index) => {
+                formData.append(`poll[${index}]`, answer);
+            });
+        }
+
+        else if (quiz?.question && quiz?.answers?.length > 0) {
+            formData.append("text", quiz.question);
+            quiz.answers.forEach((answer, index) => {
+                formData.append(`quiz[${index}]`, answer);
+            });
+        }
+
+        else {
+            formData.append('text', text);
+        }
 
         attachments.forEach((file, index) => {
             formData.append('attachments[]', {
@@ -38,5 +59,6 @@ const AddNewPostApi = async (
         return { success: false, message: error.message };
     }
 };
+
 
 export default AddNewPostApi;

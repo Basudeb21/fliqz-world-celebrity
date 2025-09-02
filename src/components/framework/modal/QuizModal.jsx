@@ -19,7 +19,7 @@ import { scale, verticalScale } from 'react-native-size-matters';
 import { AddNewPostApi } from '../../../api/app/post';
 import { useSelector } from 'react-redux';
 
-const PollModal = ({ visible, onClose }) => {
+const QuizModal = ({ visible, onClose }) => {
     const token = useSelector((state) => state.auth.token);
 
     const [question, setQuestion] = useState('');
@@ -36,7 +36,7 @@ const PollModal = ({ visible, onClose }) => {
 
     const removeAnswer = (index) => {
         if (answers.length <= 2) {
-            ToastAndroid.show('Poll must have at least 2 answers', ToastAndroid.SHORT);
+            ToastAndroid.show('Quiz must have at least 2 answers', ToastAndroid.SHORT);
             return;
         }
         const updated = [...answers];
@@ -49,9 +49,9 @@ const PollModal = ({ visible, onClose }) => {
         setAnswers(['', '']);
     };
 
-    const onPressCreatePoll = async () => {
+    const onPressCreateQuiz = async () => {
         if (!question.trim()) {
-            ToastAndroid.show('Poll question is required', ToastAndroid.SHORT);
+            ToastAndroid.show('Quiz question is required', ToastAndroid.SHORT);
             return;
         }
 
@@ -68,24 +68,24 @@ const PollModal = ({ visible, onClose }) => {
                 question,
                 0,
                 [],
+                [],
                 {
                     question,
                     answers: validAnswers
                 },
-                [],
                 false
             );
 
             if (result?.success) {
-                ToastAndroid.show('Poll created successfully', ToastAndroid.SHORT);
+                ToastAndroid.show('Quiz created successfully', ToastAndroid.SHORT);
                 clearAll();
                 onClose();
             } else {
-                ToastAndroid.show(result?.message || 'Failed to create poll', ToastAndroid.SHORT);
+                ToastAndroid.show(result?.message || 'Failed to create quiz', ToastAndroid.SHORT);
             }
         } catch (error) {
-            console.error('Poll API Error:', error);
-            ToastAndroid.show('Error while creating poll', ToastAndroid.SHORT);
+            console.error('Quiz API Error:', error);
+            ToastAndroid.show('Error while creating quiz', ToastAndroid.SHORT);
         } finally {
             setLoading(false);
         }
@@ -102,7 +102,7 @@ const PollModal = ({ visible, onClose }) => {
             <View style={styles.modalBackground}>
                 <View style={styles.modalContainer}>
                     <View style={styles.modalTop}>
-                        <Text style={styles.topText}>Add new poll</Text>
+                        <Text style={styles.topText}>Add new quiz</Text>
                         <TouchableOpacity onPress={onClose}>
                             <Entypo
                                 name={"cross"}
@@ -118,7 +118,7 @@ const PollModal = ({ visible, onClose }) => {
                             {/* Question */}
                             <TextInput
                                 style={styles.textInput}
-                                placeholder='Enter a poll question'
+                                placeholder='Enter a quiz question'
                                 placeholderTextColor={Colors.PLACEHOLDER}
                                 value={question}
                                 onChangeText={setQuestion}
@@ -158,16 +158,16 @@ const PollModal = ({ visible, onClose }) => {
                             {!loading && (
                                 <TouchableOpacity style={styles.addNewAnswer} onPress={addAnswerField}>
                                     <MaterialIcons name="add-circle-outline" size={22} color={Colors.THEME} />
-                                    <Text style={styles.addText}>Add new poll answer</Text>
+                                    <Text style={styles.addText}>Add new quiz answer</Text>
                                 </TouchableOpacity>
                             )}
 
                             <View style={styles.btnGroup}>
                                 <OutLineButton label_one='Clear' width='48%' onPress={clearAll} disabled={loading} />
                                 <GradientTextButton
-                                    label={loading ? 'Saving...' : 'Save Poll'}
+                                    label={loading ? 'Saving...' : 'Save Quiz'}
                                     width='48%'
-                                    onPress={onPressCreatePoll}
+                                    onPress={onPressCreateQuiz}
                                     height={verticalScale(30)}
                                     disabled={loading}
                                 />
@@ -184,7 +184,7 @@ const PollModal = ({ visible, onClose }) => {
     );
 };
 
-export default PollModal;
+export default QuizModal;
 
 const styles = StyleSheet.create({
     modalBackground: {

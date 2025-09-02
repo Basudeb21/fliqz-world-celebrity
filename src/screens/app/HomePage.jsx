@@ -68,6 +68,7 @@ const HomePage = () => {
         try {
             const data = await GetAllPostsApi(token, page);
             const actualPosts = data?.data?.data || [];
+            console.log("POST DATA", actualPosts);
 
             if (Array.isArray(actualPosts)) {
                 setLastPage(data.data.last_page);
@@ -173,6 +174,7 @@ const HomePage = () => {
                 onRefresh={handleRefresh}
                 showsVerticalScrollIndicator={false}
             />
+
         </SafeAreaView>
     );
 };

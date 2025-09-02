@@ -32,13 +32,21 @@ import { Loader, Spacer } from '../../components/framework/boots';
 import { BackpressTopBar } from '../../components/framework/navbar';
 import { TextArea } from '../../components/framework/input';
 import { AddNewPostApi } from '../../api/app/post';
-import { PollModal } from '../../components/framework/modal';
+import { PollModal, QuizModal } from '../../components/framework/modal';
+import PostPriceModal from '../../components/framework/modal/PostPriceModal';
 const CreatePage = () => {
     const [text, setText] = useState('');
     const [loading, setLoading] = useState(false);
     const [attachments, setAttachments] = useState([]);
+    const [quizAnswers, setQuizAnswers] = useState([]);
     const token = useSelector((state) => state.auth.token);
     const [pollVisible, setPollVisible] = useState(false);
+    const [quizVisible, setQuizVisible] = useState(false);
+    const [selectPriceVisible, setSelectPriceVisible] = useState(false);
+    const [pollQuestion, setPollQuestion] = useState("");
+    const [pollAnswers, setPollAnswers] = useState(["", ""]);
+    const [pollData, setPollData] = useState(null);
+    const [isPollSaved, setIsPollSaved] = useState(false);
 
     const requestStoragePermission = async () => {
         if (Platform.OS !== 'android') return true;
@@ -58,6 +66,7 @@ const CreatePage = () => {
 
     const handleMediaPick = async () => {
         const permissionGranted = await requestStoragePermission();
+
         if (!permissionGranted) {
             ToastAndroid.show('Permission denied', ToastAndroid.SHORT);
             return;
@@ -88,20 +97,31 @@ const CreatePage = () => {
     };
 
     const handelSetPost = async () => {
-        if (!text.trim()) return;
+        if (!text.trim() && attachments.length === 0 && quizAnswers.length === 0) {
+            ToastAndroid.show("Post cannot be empty", ToastAndroid.SHORT);
+            return;
+        }
+
         setLoading(true);
         try {
-            const result = await AddNewPostApi(token, text, 1, attachments);
-            if (result?.success == true) {
+            const result = await AddNewPostApi(
+                token,
+                text,
+                0,
+                attachments,
+                null,
+                quizAnswers,
+                false
+            );
+
+            if (result?.success) {
                 ToastAndroid.show(result.message, ToastAndroid.SHORT);
                 setText('');
                 setAttachments([]);
+                setQuizAnswers([]);
                 postDonePressSounds();
             } else {
-                console.warn(
-                    'Post API failed:',
-                    result?.message || 'Unknown error'
-                );
+                console.warn('Post API failed:', result?.message || 'Unknown error');
             }
         } catch (error) {
             console.error('Post API Error:', error);
@@ -110,7 +130,8 @@ const CreatePage = () => {
         }
     };
 
-    /** Button List */
+
+
     const buttonItems = [
         {
             Icon: Fontisto,
@@ -124,9 +145,19 @@ const CreatePage = () => {
             label: 'Notification',
         },
         { Icon: AntDesign, icnonName: 'calendar', label: 'Schedule' },
-        { Icon: FontAwesome5, icnonName: 'dollar-sign', label: 'Price' },
-        { Icon: FontAwesome5, icnonName: 'poll', label: 'Poll', onPress: () => setPollVisible(true) },
-        { Icon: MaterialIcons, icnonName: 'quiz', label: 'Quiz' },
+        { Icon: FontAwesome5, icnonName: 'dollar-sign', label: 'Price', onPress: () => setSelectPriceVisible(true) },
+        {
+            Icon: FontAwesome5, icnonName: 'poll', label: 'Poll', onPress: () => {
+                setQuizAnswers([]);
+                setPollVisible(true);
+            }
+        },
+        {
+            Icon: MaterialIcons, icnonName: 'quiz', label: 'Quiz', onPress: () => {
+                setPollAnswers([]);
+                setQuizVisible(true);
+            }
+        },
     ];
 
     return (
@@ -215,9 +246,29 @@ const CreatePage = () => {
                 </View>
 
                 {loading && <Loader color={Colors.THEME} />}
-                {
-                    pollVisible && <PollModal visible={pollVisible} onClose={() => setPollVisible(false)} />
-                }
+
+                {selectPriceVisible && <PostPriceModal visible={selectPriceVisible} onClose={() => setSelectPriceVisible(false)} />}
+
+                {quizVisible && (
+                    <QuizModal visible={quizVisible} onClose={() => setQuizVisible(false)} />
+                )}
+
+                {pollVisible && (
+                    <PollModal
+                        visible={pollVisible}
+                        onClose={() => setPollVisible(false)}
+                        question={pollQuestion}
+                        setQuestion={setPollQuestion}
+                        answers={pollAnswers}
+                        setAnswers={setPollAnswers}
+                        onSubmit={(pollData) => {
+                            setPollData(pollData);
+                            setIsPollSaved(true);
+                        }}
+
+                    />
+
+                )}
             </KeyboardAvoidingView>
         </SafeAreaView>
     );
