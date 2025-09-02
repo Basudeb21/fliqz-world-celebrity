@@ -120,6 +120,7 @@ const FansProfilePage = () => {
         })
     }
 
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
             <ScrollView

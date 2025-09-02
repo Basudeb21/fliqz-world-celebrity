@@ -31,7 +31,6 @@ const HomePage = () => {
     const [refreshing, setRefreshing] = useState(false);
 
     console.log(token);
-    console.log(user);
 
     useEffect(() => {
         if (!token || !user) {

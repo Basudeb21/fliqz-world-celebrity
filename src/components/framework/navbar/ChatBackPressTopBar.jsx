@@ -31,7 +31,9 @@ const ChatBackPressTopBar = ({ info }) => {
                     source={{ uri: info.avatar }}
                 />
                 <View>
-                    <Text style={styles.title}>{info.name}</Text>
+                    <Text style={styles.title}>
+                        {info.name?.length > 10 ? info.name.slice(0, 12) + "..." : info.name}
+                    </Text>
                     <Text style={styles.time}>{"20m ago"}</Text>
                 </View>
             </View>

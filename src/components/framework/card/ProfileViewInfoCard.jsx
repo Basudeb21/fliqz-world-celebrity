@@ -1,9 +1,17 @@
-import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
+import { FlatList, Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { Colors } from '../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 
 const ProfileViewInfoCard = ({ data }) => {
+    console.log(">>>>DATA>>>", data);
+    const renderBadge = ({ item }) => (
+        <Image
+            source={{ uri: item.icon }}
+            style={styles.badgeIcon}
+        />
+    );
+
     return (
         <View>
             <View style={styles.container}>
@@ -15,7 +23,21 @@ const ProfileViewInfoCard = ({ data }) => {
                             source={{ uri: data.avatar }}
                         />
                     </ImageBackground>
-                    <Text style={styles.fanName}>{data.name}</Text>
+                    <View style={styles.nameBadgeRow}>
+                        <Text style={styles.fanName}>{data.name}</Text>
+                        <View style={styles.badgeContainer}>
+                            {data.badge.length > 0 && (
+                                <FlatList
+                                    data={data.badge}
+                                    renderItem={renderBadge}
+                                    keyExtractor={(item) => item.id.toString()}
+                                    horizontal
+                                    showsHorizontalScrollIndicator={false}
+                                    style={styles.badgeList}
+                                />
+                            )}
+                        </View>
+                    </View>
                     <View style={styles.counterContainer}>
                         <View style={styles.singleArea}>
                             <Text style={styles.counter}>1,200</Text>
@@ -102,5 +124,25 @@ const styles = StyleSheet.create({
     },
     myVault: {
         fontWeight: "400",
-    }
+    },
+    nameBadgeRow: {
+        flexDirection: "row",
+        alignItems: "center",
+
+    },
+    badgeList: {
+        marginTop: scale(4),
+        marginTop: verticalScale(40),
+
+    },
+    badgeIcon: {
+        width: scale(22),
+        height: scale(22),
+        borderRadius: scale(4),
+        marginRight: scale(4),
+    },
+    badgeContainer: {
+        flexDirection: "row",
+        marginStart: moderateScale(10),
+    },
 })
