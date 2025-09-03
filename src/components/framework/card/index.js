@@ -22,3 +22,4 @@ export { default as SizeNumberLabel } from "./SizeNumberLabel";
 export { default as SuggestionUserCard } from "./SuggestionUserCard";
 export { default as SupportCard } from "./SupportCard";
 export { default as TransactionCard } from "./TransactionCard";
+export { default as GradientIconTextCardBig } from "./GradientIconTextCardBig";

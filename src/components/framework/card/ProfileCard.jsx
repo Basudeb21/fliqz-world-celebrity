@@ -45,15 +45,15 @@ const ProfileCard = () => {
             </View>
             <View style={styles.rowTwo}>
                 <View style={styles.counterContainer}>
-                    <Text style={styles.counter}>1,200</Text>
+                    <Text style={styles.counter}>{user?.post_count}</Text>
                     <Text style={styles.counterName}>Posts</Text>
                 </View>
                 <View style={styles.counterContainer}>
-                    <Text style={styles.counter}>240K</Text>
+                    <Text style={styles.counter}>{user?.follower_count}</Text>
                     <Text style={styles.counterName}>Followers</Text>
                 </View>
                 <View style={styles.counterContainer}>
-                    <Text style={styles.counter}>93</Text>
+                    <Text style={styles.counter}>{user?.following_count}</Text>
                     <Text style={styles.counterName}>Following</Text>
                 </View>
 

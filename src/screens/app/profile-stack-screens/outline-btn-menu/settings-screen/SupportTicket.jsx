@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { FloatingActionButton } from '../../../../../components/framework/button';
 import { SupportCard } from '../../../../../components/framework/card';
 import { BackpressTopBar } from '../../../../../components/framework/navbar';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const SupportTicket = () => {
@@ -14,7 +15,7 @@ const SupportTicket = () => {
         navigation.navigate(NavigationStrings.SETTINGS_ADD_SUPPORT_TICKET_SCREEN);
     }
     return (
-        <View style={{ backgroundColor: Colors.WHITE, flex: 1 }}>
+        <SafeAreaView style={{ backgroundColor: Colors.WHITE, flex: 1 }}>
             <BackpressTopBar title={'Support Ticket'} />
             <FlatList
                 data={dummyTickets}
@@ -30,8 +31,8 @@ const SupportTicket = () => {
                 )}
                 contentContainerStyle={{ paddingVertical: 10, gap: 10 }}
             />
-            <FloatingActionButton onPress={onPressAddTicket} />
-        </View>
+            <FloatingActionButton onPress={onPressAddTicket} style={{ bottom: 90 }} />
+        </SafeAreaView>
     );
 };
 

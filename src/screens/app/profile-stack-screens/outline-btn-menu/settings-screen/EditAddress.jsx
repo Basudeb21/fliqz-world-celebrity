@@ -4,16 +4,17 @@ import { moderateScale, verticalScale } from 'react-native-size-matters'
 import { countries } from '../../../../../data/CountryArray'
 import { Colors } from '../../../../../constants'
 import { Spacer } from '../../../../../components/framework/boots'
-import { GradientTextButton } from '../../../../../components/framework/button'
+import { FloatingActionButton, GradientTextButton } from '../../../../../components/framework/button'
 import { BackpressTopBar, DropdownBox } from '../../../../../components/framework/navbar'
 import { TextAreaBox, TextInputBox } from '../../../../../components/framework/input'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 
 const EditAddress = () => {
 
     const [selectedCountry, setSelectedCountry] = useState('');
     return (
-        <View style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
             <BackpressTopBar title={"Edit Address"} />
             <KeyboardAvoidingView style={styles.body}>
                 <TextInputBox placeholder='Enter Address Title' />
@@ -38,7 +39,8 @@ const EditAddress = () => {
             <View style={styles.btn}>
                 <GradientTextButton width='90%' label='Submit' />
             </View>
-        </View>
+            <FloatingActionButton style={{ bottom: 90 }} />
+        </SafeAreaView>
     )
 }
 

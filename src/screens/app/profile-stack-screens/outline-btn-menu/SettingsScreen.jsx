@@ -77,7 +77,7 @@ const SettingsScreen = () => {
         { id: 1, Icon: FontAwesome5, iconName: "user-edit", text: "Edit Profile", onPress: onPressEditProfile },
         { id: 2, Icon: Entypo, iconName: "key", text: "Change Your Password", onPress: onPressChangePassword },
         { id: 3, Icon: FontAwesome6, iconName: "map-location-dot", text: "Edit Address", onPress: onPressEditAddress },
-        { id: 4, Icon: Entypo, iconName: "credit-card", text: "Payments", onPress: onPressPayments },
+        { id: 4, Icon: Entypo, iconName: "credit-card", text: "Cards", onPress: onPressPayments },
         { id: 6, Icon: FontAwesome6, iconName: "user-shield", text: "Privacy", onPress: onPressPrivacy },
         { id: 7, Icon: MaterialIcons, iconName: "verified", text: "Verify", onPress: onPressVerify },
         { id: 8, Icon: Fontisto, iconName: "ticket-alt", text: "Support Ticket", onPress: onPressSupportTicket },

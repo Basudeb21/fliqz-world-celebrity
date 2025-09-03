@@ -5,6 +5,7 @@ import { moderateScale, verticalScale } from 'react-native-size-matters'
 import { GradientTextButton } from '../../../../../components/framework/button'
 import { BackpressTopBar, DropdownBox } from '../../../../../components/framework/navbar'
 import { TextAreaBox, TextInputBox } from '../../../../../components/framework/input'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 
 const AddSupportTicketScreen = () => {
@@ -24,7 +25,7 @@ const AddSupportTicketScreen = () => {
     ]
 
     return (
-        <View style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
             <BackpressTopBar title={"Add support ticket"} />
             <View style={styles.form}>
                 <DropdownBox placeholder='Select Category' options={categoryOptions} />
@@ -33,7 +34,7 @@ const AddSupportTicketScreen = () => {
                 <DropdownBox placeholder='Select Category' options={priorityOptions} />
                 <GradientTextButton label='Submit' />
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 

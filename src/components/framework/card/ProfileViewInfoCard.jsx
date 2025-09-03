@@ -40,15 +40,15 @@ const ProfileViewInfoCard = ({ data }) => {
                     </View>
                     <View style={styles.counterContainer}>
                         <View style={styles.singleArea}>
-                            <Text style={styles.counter}>1,200</Text>
+                            <Text style={styles.counter}>{data.post_count}</Text>
                             <Text style={styles.itemName}>Posts</Text>
                         </View>
                         <View style={styles.singleArea}>
-                            <Text style={styles.counter}>1.2M</Text>
+                            <Text style={styles.counter}>{data.follower_count}</Text>
                             <Text style={styles.itemName}>Followers</Text>
                         </View>
                         <View style={styles.singleArea}>
-                            <Text style={styles.counter}>21</Text>
+                            <Text style={styles.counter}>{data.following_count}</Text>
                             <Text style={styles.itemName}>Following</Text>
                         </View>
                     </View>

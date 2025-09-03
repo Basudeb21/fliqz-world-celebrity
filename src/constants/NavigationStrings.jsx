@@ -30,6 +30,7 @@ export default {
     PROFILE_SETTINGS_SCREEN: "ProfileScreen",
     PROFILE_EVENT_DETAILS: "EventDetails",
     PROFILE_EVENT_UPDATE: "EventUpdate",
+    PROFILE_FAQ_SCREEN: "FAQScreen",
 
 
     // Splash Screens

@@ -9,6 +9,7 @@ import SettingsStack from './SettingsStack';
 import { AddNewAuction, AllBids, Auction, AuctionItemPage, EditAuctionItem } from '../screens/app/profile-stack-screens/outline-btn-menu/auction';
 import { AddNewEvent, EventDetailsScreen, EventsScreen, UpdateEventScreen } from '../screens/app/profile-stack-screens/outline-btn-menu/event';
 import AuthStack from './AuthStack';
+import FAQ from '../screens/app/profile-stack-screens/outline-btn-menu/FAQ';
 
 const ProfileStack = () => {
     const Stack = createNativeStackNavigator();
@@ -27,6 +28,7 @@ const ProfileStack = () => {
             <Stack.Screen name={NavigationStrings.HOME_VIEW_LIST_CONTENT} component={ViewListContent} />
             <Stack.Screen name={NavigationStrings.PROFILE_HELP_AND_SUPPORT_SCREEN} component={HelpAndSettingsScreen} />
             <Stack.Screen name={NavigationStrings.PROFILE_SETTINGS_SCREEN} component={SettingsScreen} />
+            <Stack.Screen name={NavigationStrings.PROFILE_FAQ_SCREEN} component={FAQ} />
             <Stack.Screen name={NavigationStrings.SETTINGS_STACK} component={SettingsStack} />
             <Stack.Screen name={NavigationStrings.PROFILE_BECOME_A_CREATOR} component={Analytics} />
 

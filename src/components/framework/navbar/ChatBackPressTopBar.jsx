@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons'
@@ -11,6 +11,15 @@ const ChatBackPressTopBar = ({ info }) => {
     const handleBackPress = () => {
         navigation.goBack();
     };
+
+    const renderBadge = ({ item }) => (
+        <Image
+            source={{ uri: item.icon }}
+            style={styles.badgeIcon}
+        />
+    );
+
+
     return (
         <View style={styles.container}>
             <View style={styles.sideContainer}>
@@ -31,9 +40,21 @@ const ChatBackPressTopBar = ({ info }) => {
                     source={{ uri: info.avatar }}
                 />
                 <View>
-                    <Text style={styles.title}>
-                        {info.name?.length > 10 ? info.name.slice(0, 12) + "..." : info.name}
-                    </Text>
+                    <View style={styles.nameBadgeRow}>
+                        <Text style={styles.title}>
+                            {info.name?.length > 10 ? info.name.slice(0, 12) + "..." : info.name}
+                        </Text>
+                        {info.badge.length > 0 && (
+                            <FlatList
+                                data={info.badge}
+                                renderItem={renderBadge}
+                                keyExtractor={(item) => item.id.toString()}
+                                horizontal
+                                showsHorizontalScrollIndicator={false}
+                                style={styles.badgeList}
+                            />
+                        )}
+                    </View>
                     <Text style={styles.time}>{"20m ago"}</Text>
                 </View>
             </View>
@@ -79,5 +100,22 @@ const styles = StyleSheet.create({
         color: Colors.PLACEHOLDER,
         fontSize: scale(10),
         fontWeight: "500",
-    }
+    },
+    nameBadgeRow: {
+        flexDirection: "row",
+    },
+    badgeContainer: {
+        flexDirection: "row",
+        marginStart: moderateScale(10),
+    },
+    badgeIcon: {
+        width: scale(22),
+        height: scale(22),
+        borderRadius: scale(4),
+        marginRight: scale(4),
+    },
+    badgeList: {
+        marginTop: scale(4),
+        marginStart: moderateScale(15),
+    },
 })

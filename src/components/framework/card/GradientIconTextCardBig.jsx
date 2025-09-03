@@ -3,8 +3,7 @@ import React from 'react'
 import LinearGradient from 'react-native-linear-gradient';
 import { Colors } from '../../../constants';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-
-const GradientIconTextCard = ({ Icon, iconName, label = "Swipe to next", content, onPress }) => {
+const GradientIconTextCardBig = ({ Icon, iconName, label = "Swipe to next", content, onPress }) => {
     return (
         <TouchableOpacity onPress={onPress} activeOpacity={0.8} style={styles.cardWrapper}>
             <LinearGradient
@@ -28,11 +27,12 @@ const GradientIconTextCard = ({ Icon, iconName, label = "Swipe to next", content
     )
 }
 
-export default GradientIconTextCard
+export default GradientIconTextCardBig
 
 const styles = StyleSheet.create({
     cardWrapper: {
-        width: "48%",
+        alignSelf: "center",
+        width: "90%",
         marginBottom: verticalScale(12),
     },
     button: {

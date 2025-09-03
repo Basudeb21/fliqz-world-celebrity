@@ -7,3 +7,4 @@ export { default as SendTipsModal } from "./SendTipsModal";
 export { default as TicketModal } from "./TicketModal";
 export { default as PollModal } from "./PollModal";
 export { default as QuizModal } from "./QuizModal";
+export { default as QuizDisplayModal } from "./QuizDisplayModal";

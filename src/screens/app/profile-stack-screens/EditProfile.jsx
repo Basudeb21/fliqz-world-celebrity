@@ -46,7 +46,7 @@ const EditProfile = () => {
 
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
             <ScrollView contentContainerStyle={{ paddingBottom: 60 }}>
                 <BackpressTopBar title={"Edit Profile"} bgColor={Colors.THEME} color={Colors.WHITE} />
                 <View style={styles.header}>

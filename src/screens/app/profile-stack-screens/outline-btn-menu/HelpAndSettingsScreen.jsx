@@ -1,6 +1,6 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Colors } from '../../../../constants'
+import { Colors, NavigationStrings } from '../../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import { helpAndSupportCards } from '../../../../data/helpAndSupportCards'
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons'
@@ -9,16 +9,27 @@ import { GradientIconButton } from '../../../../components/framework/button'
 import { Spacer } from '../../../../components/framework/boots'
 import { BackpressTopBar } from '../../../../components/framework/navbar'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
+import { useNavigation } from '@react-navigation/native'
 
 
 const HelpAndSettingsScreen = () => {
     const cardContents = helpAndSupportCards;
+    const navigation = useNavigation();
+    const onPressFAQHandler = (item) => {
+        navigation.navigate(NavigationStrings.PROFILE_FAQ_SCREEN, {
+            faqData: item,
+        });
+    };
+
+
+
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
             <BackpressTopBar title={"Help and Support"} />
             <Spacer height={10} />
             <Text style={styles.updateTxt}>Last updated: 2025-05-06</Text>
+            <Spacer height={10} />
             <FlatList
                 data={cardContents}
                 keyExtractor={(item) => item.id.toString()}
@@ -30,7 +41,9 @@ const HelpAndSettingsScreen = () => {
                         iconName={item.iconName}
                         label={item.label}
                         content={item.content}
+                        onPress={() => onPressFAQHandler(item)}
                     />
+
                 )}
                 contentContainerStyle={styles.contentContainer}
                 showsVerticalScrollIndicator={false}
