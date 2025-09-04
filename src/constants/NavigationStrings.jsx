@@ -84,7 +84,9 @@ export default {
     PROFILE_ADD_NEW_AUCTION: "AddNewAuction",
     PROFILE_EDIT_AUCTION_ITEM: "EditAuctionItem",
     PROFILE_ADD_NEW_PRODUCT: "AddNewProduct",
-
+    PROFILE_COLLABORATION_LIST: "CollaborationList",
+    PROFILE_CREATE_NEW_COLLABORATION: "CreateNewCollaboration",
+    PROFILE_EDIT_COLLABORATION: "EditCollaboration",
 
 
     // Settings Stack Screens

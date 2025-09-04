@@ -40,9 +40,9 @@ const ProfilePage = () => {
         })
     }
 
-    const onPressNotification = () => {
-        navigation.navigate(NavigationStrings.HOME_STACK, {
-            screen: NavigationStrings.HOME_NOTIFICATION_SCREEN
+    const onPressCollaboration = () => {
+        navigation.navigate(NavigationStrings.PROFILE_STACK, {
+            screen: NavigationStrings.PROFILE_COLLABORATION_LIST
         })
     }
 
@@ -117,7 +117,7 @@ const ProfilePage = () => {
 
     const cardData = [
         { id: 1, icon: Entypo, iconName: "line-graph", text: "Analytics", onPress: onPressCreatorRequest },
-        { id: 2, icon: Ionicons, iconName: "notifications", text: "Notification", onPress: onPressNotification },
+        { id: 2, icon: FontAwesome6, iconName: "handshake-simple", text: "Collaborations", onPress: onPressCollaboration },
         { id: 3, icon: Entypo, iconName: "shopping-basket", text: "Orders", onPress: onPressOrders },
         { id: 4, icon: FontAwesome, iconName: "list-ul", text: "Lists", onPress: onPressLists },
         { id: 5, icon: FontAwesome, iconName: "bookmark", text: "Bookmarks", onPress: onPressSBookmarks },

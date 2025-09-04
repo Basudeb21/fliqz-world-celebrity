@@ -10,6 +10,7 @@ import { AddNewAuction, AllBids, Auction, AuctionItemPage, EditAuctionItem } fro
 import { AddNewEvent, EventDetailsScreen, EventsScreen, UpdateEventScreen } from '../screens/app/profile-stack-screens/outline-btn-menu/event';
 import AuthStack from './AuthStack';
 import FAQ from '../screens/app/profile-stack-screens/outline-btn-menu/FAQ';
+import { CollaborationList, CreateNewCollaboration, EditCollaboration } from '../screens/app/profile-stack-screens/outline-btn-menu/collaboration';
 
 const ProfileStack = () => {
     const Stack = createNativeStackNavigator();
@@ -50,6 +51,10 @@ const ProfileStack = () => {
             <Stack.Screen name={NavigationStrings.HOME_SHOP_ITEM_INFO_PAGE} component={ShopItemInfoPage} />
             <Stack.Screen name={NavigationStrings.PROFILE_ADD_NEW_PRODUCT} component={AddNewProduct} />
 
+            {/* Collaboration */}
+            <Stack.Screen name={NavigationStrings.PROFILE_COLLABORATION_LIST} component={CollaborationList} />
+            <Stack.Screen name={NavigationStrings.PROFILE_CREATE_NEW_COLLABORATION} component={CreateNewCollaboration} />
+            <Stack.Screen name={NavigationStrings.PROFILE_EDIT_COLLABORATION} component={EditCollaboration} />
 
             <Stack.Screen name={NavigationStrings.AUTH_STACK} component={AuthStack} />
         </Stack.Navigator>

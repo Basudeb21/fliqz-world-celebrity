@@ -19,6 +19,7 @@ export default {
     CYAN: "#00CFFF",
     INCOME: "#28A745",
     DARK: "#212328",
+    LIGHT_PLACEHOLDER: "#CCCCCC",
 
     TRANSPARENT_WHITE: "rgba(255, 255, 255, 0.3)",
     TRANSPARENT_WHITE_LIGHT: "rgba(255, 255, 255, 0.2)",

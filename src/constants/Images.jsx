@@ -76,6 +76,6 @@ export default {
     EVENT_TEN: "https://images.unsplash.com/photo-1482575832494-771f74bf6857?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTV8fHBhcnR5fGVufDB8fDB8fHww",
 
 
-
+    LIVE_SHOW_THUMBNAIL: "https://images.news18.com/ibnlive/uploads/2023/03/cricket-world-cup-2011-168036421316x9.jpg?impolicy=website&width=400&height=225",
 
 }

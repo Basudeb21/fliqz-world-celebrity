@@ -9,6 +9,7 @@ import { ChatPage, CreatePage, HomePage, LivePage, ProfilePage } from '../../../
 import { useSelector } from 'react-redux';
 import { GradientIcon } from '../icon';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Streams } from '../../../screens/app/profile-stack-screens';
 
 
 
@@ -84,7 +85,7 @@ const BottomNavbar = () => {
 
             <Tab.Screen
                 name={NavigationStrings.LIVE_SCREEN}
-                component={LivePage}
+                component={Streams}
                 options={{
                     tabBarLabel: NavigationStrings.LIVE_SCREEN,
                     tabBarIcon: ({ focused }) => (
