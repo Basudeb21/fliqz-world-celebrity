@@ -1,2 +1,9 @@
+export { default as GetAllCountryApi } from "./GetAllCountryApi";
+export { default as GetAllGenderApi } from "./GetAllGenderApi";
+
+export { default as UpdateMyProfileApi } from "./UpdateMyProfileApi";
+export { default as BookMarkDataApi } from "./BookMarkDataApi";
+export { default as GetMyPostHistoryApi } from "./GetMyPostHistoryApi";
+export { default as ViewProfileApi } from "./ViewProfileApi";
 export { default as BlockUserApi } from "./BlockUserApi";
 export { default as FollowUserApi } from "./FollowUserApi";

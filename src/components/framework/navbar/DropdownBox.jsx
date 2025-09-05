@@ -4,7 +4,7 @@ import {
     Text,
     TouchableOpacity,
     View,
-    FlatList,
+    ScrollView,
 } from 'react-native';
 import { Colors } from '../../../constants';
 import { scale } from 'react-native-size-matters';
@@ -45,21 +45,21 @@ const DropdownBox = ({
 
             {isOpen && (
                 <View style={styles.dropdown}>
-                    <FlatList
-                        data={options}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item }) => (
+                    <ScrollView
+                        keyboardShouldPersistTaps="handled"
+                        nestedScrollEnabled={true}
+                        showsVerticalScrollIndicator={false}
+                    >
+                        {options.map((item, index) => (
                             <TouchableOpacity
+                                key={index}
                                 style={styles.option}
                                 onPress={() => handleSelect(item)}
                             >
                                 <Text style={styles.optionText}>{item}</Text>
                             </TouchableOpacity>
-                        )}
-                        keyboardShouldPersistTaps="handled"
-                        nestedScrollEnabled={true}
-                        showsVerticalScrollIndicator={false}
-                    />
+                        ))}
+                    </ScrollView>
                 </View>
             )}
         </View>

@@ -2,9 +2,8 @@ import axios from "axios";
 import API from "../../common/API";
 import { ToastAndroid } from "react-native";
 
-const GetAllPostsApi = async (
+const GetAllGenderApi = async (
     token,
-    page = 1
 ) => {
     try {
         if (!token) {
@@ -12,7 +11,7 @@ const GetAllPostsApi = async (
             return null;
         }
 
-        const response = await axios.post(`${API.BASE_URL}post?page=${page}`,
+        const response = await axios.post(`${API.BASE_URL}gender`,
             {},
             {
                 headers: {
@@ -33,4 +32,4 @@ const GetAllPostsApi = async (
 };
 
 
-export default GetAllPostsApi;
+export default GetAllGenderApi;

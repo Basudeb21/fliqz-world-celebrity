@@ -1,27 +1,39 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import CountryPicker from 'react-native-country-picker-modal';
 import { Colors } from '../../../constants';
+import { GetAllCountryApi } from '../../../api/app/user';
+import { useSelector } from 'react-redux';
 
-
-
-const PhoneNumberInput = (
-    {
-        placeholder,
-        phoneNumber,
-        setphoneNumber,
-        countryCode,
-        setCountryCode,
-        callingCode,
-        setCallingCode
-    }
-
-) => {
+const PhoneNumberInput = ({
+    placeholder,
+    phoneNumber,
+    setphoneNumber,
+    countryCode,
+    setCountryCode,
+    callingCode,
+    setCallingCode
+}) => {
     const [isFocused, setIsFocused] = useState(false);
+    const [countryCodes, setCountryCodes] = useState([]);
+    const token = useSelector(state => state.auth.token);
+
+    useEffect(() => {
+        const fetchCountries = async () => {
+            const res = await GetAllCountryApi(token);
+            if (res && res.success) {
+                const codes = res.data.map(country => country.country_code).filter(code => code);
+                setCountryCodes(codes);
+            }
+        };
+        fetchCountries();
+    }, [token]);
+
     const handleCountrySelect = (country) => {
         setCountryCode(country.cca2);
         setCallingCode(country.callingCode[0]);
     };
+
     return (
         <View>
             <View style={[styles.inputContainer, styles.loginCredStyle, isFocused ? styles.active : styles.deactive]}>
@@ -32,6 +44,7 @@ const PhoneNumberInput = (
                         withFlag
                         withCallingCode
                         onSelect={handleCountrySelect}
+                        countryCodes={countryCodes}
                     />
                     <Text style={styles.countryCodeText}>+{callingCode}</Text>
                 </View>

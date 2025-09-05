@@ -2,7 +2,7 @@ import axios from "axios";
 import API from "../../common/API";
 import { ToastAndroid } from "react-native";
 
-const GetAllPostsApi = async (
+const ViewProfileApi = async (
     token,
     page = 1
 ) => {
@@ -12,7 +12,7 @@ const GetAllPostsApi = async (
             return null;
         }
 
-        const response = await axios.post(`${API.BASE_URL}post?page=${page}`,
+        const response = await axios.post(`${API.BASE_URL}view-profile?page=${page}`,
             {},
             {
                 headers: {
@@ -33,4 +33,4 @@ const GetAllPostsApi = async (
 };
 
 
-export default GetAllPostsApi;
+export default ViewProfileApi;

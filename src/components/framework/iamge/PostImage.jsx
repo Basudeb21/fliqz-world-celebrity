@@ -3,7 +3,6 @@ import React from 'react'
 import { Colors } from '../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 
-
 const PostImage = ({ image, Icon, iconName }) => {
     return (
         <ImageBackground

@@ -1,8 +1,7 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationStrings } from '../constants';
-import { EditProfile } from '../screens/app/profile-stack-screens';
-import { AddSupportTicketScreen, ChangePassword, EditAddress, Payments, Privacy, Promotion, SubscriptionPrice, SupportTicket, Verify } from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen';
+import { AddSupportTicketScreen, ChangePassword, EditAddress, EditProfile, Payments, Privacy, Promotion, SubscriptionPrice, SupportTicket, Verify } from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen';
 
 const SettingsStack = () => {
     const Stack = createNativeStackNavigator();

@@ -1,7 +1,7 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationStrings } from '../constants';
-import { Analytics, Bookmarks, EditProfile, Lists, Referals, Streams, Subscriptions, Wallet } from '../screens/app/profile-stack-screens';
+import { Analytics, Bookmarks, Lists, Referals, Streams, Subscriptions, Wallet } from '../screens/app/profile-stack-screens';
 import { AddNewProduct, Orders, ShopItemInfoPage, ShopScreen, ViewOrder } from '../screens/app/profile-stack-screens/outline-btn-menu/shop';
 import { ViewListContent } from '../screens/app/profile-stack-screens/sub-screen';
 import { HelpAndSettingsScreen, SettingsScreen } from '../screens/app/profile-stack-screens/outline-btn-menu';
@@ -11,6 +11,7 @@ import { AddNewEvent, EventDetailsScreen, EventsScreen, UpdateEventScreen } from
 import AuthStack from './AuthStack';
 import FAQ from '../screens/app/profile-stack-screens/outline-btn-menu/FAQ';
 import { CollaborationList, CreateNewCollaboration, EditCollaboration } from '../screens/app/profile-stack-screens/outline-btn-menu/collaboration';
+import { EditProfile } from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen';
 
 const ProfileStack = () => {
     const Stack = createNativeStackNavigator();

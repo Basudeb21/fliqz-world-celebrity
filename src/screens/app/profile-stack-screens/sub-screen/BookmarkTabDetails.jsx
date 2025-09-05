@@ -1,50 +1,43 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { useRoute } from '@react-navigation/native'
-import Fontisto from 'react-native-vector-icons/Fontisto'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import { moderateScale } from 'react-native-size-matters'
-import { Colors } from '../../../../constants'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { PostImage } from '../../../../components/framework/iamge'
+import React from 'react';
+import { FlatList, StyleSheet } from 'react-native';
+import { moderateScale } from 'react-native-size-matters';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Colors } from '../../../../constants';
+import { SharedPost } from '../../../../components/framework/card';
+import { Spacer } from '../../../../components/framework/boots';
 
-const BookmarkTabDetails = () => {
-    const route = useRoute();
-    const { bookMarkdata = [] } = route.params || {}
+const BookmarkTabDetails = ({ data = [] }) => {
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
-                data={bookMarkdata}
+                data={data}
                 keyExtractor={(item) => item.id.toString()}
-                numColumns={3}
-                columnWrapperStyle={styles.row}
                 renderItem={({ item }) => (
-                    <PostImage
-                        image={item.image}
-                        Icon={item.type == "image" ? Fontisto : MaterialIcons}
-                        iconName={item.type == "image" ? "photograph" : "video-collection"}
+                    <SharedPost
+                        userAvatar={item.user?.avatar}
+                        userName={item.user?.name}
+                        postText={item.text}
+                        createdAt={item.created}
+                        crowdfunding={item.crowedfunding}
+                        data={item}
+                        badges={item.user?.badge}
                     />
                 )}
+                ItemSeparatorComponent={() => <Spacer height={10} />}
                 contentContainerStyle={styles.scrollContent}
-
             />
-
-
-
         </SafeAreaView>
-    )
-}
+    );
+};
 
-export default BookmarkTabDetails
+export default BookmarkTabDetails;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.WHITE
+        backgroundColor: Colors.WHITE,
     },
-    row: {
-        marginHorizontal: moderateScale(10),
-        justifyContent: 'flex-start',
-        gap: moderateScale(10),
-    }
-})
+    scrollContent: {
+        paddingBottom: moderateScale(20),
+    },
+});

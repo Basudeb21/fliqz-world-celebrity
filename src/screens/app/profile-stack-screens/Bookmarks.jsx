@@ -1,38 +1,34 @@
-import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, View, ActivityIndicator } from 'react-native'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Fontisto from 'react-native-vector-icons/Fontisto'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Octicons from 'react-native-vector-icons/Octicons'
-import { Colors, Images } from '../../../constants'
+import { Colors } from '../../../constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { verticalScale } from 'react-native-size-matters'
 import { BackpressTopBar } from '../../../components/framework/navbar'
 import { SearchBar } from '../../../components/framework/input'
 import { BookmarkTabDetails, NoContantPage } from './sub-screen'
 import { GradientIcon } from '../../../components/framework/icon'
+import { useSelector } from 'react-redux'
+import { BookMarkDataApi } from '../../../api/app/user'
+
 const Tab = createMaterialTopTabNavigator()
 
-const AllScreen = () => <BookmarkTabDetails />
-const ImageScreen = () => <BookmarkTabDetails />
-const VideoScreen = () => <BookmarkTabDetails />
+const AllScreen = ({ route }) => <BookmarkTabDetails data={route.params?.bookMarkdata} />
+const ImageScreen = ({ route }) => <BookmarkTabDetails data={route.params?.bookMarkdata} />
+const VideoScreen = ({ route }) => <BookmarkTabDetails data={route.params?.bookMarkdata} />
 const AudioScreen = () => <NoContantPage />
 
-const BookmarksTabs = () => {
-    const iconSize = 24;
-    const bookMarkdata = [
-        { id: 1, image: Images.POST_ONE, type: "image" },
-        { id: 2, image: Images.POST_TWO, type: "image" },
-        { id: 3, image: Images.POST_THREE, type: "reels" },
-        { id: 4, image: Images.POST_FOUR, type: "image" },
-        { id: 5, image: Images.POST_FIVE, type: "reels" },
-    ]
-
-    const filterImages = bookMarkdata.filter(image => image.type == "image");
-    const filterReels = bookMarkdata.filter(reels => reels.type == "reels");
-
-
+const BookmarksTabs = ({ bookMarkdata }) => {
+    const filterImages = bookMarkdata.filter(item =>
+        item.attachment.some(att => att.type === "image")
+    );
+    const filterReels = bookMarkdata.filter(item =>
+        item.attachment.some(att => att.type === "video")
+    );
 
     return (
         <Tab.Navigator
@@ -43,7 +39,6 @@ const BookmarksTabs = () => {
                     backgroundColor: Colors.THEME,
                     height: 2,
                 },
-                tabBarLabelStyle: { fontSize: 10 },
                 tabBarIcon: () => {
                     switch (route.name) {
                         case 'All':
@@ -69,12 +64,32 @@ const BookmarksTabs = () => {
 }
 
 const Bookmarks = () => {
+    const [loading, setLoading] = useState(true);
+    const [bookMarkdata, setBookMarkdata] = useState([]);
+    const token = useSelector(state => state.auth.token);
+
+    useEffect(() => {
+        const fetchData = async () => {
+
+            const response = await BookMarkDataApi(token);
+            if (response?.data?.data) {
+                setBookMarkdata(response.data.data);
+            }
+            setLoading(false);
+        };
+        fetchData();
+    }, []);
+
     return (
         <SafeAreaView style={styles.container}>
             <BackpressTopBar title="Bookmarks" />
             <View style={styles.tabContainer}>
                 <SearchBar placeholder="Search" />
-                <BookmarksTabs />
+                {loading ? (
+                    <ActivityIndicator size="large" color={Colors.THEME} style={{ marginTop: 20 }} />
+                ) : (
+                    <BookmarksTabs bookMarkdata={bookMarkdata} />
+                )}
             </View>
         </SafeAreaView>
     )

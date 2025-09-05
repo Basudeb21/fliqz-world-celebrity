@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { FlatList, StyleSheet, View } from 'react-native'
 import React from 'react'
 import { moderateScale } from 'react-native-size-matters';
 import Entypo from 'react-native-vector-icons/dist/Entypo'
@@ -6,7 +6,6 @@ import { Colors, Images, NavigationStrings } from '../../../constants';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
-
 import Fontisto from 'react-native-vector-icons/Fontisto'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -21,18 +20,11 @@ import { BackpressTopBar } from '../../../components/framework/navbar';
 import { FollowedByImageAndName } from '../../../components/framework/iamge';
 import { GradientIconButtonNoText } from '../../../components/framework/button';
 import { Spacer } from '../../../components/framework/boots';
-import { ProfileHighlightPostArea } from '../home-mini-components';
 import { GradientIcon } from '../../../components/framework/icon';
-const Tab = createMaterialTopTabNavigator()
 
-const AllScreen = () => <FansPostHistoryOnProfile />
-const ImageScreen = () => <FansPostHistoryOnProfile />
-const VideoScreen = () => <FansPostHistoryOnProfile />
-const AudioScreen = () => <NoContantPage />
-
+const Tab = createMaterialTopTabNavigator();
 
 const BookmarksTabs = () => {
-    const iconSize = 24;
     const bookMarkdata = [
         { id: 1, image: Images.POST_ONE, type: "image" },
         { id: 2, image: Images.POST_TWO, type: "image" },
@@ -41,10 +33,8 @@ const BookmarksTabs = () => {
         { id: 5, image: Images.POST_FIVE, type: "reels" },
     ]
 
-    const filterImages = bookMarkdata.filter(image => image.type == "image");
-    const filterReels = bookMarkdata.filter(reels => reels.type == "reels");
-
-
+    const filterImages = bookMarkdata.filter(item => item.type === "image");
+    const filterReels = bookMarkdata.filter(item => item.type === "reels");
 
     return (
         <Tab.Navigator
@@ -74,128 +64,122 @@ const BookmarksTabs = () => {
             <Tab.Screen name="All">
                 {() => <FansPostHistoryOnProfile data={bookMarkdata} />}
             </Tab.Screen>
-
             <Tab.Screen name="Images">
                 {() => <FansPostHistoryOnProfile data={filterImages} />}
             </Tab.Screen>
-
             <Tab.Screen name="Videos">
                 {() => <FansPostHistoryOnProfile data={filterReels} />}
             </Tab.Screen>
-
             <Tab.Screen name="Audios">
                 {() => <NoContantPage />}
             </Tab.Screen>
         </Tab.Navigator>
-
     )
 }
-
 
 const FansProfilePage = () => {
     const route = useRoute();
     const { user } = route.params;
-
     const navigation = useNavigation();
+
     const openShopClick = () => {
-        navigation.navigate(NavigationStrings.HOME_SHOP_SCREEN)
-    }
+        navigation.navigate(NavigationStrings.HOME_SHOP_SCREEN);
+    };
 
     const imgs = [
         Images.CELEBRITY_AVATAR_ONE,
         Images.CELEBRITY_AVATAR_TWO,
         Images.CELEBRITY_AVATAR_THREE,
+    ];
 
-    ]
-
-    const onPressSubscribe = () => {
-        subscibePressSound()
-    }
+    const onPressSubscribe = () => subscibePressSound();
 
     const onPressMessage = () => {
         navigation.goBack();
         navigation.navigate(NavigationStrings.CHAT_STACK, {
             screen: NavigationStrings.FRIEND_CHAT_SCREEN,
-            params: { user }
-        })
-    }
+            params: { user },
+        });
+    };
 
+    const renderHeader = () => (
+        <>
+            <BackpressTopBar title={user.name} color={Colors.WHITE} />
+            <ProfileViewInfoCard data={user} />
+            <Spacer height={25} />
+            <FollowedByImageAndName images={imgs} />
+            <Spacer height={25} />
+            <View style={styles.btnContainer}>
+                <GradientIconButtonNoText
+                    Icon={MaterialCommunityIcons}
+                    iconName={"youtube-subscription"}
+                    iconSize={20}
+                    width="15%"
+                    onPress={onPressSubscribe}
+                />
+                <GradientIconButtonNoText
+                    Icon={Ionicons}
+                    iconName={"chatbubble-ellipses-sharp"}
+                    iconSize={20}
+                    width="15%"
+                    onPress={onPressMessage}
+                />
+                <GradientIconButtonNoText
+                    Icon={Entypo}
+                    iconName={"shop"}
+                    iconSize={20}
+                    width="15%"
+                    onPress={openShopClick}
+                />
+                <GradientIconButtonNoText
+                    Icon={FontAwesome5}
+                    iconName={"hammer"}
+                    iconSize={20}
+                    width="15%"
+                />
+                <GradientIconButtonNoText
+                    Icon={FontAwesome5}
+                    iconName={"user-plus"}
+                    iconSize={20}
+                    width="15%"
+                />
+                <GradientIconButtonNoText
+                    Icon={Entypo}
+                    iconName={"chevron-down"}
+                    iconSize={20}
+                    width="15%"
+                />
+            </View>
+            <Spacer height={20} />
+        </>
+    );
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
-            <ScrollView
-                contentContainerStyle={{ flexGrow: 1 }}
+            <FlatList
+                data={[{ key: 'tabs' }]}
+                keyExtractor={(item) => item.key}
+                ListHeaderComponent={renderHeader}
+                renderItem={() => (
+                    <View style={{ flex: 1, }}>
+                        <FansPostHistoryOnProfile />
+                    </View>
+                )}
                 showsVerticalScrollIndicator={false}
-            >
-                <BackpressTopBar title={user.name} color={Colors.WHITE} />
-                <ProfileViewInfoCard data={user} />
-                <Spacer height={25} />
-                <FollowedByImageAndName images={imgs} />
-                <Spacer height={25} />
-                <View style={styles.btnContainer}>
-                    <GradientIconButtonNoText
-                        Icon={MaterialCommunityIcons}
-                        iconName={"youtube-subscription"}
-                        iconSize={20}
-                        width='15%'
-                        onPress={onPressSubscribe}
-                    />
-                    <GradientIconButtonNoText
-                        Icon={Ionicons}
-                        iconName={"chatbubble-ellipses-sharp"}
-                        iconSize={20}
-                        width='15%'
-                        onPress={onPressMessage}
-                    />
-                    <GradientIconButtonNoText
-                        Icon={Entypo}
-                        iconName={"shop"}
-                        iconSize={20}
-                        width='15%'
-                        onPress={openShopClick}
-                    />
-                    <GradientIconButtonNoText
-                        Icon={FontAwesome5}
-                        iconName={"hammer"}
-                        iconSize={20}
-                        width='15%'
-                    />
-                    <GradientIconButtonNoText
-                        Icon={FontAwesome5}
-                        iconName={"user-plus"}
-                        iconSize={20}
-                        width='15%'
-                    />
-                    <GradientIconButtonNoText
-                        Icon={Entypo}
-                        iconName={"chevron-down"}
-                        iconSize={20}
-                        width='15%'
-                    />
-                </View>
-                <Spacer height={20} />
-                <ProfileHighlightPostArea />
-                <Spacer height={20} />
-
-                <View style={{ flex: 1, height: 380 }}>
-                    <BookmarksTabs />
-                </View>
-            </ScrollView>
+            />
         </SafeAreaView>
     );
-}
+};
 
-export default FansProfilePage
-
+export default FansProfilePage;
 
 const styles = StyleSheet.create({
     btnContainer: {
         flexDirection: "row",
         paddingHorizontal: moderateScale(10),
-        justifyContent: "space-between"
-
+        justifyContent: "space-between",
     },
     tabContainer: {
         flex: 1,
-    }
-})
+    },
+});
