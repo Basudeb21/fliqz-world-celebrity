@@ -9,7 +9,7 @@ const CommonSuggestionImageGroup = ({ images = [] }) => {
             {images.map((img, index) => (
                 <Image
                     key={index}
-                    source={{ uri: img }}
+                    source={typeof img === "string" ? { uri: img } : img}
                     style={[
                         styles.img,
                         {
@@ -22,6 +22,7 @@ const CommonSuggestionImageGroup = ({ images = [] }) => {
         </View>
     )
 }
+
 
 export default CommonSuggestionImageGroup
 

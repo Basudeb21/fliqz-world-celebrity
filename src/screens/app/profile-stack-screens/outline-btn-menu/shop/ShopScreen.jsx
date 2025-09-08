@@ -10,6 +10,7 @@ import { BackpressTopBar } from '../../../../../components/framework/navbar';
 import { Loader } from '../../../../../components/framework/boots';
 import { MyProductListsApi } from '../../../../../api/app/shop';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { verticalScale } from 'react-native-size-matters';
 const ShopScreen = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -61,7 +62,7 @@ const ShopScreen = () => {
                     contentContainerStyle={styles.listContent}
                 />
             )}
-            <FloatingActionButton onPress={onPressAddNewProduct} />
+            <FloatingActionButton onPress={onPressAddNewProduct} style={styles.fabBtm} />
         </SafeAreaView>
     );
 };
@@ -86,4 +87,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
     },
+    fabBtm: {
+        bottom: verticalScale(70)
+    }
 });

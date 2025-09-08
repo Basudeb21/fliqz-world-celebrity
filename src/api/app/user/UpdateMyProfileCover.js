@@ -2,21 +2,26 @@ import axios from "axios";
 import API from "../../common/API";
 import { ToastAndroid } from "react-native";
 
-const UpdateMyProfileApi = async (
-    token,
-    page = 1
+const UpdateMyProfileCover = async (
+    { token,
+        data
+    }
 ) => {
     try {
+
+
+
         if (!token) {
             ToastAndroid.show("Token not found...", ToastAndroid.SHORT);
             return null;
         }
 
-        const response = await axios.post(`${API.BASE_URL}view-profile${page}`,
-            {},
+        const response = await axios.post(`${API.BASE_URL}update-profile-cover`,
+            data,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
+                    "Content-Type": "multipart/form-data",
                 },
             }
         );
@@ -33,4 +38,4 @@ const UpdateMyProfileApi = async (
 };
 
 
-export default UpdateMyProfileApi;
+export default UpdateMyProfileCover;

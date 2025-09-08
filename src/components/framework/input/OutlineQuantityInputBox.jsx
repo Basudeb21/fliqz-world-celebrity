@@ -48,9 +48,7 @@ const OutlineQuantityInputBox = ({ value, setValue, placeholder = "Placeholder",
 export default OutlineQuantityInputBox;
 
 const styles = StyleSheet.create({
-    container: {
-        marginBottom: verticalScale(10),
-    },
+
     label: {
         fontSize: moderateScale(14),
         color: Colors.BLACK,

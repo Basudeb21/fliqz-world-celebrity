@@ -7,20 +7,25 @@ import {
 } from 'react-native';
 import { Colors, NavigationStrings } from '../../constants';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { SharedPost } from '../../components/framework/card';
 import { Spacer } from '../../components/framework/boots';
 import { GetAllPostsApi } from '../../api/app/post';
 import { HomeTopBar } from '../../components/framework/navbar';
 import { StoryHighlightArea } from './post-related';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { updateUser } from '../../redux-store/slices/authSlice';
+import { ViewProfileApi } from '../../api/app/user';
 
 let backPressedOnce = false;
 
 const HomePage = () => {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
     const token = useSelector(state => state.auth.token);
     const user = useSelector(state => state.auth.user);
+
+    console.log(token);
 
 
     const [allPosts, setAllPosts] = useState([]);
@@ -30,12 +35,25 @@ const HomePage = () => {
     const [loading, setLoading] = useState(false);
     const [refreshing, setRefreshing] = useState(false);
 
-    console.log(token);
+    const fetchUserProfile = async () => {
+        if (!token) return;
+        try {
+            const profileRes = await ViewProfileApi(token);
+            if (profileRes?.success && profileRes?.data) {
+                dispatch(updateUser(profileRes.data));
+            }
+        } catch (error) {
+            console.log("Error fetching user profile:", error);
+        }
+    };
 
     useEffect(() => {
         if (!token || !user) {
             navigation.replace(NavigationStrings.AUTH_STACK);
+            return;
         }
+
+        fetchUserProfile();
 
         const backAction = () => {
             if (backPressedOnce) {
@@ -58,7 +76,7 @@ const HomePage = () => {
         );
 
         return () => backHandler.remove();
-    }, [token, user]);
+    }, [token]);
 
     const fetchPosts = async (page = 1, isRefreshing = false) => {
         if (!token || loading) return;
@@ -67,7 +85,6 @@ const HomePage = () => {
         try {
             const data = await GetAllPostsApi(token, page);
             const actualPosts = data?.data?.data || [];
-            console.log("POST DATA", actualPosts);
 
             if (Array.isArray(actualPosts)) {
                 setLastPage(data.data.last_page);
@@ -110,39 +127,32 @@ const HomePage = () => {
     const handleRefresh = () => {
         setRefreshing(true);
         fetchPosts(1, true);
-    };
-
-    const handleSearchPress = () => {
-        navigation.navigate(NavigationStrings.HOME_STACK, {
-            screen: NavigationStrings.HOME_SEARCH_SCREEN,
-        });
-    };
-
-    const handleNotificationPress = () => {
-        navigation.navigate(NavigationStrings.HOME_STACK, {
-            screen: NavigationStrings.HOME_NOTIFICATION_SCREEN,
-        });
-    };
-
-    const handleWalletPress = () => {
-        navigation.navigate(NavigationStrings.HOME_STACK, {
-            screen: NavigationStrings.HOME_WALLET_SCREEN,
-        });
-    };
-
-    const handleCartPress = () => {
-        navigation.navigate(NavigationStrings.HOME_STACK, {
-            screen: NavigationStrings.HOME_CART_SCREEN,
-        });
+        fetchUserProfile();
     };
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
             <HomeTopBar
-                searchOnPress={handleSearchPress}
-                notificationOnPress={handleNotificationPress}
-                walletOnPress={handleWalletPress}
-                cartOnPress={handleCartPress}
+                searchOnPress={() =>
+                    navigation.navigate(NavigationStrings.HOME_STACK, {
+                        screen: NavigationStrings.HOME_SEARCH_SCREEN,
+                    })
+                }
+                notificationOnPress={() =>
+                    navigation.navigate(NavigationStrings.HOME_STACK, {
+                        screen: NavigationStrings.HOME_NOTIFICATION_SCREEN,
+                    })
+                }
+                walletOnPress={() =>
+                    navigation.navigate(NavigationStrings.HOME_STACK, {
+                        screen: NavigationStrings.HOME_WALLET_SCREEN,
+                    })
+                }
+                cartOnPress={() =>
+                    navigation.navigate(NavigationStrings.HOME_STACK, {
+                        screen: NavigationStrings.HOME_CART_SCREEN,
+                    })
+                }
             />
 
             <FlatList
@@ -173,11 +183,9 @@ const HomePage = () => {
                 onRefresh={handleRefresh}
                 showsVerticalScrollIndicator={false}
             />
-
         </SafeAreaView>
     );
 };
 
 export default HomePage;
 
-const styles = StyleSheet.create({});

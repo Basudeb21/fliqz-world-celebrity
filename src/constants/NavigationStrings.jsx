@@ -87,6 +87,7 @@ export default {
     PROFILE_COLLABORATION_LIST: "CollaborationList",
     PROFILE_CREATE_NEW_COLLABORATION: "CreateNewCollaboration",
     PROFILE_EDIT_COLLABORATION: "EditCollaboration",
+    PROFILE_UPDATE_SHOP_ITEM: "UpdateShopItem",
 
 
     // Settings Stack Screens

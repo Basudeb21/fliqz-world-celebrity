@@ -16,9 +16,6 @@ const SharedPost = ({
 }) => {
     const isPoll = data?.poll && !Array.isArray(data.poll)
 
-    console.log("DATA POLLLL>>> ", data);
-
-
     const imageSource =
         isPoll && (!data.attachment || data.attachment.length === 0)
             ? { uri: "https://myvault-web.codextechnolife.com/assets/images/banner.jpg" }

@@ -2,7 +2,7 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationStrings } from '../constants';
 import { Analytics, Bookmarks, Lists, Referals, Streams, Subscriptions, Wallet } from '../screens/app/profile-stack-screens';
-import { AddNewProduct, Orders, ShopItemInfoPage, ShopScreen, ViewOrder } from '../screens/app/profile-stack-screens/outline-btn-menu/shop';
+import { AddNewProduct, Orders, ShopItemInfoPage, ShopScreen, UpdateProductScreen, ViewOrder } from '../screens/app/profile-stack-screens/outline-btn-menu/shop';
 import { ViewListContent } from '../screens/app/profile-stack-screens/sub-screen';
 import { HelpAndSettingsScreen, SettingsScreen } from '../screens/app/profile-stack-screens/outline-btn-menu';
 import SettingsStack from './SettingsStack';
@@ -51,6 +51,8 @@ const ProfileStack = () => {
             <Stack.Screen name={NavigationStrings.PROFILE_SHOP_SCREEN} component={ShopScreen} />
             <Stack.Screen name={NavigationStrings.HOME_SHOP_ITEM_INFO_PAGE} component={ShopItemInfoPage} />
             <Stack.Screen name={NavigationStrings.PROFILE_ADD_NEW_PRODUCT} component={AddNewProduct} />
+            <Stack.Screen name={NavigationStrings.PROFILE_UPDATE_SHOP_ITEM} component={UpdateProductScreen} />
+
 
             {/* Collaboration */}
             <Stack.Screen name={NavigationStrings.PROFILE_COLLABORATION_LIST} component={CollaborationList} />

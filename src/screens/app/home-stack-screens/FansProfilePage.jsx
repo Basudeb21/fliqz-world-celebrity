@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { moderateScale } from 'react-native-size-matters';
 import Entypo from 'react-native-vector-icons/dist/Entypo'
 import { Colors, Images, NavigationStrings } from '../../../constants';
@@ -21,6 +21,8 @@ import { FollowedByImageAndName } from '../../../components/framework/iamge';
 import { GradientIconButtonNoText } from '../../../components/framework/button';
 import { Spacer } from '../../../components/framework/boots';
 import { GradientIcon } from '../../../components/framework/icon';
+import { ViewProfileApi } from '../../../api/app/user';
+import { useSelector } from 'react-redux';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -77,20 +79,43 @@ const BookmarksTabs = () => {
     )
 }
 
+
 const FansProfilePage = () => {
     const route = useRoute();
     const { user } = route.params;
     const navigation = useNavigation();
+    const token = useSelector(state => state.auth.token);
+    const [followers, setFollowers] = React.useState([]);
+    const imgs = [
+        Images.CELEBRITY_AVATAR_FIVE,
+        Images.CELEBRITY_AVATAR_FOUR,
+        Images.CELEBRITY_AVATAR_ONE
+    ]
 
     const openShopClick = () => {
         navigation.navigate(NavigationStrings.HOME_SHOP_SCREEN);
     };
 
-    const imgs = [
-        Images.CELEBRITY_AVATAR_ONE,
-        Images.CELEBRITY_AVATAR_TWO,
-        Images.CELEBRITY_AVATAR_THREE,
-    ];
+    const fetchedFollowers = async () => {
+        try {
+            const res = await ViewProfileApi(token);
+            const followUserDetails = res?.data?.followed_by || [];
+
+            const topThree = followUserDetails.slice(0, 3).map(f => ({
+                name: f?.user?.name || "Anonymous",
+                avatar: f?.user?.avatar || null,
+            }));
+
+            setFollowers(topThree);
+        } catch (err) {
+            console.log("Error fetching followers:", err);
+        }
+    };
+
+    useEffect(() => {
+        fetchedFollowers();
+    }, []);
+
 
     const onPressSubscribe = () => subscibePressSound();
 
@@ -107,7 +132,7 @@ const FansProfilePage = () => {
             <BackpressTopBar title={user.name} color={Colors.WHITE} />
             <ProfileViewInfoCard data={user} />
             <Spacer height={25} />
-            <FollowedByImageAndName images={imgs} />
+            <FollowedByImageAndName followers={followers} totalCount={user?.follower_count} />
             <Spacer height={25} />
             <View style={styles.btnContainer}>
                 <GradientIconButtonNoText

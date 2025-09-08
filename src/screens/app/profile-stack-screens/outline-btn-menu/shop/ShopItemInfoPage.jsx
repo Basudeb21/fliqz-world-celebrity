@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, ScrollView, FlatList } from 'react-native';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-import { Colors } from '../../../../../constants';
+import { Colors, NavigationStrings } from '../../../../../constants';
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/dist/Feather'
@@ -13,14 +13,20 @@ import { SizeNumberLabel } from '../../../../../components/framework/card';
 import { AvailableProductGroup, ProductScrollingWithIndegator } from '../../../../../components/framework/scroller';
 import { OutlineQuantityInputBox } from '../../../../../components/framework/input';
 import { BackpressTopBar } from '../../../../../components/framework/navbar';
+import { useNavigation } from '@react-navigation/native';
 
 const ShopItemInfoPage = ({ route }) => {
     const user = useSelector(state => state.auth.user);
     const { product } = route.params;
     const imageList = product.thumbnail_url;
     const sizes = product.sizes;
+    const navigation = useNavigation();
 
-    const isSameID = user.id == product.user_id
+    const isSameID = user.id == product.user_id;
+
+    const onPressUpdateProduct = () => {
+        navigation.navigate(NavigationStrings.PROFILE_UPDATE_SHOP_ITEM, { product });
+    }
 
 
     return (
@@ -89,6 +95,7 @@ const ShopItemInfoPage = ({ route }) => {
                             iconSize={20}
                             width='40%'
                             fontSize={15}
+                            onPress={onPressUpdateProduct}
                         />
 
                     </View>

@@ -3,8 +3,7 @@ import API from "../../common/API";
 import { ToastAndroid } from "react-native";
 
 const ViewProfileApi = async (
-    token,
-    page = 1
+    token
 ) => {
     try {
         if (!token) {
@@ -12,7 +11,7 @@ const ViewProfileApi = async (
             return null;
         }
 
-        const response = await axios.post(`${API.BASE_URL}view-profile?page=${page}`,
+        const response = await axios.post(`${API.BASE_URL}view-profile`,
             {},
             {
                 headers: {

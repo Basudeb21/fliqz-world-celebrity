@@ -1,3 +1,7 @@
+export { default as UpdateMyProfileCover } from "./UpdateMyProfileCover";
+
+export { default as UpdateMyProfilePic } from "./UpdateMyProfilePic";
+
 export { default as GetAllCountryApi } from "./GetAllCountryApi";
 export { default as GetAllGenderApi } from "./GetAllGenderApi";
 

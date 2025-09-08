@@ -1,3 +1,4 @@
+export { default as UpdateProductScreen } from "./UpdateProductScreen";
 export { default as CartScreen } from "./CartScreen";
 export { default as AddNewProduct } from "./AddNewProduct";
 export { default as CheckoutPage } from "./CheckoutPage";
