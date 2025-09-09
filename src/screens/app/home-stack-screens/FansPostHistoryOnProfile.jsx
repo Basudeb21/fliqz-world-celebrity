@@ -12,9 +12,9 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { SharedPost } from '../../../components/framework/card';
 import { Loader, Spacer } from '../../../components/framework/boots';
-import { GetMyPostHistoryApi } from '../../../api/app/user';
+import { GetOthersProfilePostApi } from '../../../api/app/user';
 
-const FansPostHistoryOnProfile = () => {
+const FansPostHistoryOnProfile = ({ username }) => {
     const navigation = useNavigation();
     const token = useSelector(state => state.auth.token);
 
@@ -31,11 +31,15 @@ const FansPostHistoryOnProfile = () => {
         else setLoadingMore(true);
 
         try {
-            const res = await GetMyPostHistoryApi(token, page);
-            const actualPosts = res?.data?.data || [];
+            console.log("MY Token : ", token);
 
-            setLastPage(res?.data?.last_page || 1);
-            setCurrentPage(res?.data?.current_page || 1);
+            const res = await GetOthersProfilePostApi(token, username, page);
+            console.log("Res Of Friends:", res);
+
+            const actualPosts = res?.data || [];
+
+            setLastPage(res?.last_page || 1);
+            setCurrentPage(res?.current_page || 1);
 
             if (append) {
                 setPosts(prev => {
@@ -54,6 +58,8 @@ const FansPostHistoryOnProfile = () => {
         setLoading(false);
         setLoadingMore(false);
     };
+
+
 
     useEffect(() => {
         fetchPosts(1, false);

@@ -1,3 +1,4 @@
+export { default as AddressCard } from "./AddressCard";
 export { default as AnalycisCard } from "./AnalycisCard";
 export { default as AuctionCard } from "./AuctionCard";
 export { default as BidTopper } from "./BidTopper";

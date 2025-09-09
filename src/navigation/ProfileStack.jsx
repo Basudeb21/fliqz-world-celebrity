@@ -11,7 +11,7 @@ import { AddNewEvent, EventDetailsScreen, EventsScreen, UpdateEventScreen } from
 import AuthStack from './AuthStack';
 import FAQ from '../screens/app/profile-stack-screens/outline-btn-menu/FAQ';
 import { CollaborationList, CreateNewCollaboration, EditCollaboration } from '../screens/app/profile-stack-screens/outline-btn-menu/collaboration';
-import { EditProfile } from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen';
+import { DisplayAllAddress, EditProfile } from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen';
 
 const ProfileStack = () => {
     const Stack = createNativeStackNavigator();
@@ -52,6 +52,7 @@ const ProfileStack = () => {
             <Stack.Screen name={NavigationStrings.HOME_SHOP_ITEM_INFO_PAGE} component={ShopItemInfoPage} />
             <Stack.Screen name={NavigationStrings.PROFILE_ADD_NEW_PRODUCT} component={AddNewProduct} />
             <Stack.Screen name={NavigationStrings.PROFILE_UPDATE_SHOP_ITEM} component={UpdateProductScreen} />
+
 
 
             {/* Collaboration */}

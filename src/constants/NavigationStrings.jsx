@@ -49,8 +49,8 @@ export default {
     LIVE_SCREEN: "LiveScreen",
     CREATE_SCREEN: "CreateScreen",
 
-
-
+    // Address
+    PROFILE_ALL_ADDRESS: "AllAddress",
 
     // Home Stack Options
     HOME_NOTIFICATION_SCREEN: "NotificationScreen",
@@ -101,6 +101,7 @@ export default {
     SETTINGS_SUPPORT_TICKET_SCREEN: "SupportTicket",
     SETTINGS_PROMOTION_SCREEN: "Promotion",
     SETTINGS_ADD_SUPPORT_TICKET_SCREEN: "SupportTicketScreen",
+    SETTINGS_UPDATE_ADDRESS: "UpdateAddress",
 
     // Post Screens
     ALL_REACTS: "AllReacts",

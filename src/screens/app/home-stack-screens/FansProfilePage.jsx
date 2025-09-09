@@ -127,6 +127,8 @@ const FansProfilePage = () => {
         });
     };
 
+
+
     const renderHeader = () => (
         <>
             <BackpressTopBar title={user.name} color={Colors.WHITE} />
@@ -179,6 +181,10 @@ const FansProfilePage = () => {
         </>
     );
 
+
+    console.log(user.username);
+
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
             <FlatList
@@ -187,7 +193,7 @@ const FansProfilePage = () => {
                 ListHeaderComponent={renderHeader}
                 renderItem={() => (
                     <View style={{ flex: 1, }}>
-                        <FansPostHistoryOnProfile />
+                        <FansPostHistoryOnProfile username={user.username} />
                     </View>
                 )}
                 showsVerticalScrollIndicator={false}

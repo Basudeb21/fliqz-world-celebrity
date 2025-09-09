@@ -10,19 +10,27 @@ import Octicons from 'react-native-vector-icons/dist/Octicons'
 import { followPressSounds, subscibePressSound } from '../../../sound/SoundManager'
 import { useSelector } from 'react-redux'
 import { BlockUserApi, FollowUserApi } from '../../../api/app/user'
+import { DeletePostApi } from '../../../api/app/post'
 
-const PostThreeDotsModal = ({ id, visible, onClose, followState, blockState }) => {
+const PostThreeDotsModal = ({ id, visible, onClose, followState, blockState, data }) => {
     const iconSize = 20;
     const [isFollowed, setIsFollowed] = useState(followState);
     const [isBlocked, setIsBlocked] = useState(followState);
     const token = useSelector(state => state.auth.token);
+    const user = useSelector(state => state.auth.user);
+    console.log("->", data);
+
+
+    const isSame = user.id == id;
+
+
     const onPressSubscribe = () => {
         subscibePressSound();
     }
 
     const onPressFollow = async () => {
         try {
-            const result = await FollowUserApi(token, id);
+            const result = await FollowUserApi(token, data.id);
 
             console.log("result : ", result);
 
@@ -38,6 +46,17 @@ const PostThreeDotsModal = ({ id, visible, onClose, followState, blockState }) =
         }
     }
 
+    const onPressDeletePost = async () => {
+        const res = await DeletePostApi(token, data.id);
+        console.log("DELETE POST : ", res);
+
+        if (res?.success) {
+            ToastAndroid.show(res.message, ToastAndroid.SHORT);
+            onClose?.();
+        } else {
+            ToastAndroid.show(res?.message || "Delete failed", ToastAndroid.LONG);
+        }
+    };
     const onPressBlock = async () => {
         try {
             const result = await BlockUserApi(token, id);
@@ -73,29 +92,45 @@ const PostThreeDotsModal = ({ id, visible, onClose, followState, blockState }) =
                     style={styles.modalContent}
                     onPress={() => { }}
                 >
-                    <TouchableOpacity style={styles.row}>
-                        <Feather name="copy" size={iconSize} color={Colors.THEME} />
-                        <Text style={styles.txt}>Copy Link</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.row} onPress={onPressFollow}>
-                        <Ionicons
-                            name={isFollowed ? "person-add" : "person-add-outline"}
-                            size={iconSize}
-                            color={Colors.THEME} />
-                        <Text style={styles.txt}>Follow</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.row} onPress={onPressSubscribe}>
-                        <MaterialIcons name="subscriptions" size={iconSize} color={Colors.THEME} />
-                        <Text style={styles.txt}>Subscription</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.row} onPress={onPressBlock}>
-                        <Entypo name="block" size={16} color={Colors.THEME} />
-                        <Text style={styles.txt}>Block</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.row}>
-                        <Octicons name="report" size={16} color={Colors.THEME} />
-                        <Text style={styles.txt}>Report</Text>
-                    </TouchableOpacity>
+                    {
+                        isSame &&
+                        <>
+                            <TouchableOpacity style={styles.row}>
+                                <Feather name="copy" size={iconSize} color={Colors.THEME} />
+                                <Text style={styles.txt}>Copy Link</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.row} onPress={onPressDeletePost}>
+                                <MaterialIcons name="delete" size={iconSize} color={Colors.THEME} />
+                                <Text style={styles.txt}>Delete Post</Text>
+                            </TouchableOpacity>
+                        </>
+                    }
+
+                    {
+                        !isSame &&
+                        <>
+                            <TouchableOpacity style={styles.row} onPress={onPressFollow}>
+                                <Ionicons
+                                    name={isFollowed ? "person-add" : "person-add-outline"}
+                                    size={iconSize}
+                                    color={Colors.THEME} />
+                                <Text style={styles.txt}>Follow</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.row} onPress={onPressSubscribe}>
+                                <MaterialIcons name="subscriptions" size={iconSize} color={Colors.THEME} />
+                                <Text style={styles.txt}>Subscription</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.row} onPress={onPressBlock}>
+                                <Entypo name="block" size={16} color={Colors.THEME} />
+                                <Text style={styles.txt}>Block</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.row}>
+                                <Octicons name="report" size={16} color={Colors.THEME} />
+                                <Text style={styles.txt}>Report</Text>
+                            </TouchableOpacity>
+                        </>
+                    }
+
                 </TouchableOpacity>
             </TouchableOpacity>
         </Modal>

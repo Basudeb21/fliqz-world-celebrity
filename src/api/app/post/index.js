@@ -1,3 +1,4 @@
+export { default as DeletePostApi } from "./DeletePostApi";
 export { default as UpdateCommentApi } from "./UpdateCommentApi";
 export { default as DeleteCommentApi } from "./DeleteCommentApi";
 export { default as AddNewPostApi } from "./AddNewPostApi";

@@ -14,7 +14,8 @@ const SharedPost = ({
     data,
     badges
 }) => {
-    const isPoll = data?.poll && !Array.isArray(data.poll)
+    const isPoll = data?.poll && !Array.isArray(data.poll);
+
 
     const imageSource =
         isPoll && (!data.attachment || data.attachment.length === 0)

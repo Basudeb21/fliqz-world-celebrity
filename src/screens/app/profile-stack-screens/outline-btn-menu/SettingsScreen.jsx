@@ -33,7 +33,7 @@ const SettingsScreen = () => {
 
     const onPressEditAddress = () => {
         navigation.navigate(NavigationStrings.SETTINGS_STACK, {
-            screen: NavigationStrings.SETTINGS_EDIT_ADDRESS_SCREEN
+            screen: NavigationStrings.PROFILE_ALL_ADDRESS
         })
     }
 

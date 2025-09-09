@@ -1,3 +1,5 @@
+export { default as UpdateAddress } from "./UpdateAddress";
+export { default as DisplayAllAddress } from "./DisplayAllAddress";
 export { default as EditProfile } from "./EditProfile";
 export { default as AddSupportTicketScreen } from "./AddSupportTicketScreen";
 export { default as ChangePassword } from "./ChangePassword";

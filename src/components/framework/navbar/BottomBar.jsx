@@ -126,6 +126,7 @@ const BottomBar = ({ focused = true, createdAt, data }) => {
                 followState={data.is_followed}
                 id={data.user_id}
                 visible={threeDotsVisible}
+                data={data}
                 onClose={() => setThreeDotsVisible(false)}
             />
         </View>

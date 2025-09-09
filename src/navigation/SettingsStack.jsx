@@ -1,7 +1,7 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationStrings } from '../constants';
-import { AddSupportTicketScreen, ChangePassword, EditAddress, EditProfile, Payments, Privacy, Promotion, SubscriptionPrice, SupportTicket, Verify } from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen';
+import { AddSupportTicketScreen, ChangePassword, DisplayAllAddress, EditAddress, EditProfile, Payments, Privacy, Promotion, SubscriptionPrice, SupportTicket, UpdateAddress, Verify } from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen';
 
 const SettingsStack = () => {
     const Stack = createNativeStackNavigator();
@@ -18,6 +18,9 @@ const SettingsStack = () => {
             <Stack.Screen name={NavigationStrings.SETTINGS_SUPPORT_TICKET_SCREEN} component={SupportTicket} />
             <Stack.Screen name={NavigationStrings.SETTINGS_PROMOTION_SCREEN} component={Promotion} />
             <Stack.Screen name={NavigationStrings.SETTINGS_ADD_SUPPORT_TICKET_SCREEN} component={AddSupportTicketScreen} />
+            <Stack.Screen name={NavigationStrings.PROFILE_ALL_ADDRESS} component={DisplayAllAddress} />
+            <Stack.Screen name={NavigationStrings.SETTINGS_UPDATE_ADDRESS} component={UpdateAddress} />
+
         </Stack.Navigator>
     );
 }
