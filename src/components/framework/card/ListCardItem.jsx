@@ -10,7 +10,7 @@ const ListCardItem = ({ type, ammount, imgs, onPress }) => {
             <View style={styles.row}>
                 <View style={styles.textContainer}>
                     <Text style={styles.type}>{type}</Text>
-                    <Text style={styles.ammount}>{ammount}</Text>
+                    <Text style={styles.ammount}>{ammount} {ammount > 1 ? "Peoples" : "People"}</Text>
                 </View>
                 <CommonSuggestionImageGroup images={imgs} />
             </View>

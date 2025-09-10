@@ -1,12 +1,16 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Colors, Images } from '../../../../constants'
-import { ListItemViewCard } from '../../../../components/framework/card'
+import { EmptyContentCard, ListItemViewCard } from '../../../../components/framework/card'
 import { Spacer } from '../../../../components/framework/boots'
 import { BackpressTopBar } from '../../../../components/framework/navbar'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { GetListDetailsApi } from '../../../../api/app/lists'
+import { useSelector } from 'react-redux'
 
 const ViewListContent = ({ route }) => {
-    const { type } = route.params;
+    const token = useSelector(state => state.auth.token);
+    const { item } = route.params;
     const user = [
         { id: 1, image: Images.CELEBRITY_AVATAR_ONE, fanName: "Maddy_56", fanID: "@maddy_8923" },
         { id: 2, image: Images.CELEBRITY_AVATAR_TWO, fanName: "Zoya_123", fanID: "@zoya.12" },
@@ -30,28 +34,58 @@ const ViewListContent = ({ route }) => {
         { id: 20, image: Images.CELEBRITY_AVATAR_FIVE, fanName: "Yash__", fanID: "@yash_waves" }
     ];
 
+    const [lists, setLists] = useState([]);
+    useEffect(() => {
+        const fetchLists = async () => {
+            const res = await GetListDetailsApi(token, item.id);
+            if (res && res.success) {
+                setLists(res.data.members);
+                console.log(res.data.members);
+            } else {
+                ToastAndroid.show("Failed to load lists", ToastAndroid.SHORT)
+            }
+        }
+        fetchLists()
+    }, [token])
+
+
     return (
-        <View style={{ flex: 1, backgroundColor: Colors.WHITE }}>
-            <BackpressTopBar title={type + " lists"} />
+        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+            <BackpressTopBar title={item.name + " lists"} />
             <FlatList
-                data={user}
+                data={lists}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
                     <ListItemViewCard
-                        image={item.image}
-                        fanName={item.fanName}
-                        fanID={item.fanID}
+                        image={item.user.avatar}
+                        fanName={item.user.name}
+                        fanID={item.user.username}
                     />
                 )}
                 ListFooterComponent={<Spacer height={5} />}
-                contentContainerStyle={styles.scrollContent}
+                contentContainerStyle={[
+                    styles.scrollContent,
+                    lists.length === 0 && { flex: 1, justifyContent: 'center' }
+                ]}
+                ListEmptyComponent={
+                    <EmptyContentCard text={"This list is empty."} />
+                }
             />
 
 
-        </View>
+        </SafeAreaView>
     )
 }
 
 export default ViewListContent
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    empty: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    scrollContent: {
+        paddingBottom: 10,
+    },
+})

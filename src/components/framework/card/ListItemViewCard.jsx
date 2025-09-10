@@ -15,7 +15,7 @@ const ListItemViewCard = ({ image, fanName, fanID, onPress }) => {
                 </TouchableOpacity>
                 <View style={styles.userInfoContainer}>
                     <Text style={styles.fanName}>{fanName}</Text>
-                    <Text style={styles.activeTime}>{fanID}</Text>
+                    <Text style={styles.activeTime}>@{fanID}</Text>
                 </View>
 
                 <TouchableOpacity style={styles.rightIconContainer}>
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     },
     userImage: {
         width: moderateScale(40),
-        height: verticalScale(40),
+        height: verticalScale(35),
         borderRadius: scale(100),
     },
     userInfoContainer: {
