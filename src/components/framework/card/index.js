@@ -1,3 +1,6 @@
+export { default as QuickAmmountCard } from "./QuickAmmountCard";
+
+export { default as QuickTipsCard } from "./QuickTipsCard";
 export { default as EmptyContentCard } from "./EmptyContentCard";
 export { default as AddressCard } from "./AddressCard";
 export { default as AnalycisCard } from "./AnalycisCard";

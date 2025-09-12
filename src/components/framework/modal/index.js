@@ -1,3 +1,4 @@
+export { default as StatusModal } from "./StatusModal";
 export { default as AddListModal } from "./AddListModal";
 export { default as BottomModal } from "./BottomModal";
 export { default as CommentPressModal } from "./CommentPressModal";

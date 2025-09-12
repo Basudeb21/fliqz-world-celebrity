@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux-store/slices/authSlice';
 import Octicons from 'react-native-vector-icons/dist/Octicons'
 import FontAwesome6 from 'react-native-vector-icons/dist/FontAwesome6'
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from '@react-navigation/native'
 import { Colors, NavigationStrings, Strings } from '../../constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -121,7 +122,7 @@ const ProfilePage = () => {
         { id: 3, icon: Entypo, iconName: "shopping-basket", text: "Orders", onPress: onPressOrders },
         { id: 4, icon: FontAwesome, iconName: "list-ul", text: "Lists", onPress: onPressLists },
         { id: 5, icon: FontAwesome, iconName: "bookmark", text: "Bookmarks", onPress: onPressSBookmarks },
-        { id: 6, icon: Entypo, iconName: "wallet", text: "Wallet", onPress: onPressWallet },
+        { id: 6, icon: MaterialCommunityIcons, iconName: "hand-heart", text: "Crowdfunding", onPress: onPressWallet },
         { id: 7, icon: Octicons, iconName: "video", text: "Subscriptions", onPress: onPressSubscription },
         { id: 8, icon: FontAwesome6, iconName: "users-line", text: "Referrals", onPress: onPressReferal },
         { id: 9, icon: Entypo, iconName: "shop", text: "Shop", onPress: onPressShop },

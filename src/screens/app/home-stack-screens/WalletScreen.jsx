@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { moderateScale, verticalScale } from 'react-native-size-matters';
@@ -8,7 +8,7 @@ import { HR, Spacer } from '../../../components/framework/boots';
 import { ProfileFundCard } from '../../../components/framework/card';
 import { GradientTextButton, OutLineButton } from '../../../components/framework/button';
 import WalletForm from '../home-mini-components/WalletForm';
-import { AllTransactions } from '../home-mini-components';
+import { AllTransactions, WithdrawForm } from '../home-mini-components';
 
 const WalletScreen = () => {
     const [addFundForm, setAddFundForm] = useState(true);
@@ -37,31 +37,34 @@ const WalletScreen = () => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
             <BackpressTopBar title={"Wallet"} />
-            <Spacer height={15} />
-            <View style={styles.topContainer}>
-                <Text>Your payments and Wallet</Text>
-                <Spacer height={10} />
-                <HR height={1} />
-            </View>
-            <ProfileFundCard />
-            <View style={styles.btnRow}>
-                {addFundForm ?
-                    <GradientTextButton label='Add Funds' width='30%' fontSize={14} onPress={handleAddFundFormPress} height={40} /> :
-                    <OutLineButton label_two='Add Funds' width='30%' fontSize={14} onPress={handleAddFundFormPress} height={40} />
-                }
-                {viewTransactions ?
-                    <GradientTextButton label='Transactions' width='30%' fontSize={14} onPress={handleViewTransactionsPress} height={40} /> :
-                    <OutLineButton label_two='Transactions' width='30%' fontSize={14} onPress={handleViewTransactionsPress} height={40} />
-                }
-                {openWithdraw ?
-                    <GradientTextButton label='Withdraw' width='30%' fontSize={14} onPress={handleOpenWithdrawPress} height={40} /> :
-                    <OutLineButton label_two='Withdraw' width='30%' fontSize={14} onPress={handleOpenWithdrawPress} height={40} />
-                }
-            </View>
-            <View style={styles.dynamicContainer}>
-                {addFundForm && <WalletForm />}
-                {viewTransactions && <AllTransactions />}
-            </View>
+            <ScrollView>
+                <Spacer height={15} />
+                <View style={styles.topContainer}>
+                    <Text>Your payments and Wallet</Text>
+                    <Spacer height={10} />
+                    <HR height={1} />
+                </View>
+                <ProfileFundCard />
+                <View style={styles.btnRow}>
+                    {addFundForm ?
+                        <GradientTextButton label='Add Funds' width='30%' fontSize={14} onPress={handleAddFundFormPress} height={40} /> :
+                        <OutLineButton label_two='Add Funds' width='30%' fontSize={14} onPress={handleAddFundFormPress} height={40} />
+                    }
+                    {viewTransactions ?
+                        <GradientTextButton label='Transactions' width='30%' fontSize={14} onPress={handleViewTransactionsPress} height={40} /> :
+                        <OutLineButton label_two='Transactions' width='30%' fontSize={14} onPress={handleViewTransactionsPress} height={40} />
+                    }
+                    {openWithdraw ?
+                        <GradientTextButton label='Withdraw' width='30%' fontSize={14} onPress={handleOpenWithdrawPress} height={40} /> :
+                        <OutLineButton label_two='Withdraw' width='30%' fontSize={14} onPress={handleOpenWithdrawPress} height={40} />
+                    }
+                </View>
+                <View style={styles.dynamicContainer}>
+                    {addFundForm && <WalletForm />}
+                    {viewTransactions && <AllTransactions />}
+                    {openWithdraw && <WithdrawForm />}
+                </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }
@@ -79,7 +82,6 @@ const styles = StyleSheet.create({
     },
     dynamicContainer: {
         flex: 1,
-        marginTop: verticalScale(10)
     },
 
 })

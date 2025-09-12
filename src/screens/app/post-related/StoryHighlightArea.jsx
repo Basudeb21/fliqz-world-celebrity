@@ -81,7 +81,6 @@ const StoryHighlightArea = () => {
     useEffect(() => {
         const fetchStories = async () => {
             const res = await GetStoriesApi(token);
-            console.log("SS", res);
 
             if (res?.story) {
                 setStories(res.story);
@@ -104,7 +103,7 @@ const StoryHighlightArea = () => {
 
     const renderStoryItem = ({ item }) => (
         <StoryHighlight
-            image={API.STORAGE_URL + item.image_url}
+            image={item.image_url}
             userName={
                 item.user.name.length > 9
                     ? item.user.name.slice(0, 9) + '...'

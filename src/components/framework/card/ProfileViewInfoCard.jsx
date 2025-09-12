@@ -1,10 +1,13 @@
-import { FlatList, Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { FlatList, Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react'
 import { Colors } from '../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
+import Entypo from 'react-native-vector-icons/dist/Entypo';
+import { GradientIcon } from '../icon';
+import { Spacer } from '../boots';
+import StatusModal from '../modal/StatusModal';
 
 const ProfileViewInfoCard = ({ data }) => {
-    console.log(">>>>DATA>>>", data);
     const renderBadge = ({ item }) => (
         <Image
             source={{ uri: item.icon }}
@@ -12,10 +15,11 @@ const ProfileViewInfoCard = ({ data }) => {
         />
     );
 
+    const [statusModalVisible, setStatusModalVisible] = useState(false);
+
     return (
         <View>
             <View style={styles.container}>
-
                 <View style={styles.infoContainer}>
                     <ImageBackground source={{ uri: data.cover }} style={styles.cover}>
                         <Image
@@ -23,6 +27,7 @@ const ProfileViewInfoCard = ({ data }) => {
                             source={{ uri: data.avatar }}
                         />
                     </ImageBackground>
+
                     <View style={styles.nameBadgeRow}>
                         <Text style={styles.fanName}>{data.name}</Text>
                         <View style={styles.badgeContainer}>
@@ -38,6 +43,27 @@ const ProfileViewInfoCard = ({ data }) => {
                             )}
                         </View>
                     </View>
+
+                    <View style={[styles.row, styles.bioContainer]}>
+                        <View>
+                            <Text style={styles.userName}>@{data.username}</Text>
+                            <Text style={styles.bio}>{data.bio}</Text>
+                        </View>
+
+                        <View style={styles.row}>
+                            <Text>{data.status}</Text>
+                            <Spacer width={10} />
+                            <TouchableOpacity onPress={() => setStatusModalVisible(true)}>
+                                <GradientIcon
+                                    IconPack={Entypo}
+                                    name={statusModalVisible ? "chevron-up" : "chevron-down"}
+                                    size={20}
+                                    colors={[Colors.BUTTON_GRADIENT_ONE, Colors.BUTTON_GRADIENT_TWO]}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
                     <View style={styles.counterContainer}>
                         <View style={styles.singleArea}>
                             <Text style={styles.counter}>{data.post_count}</Text>
@@ -54,10 +80,11 @@ const ProfileViewInfoCard = ({ data }) => {
                     </View>
                 </View>
             </View>
-            <View style={styles.stsContainer}>
-                <Text style={styles.celebrityStatus}>Celebrity</Text>
-                <Text style={styles.myVault}>My Vault Artist</Text>
-            </View>
+
+            <StatusModal
+                visible={statusModalVisible}
+                onClose={() => setStatusModalVisible(false)}
+            />
         </View>
     )
 }
@@ -72,8 +99,8 @@ const styles = StyleSheet.create({
         width: "100%",
         height: scale(120)
     },
-    infoArea: {
-        marginStart: moderateScale(100)
+    row: {
+        flexDirection: "row"
     },
     image: {
         height: verticalScale(65),
@@ -92,7 +119,16 @@ const styles = StyleSheet.create({
         color: Colors.SILVER,
         marginTop: verticalScale(40),
         marginStart: moderateScale(20)
-
+    },
+    userName: {
+        fontSize: scale(8),
+        fontWeight: "900",
+        color: Colors.SILVER,
+    },
+    bio: {
+        fontSize: scale(12),
+        fontWeight: "500",
+        color: Colors.BLACK,
     },
     counterContainer: {
         flexDirection: "row",
@@ -100,9 +136,6 @@ const styles = StyleSheet.create({
         marginTop: verticalScale(5),
         gap: moderateScale(30),
         marginStart: moderateScale(20)
-    },
-    singleArea: {
-
     },
     counter: {
         fontSize: scale(15),
@@ -118,6 +151,10 @@ const styles = StyleSheet.create({
         marginStart: moderateScale(20),
         marginTop: verticalScale(10)
     },
+    bioContainer: {
+        justifyContent: "space-between",
+        marginHorizontal: scale(20)
+    },
     celebrityStatus: {
         fontWeight: "500",
         color: Colors.PLACEHOLDER
@@ -128,12 +165,9 @@ const styles = StyleSheet.create({
     nameBadgeRow: {
         flexDirection: "row",
         alignItems: "center",
-
     },
     badgeList: {
-        marginTop: scale(4),
         marginTop: verticalScale(40),
-
     },
     badgeIcon: {
         width: scale(22),
@@ -146,3 +180,4 @@ const styles = StyleSheet.create({
         marginStart: moderateScale(10),
     },
 })
+

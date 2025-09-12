@@ -6,6 +6,7 @@ import { GradientTextButton } from '../../../../../components/framework/button';
 import { BackpressTopBar } from '../../../../../components/framework/navbar';
 import { AmmountInput, DateTimeInputBox, OutlineQuantityInputBox, TextAreaBox, TextInputBox } from '../../../../../components/framework/input';
 import { UpdateEventApi } from '../../../../../api/app/event-api';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const UpdateEventScreen = ({ route }) => {
     const { event } = route.params;
@@ -17,7 +18,6 @@ const UpdateEventScreen = ({ route }) => {
     const [endDate, setEndDate] = useState(event.end_time);
     const [quantity, setQuantity] = useState(event.quantity_total);
     const token = useSelector((state) => state.auth?.token);
-    console.log("---->>>", token);
 
 
     const onPressHandleUpdateEvent = async () => {
@@ -41,7 +41,7 @@ const UpdateEventScreen = ({ route }) => {
 
 
     return (
-        <View style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1 }}>
             <BackpressTopBar title={"Update Event"} />
             <View style={styles.form}>
                 <TextInputBox placeholder='Title' value={title} setValue={setTitle} />
@@ -56,7 +56,7 @@ const UpdateEventScreen = ({ route }) => {
                 </View>
 
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 

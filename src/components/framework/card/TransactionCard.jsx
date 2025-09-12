@@ -4,27 +4,32 @@ import Feather from 'react-native-vector-icons/dist/Feather'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import { Colors } from '../../../constants'
 const TransactionCard = ({ content, date, time, ammount, type }) => {
-    const sym = type ? "+" : "-";
+    const isCredit = type === "credit";
+    const sym = isCredit ? "+" : "-";
+
     return (
         <View style={styles.card}>
             <View style={styles.colOne}>
                 <Feather
-                    name={type ? "arrow-down-left" : "arrow-up-right"}
+                    name={isCredit ? "arrow-down-left" : "arrow-up-right"}
                     size={24}
-                    color={type ? Colors.INCOME : Colors.THEME}
+                    color={isCredit ? Colors.INCOME : Colors.THEME}
                 />
             </View>
 
             <View style={styles.colTwo}>
-                <Text style={styles.txt}>{content}</Text>
-                <Text style={styles.txt}>{date + " " + time}</Text>
+                <Text style={styles.txt}>{content || "No remarks"}</Text>
+                <Text style={styles.txt}>{date}</Text>
             </View>
 
             <View style={styles.colThree}>
-                <Text style={[styles.ammount, { color: type ? Colors.INCOME : Colors.THEME }]}>{sym + ammount}</Text>
+                <Text style={[
+                    styles.ammount,
+                    { color: isCredit ? Colors.INCOME : Colors.THEME }
+                ]}>
+                    {sym + ammount}
+                </Text>
             </View>
-
-
         </View>
     )
 }

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Colors } from '../../../constants';
 import { verticalScale } from 'react-native-size-matters';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ProfileTopCard } from '../../../components/framework/card';
+import { ProfileTopCard, QuickTipsCard } from '../../../components/framework/card';
 import { ChatBackPressTopBar } from '../../../components/framework/navbar';
 import { ChatReceive, ChatSend } from '../../../components/framework/chat';
 import { MessageSendArea } from '../../../components/framework/input';
@@ -21,7 +21,6 @@ const FriendChatScreen = ({ route }) => {
     const currentUser = useSelector(state => state.auth.user);
     const [loading, setLoading] = useState(true);
 
-    // Fetch chat messages
     const fetchChatData = async () => {
         try {
             const response = await GetChatByUserIDApi({ token, id: user.username });
@@ -77,17 +76,23 @@ const FriendChatScreen = ({ route }) => {
                         contentContainerStyle={styles.scrollContent}
                         renderItem={({ item }) =>
                             item.sender_id === currentUser.id
-                                ? <ChatSend label={item.message} time={FormatTime(item.created_at)} />
-                                : <ChatReceive label={item.message} time={FormatTime(item.created_at)} />
+                                ? <ChatSend item={item} time={FormatTime(item.created_at)} />
+                                : <ChatReceive item={item} time={FormatTime(item.created_at)} />
                         }
+
                     />
                 )}
+            </View>
+            <View>
+                <QuickTipsCard user={user.username} />
+
             </View>
             <MessageSendArea
                 value={message}
                 setValue={setMessage}
                 placeholder="Type a message..."
                 onPress={onPressSendMessage}
+                user={user}
             />
         </SafeAreaView>
     );

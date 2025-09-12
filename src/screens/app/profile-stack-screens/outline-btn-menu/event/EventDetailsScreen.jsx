@@ -23,6 +23,9 @@ const EventDetailsScreen = ({ route }) => {
     const navigation = useNavigation();
     const { event } = route.params;
 
+    console.log("Event ", event);
+
+
     const isSame = user.id == event.creator_id;
 
     const onPressUpdateEvent = ({ event }) => {
@@ -87,6 +90,7 @@ const EventDetailsScreen = ({ route }) => {
                         />
                         <Text style={styles.eventDate}>{event.location}</Text>
                     </View>
+
 
                 </View>
             </View>

@@ -18,7 +18,6 @@ const PostThreeDotsModal = ({ id, visible, onClose, followState, blockState, dat
     const [isBlocked, setIsBlocked] = useState(followState);
     const token = useSelector(state => state.auth.token);
     const user = useSelector(state => state.auth.user);
-    console.log("->", data);
 
 
     const isSame = user.id == id;

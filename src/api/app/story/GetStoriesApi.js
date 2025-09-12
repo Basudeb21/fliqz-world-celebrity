@@ -17,9 +17,6 @@ const GetStoriesApi = async (token,) => {
             }
         });
 
-        console.log("Story: ", response.data.data);
-
-
         return response.data?.data || null;
 
     } catch (error) {
