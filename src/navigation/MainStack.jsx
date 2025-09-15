@@ -6,6 +6,7 @@ import HomeStack from './HomeStack';
 import ChatStack from './ChatStack';
 import ProfileStack from './ProfileStack';
 import PostStack from './PostStack';
+import AuthStack from './AuthStack';
 
 
 const MainStack = () => {
@@ -30,6 +31,10 @@ const MainStack = () => {
                 component={ProfileStack}
             />
             <Stack.Screen name={NavigationStrings.POST_STACK} component={PostStack} />
+            <Stack.Screen
+                name={NavigationStrings.AUTH_STACK}
+                component={AuthStack}
+            />
 
         </Stack.Navigator>
     );

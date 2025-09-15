@@ -150,7 +150,7 @@ const AllComments = () => {
                 showsVerticalScrollIndicator={false}
             />
 
-            {/* ✅ Handles safe area + keyboard */}
+
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                 keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}

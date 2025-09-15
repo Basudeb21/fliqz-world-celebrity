@@ -12,6 +12,7 @@ import AuthStack from './AuthStack';
 import FAQ from '../screens/app/profile-stack-screens/outline-btn-menu/FAQ';
 import { CollaborationList, CreateNewCollaboration, EditCollaboration } from '../screens/app/profile-stack-screens/outline-btn-menu/collaboration';
 import { DisplayAllAddress, EditProfile } from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen';
+import { AllCrowdfunding, CreateNewCrowdfunding, ViewCrowdfunding } from '../screens/app/profile-stack-screens/outline-btn-menu/crowdfunding';
 
 const ProfileStack = () => {
     const Stack = createNativeStackNavigator();
@@ -59,6 +60,12 @@ const ProfileStack = () => {
             <Stack.Screen name={NavigationStrings.PROFILE_COLLABORATION_LIST} component={CollaborationList} />
             <Stack.Screen name={NavigationStrings.PROFILE_CREATE_NEW_COLLABORATION} component={CreateNewCollaboration} />
             <Stack.Screen name={NavigationStrings.PROFILE_EDIT_COLLABORATION} component={EditCollaboration} />
+
+            {/* Crowdfunding */}
+            <Stack.Screen name={NavigationStrings.PROFILE_ALL_CROWDFUNDING} component={AllCrowdfunding} />
+            <Stack.Screen name={NavigationStrings.PROFILE_VIEW_CROWDFUNDING} component={ViewCrowdfunding} />
+            <Stack.Screen name={NavigationStrings.PROFILE_CREATE_CROWDFUNDING} component={CreateNewCrowdfunding} />
+
 
             <Stack.Screen name={NavigationStrings.AUTH_STACK} component={AuthStack} />
         </Stack.Navigator>

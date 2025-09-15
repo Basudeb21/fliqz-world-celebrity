@@ -1,3 +1,4 @@
+// ProfilePage.js
 import { FlatList, StyleSheet, View } from 'react-native'
 import React from 'react'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
@@ -29,19 +30,23 @@ const ProfilePage = () => {
         try {
             await AsyncStorage.removeItem('userData');
             dispatch(logout());
-            navigation.goBack();
+
+            navigation.reset({
+                index: 0,
+                routes: [{ name: NavigationStrings.AUTH_STACK }],
+            });
         } catch (error) {
             console.error('Error during logout:', error);
         }
     };
 
-    const onPressCreatorRequest = () => {
+    const onPressAnalytics = () => {
         navigation.navigate(NavigationStrings.PROFILE_STACK, {
             screen: NavigationStrings.PROFILE_BECOME_A_CREATOR
         })
     }
 
-    const onPressCollaboration = () => {
+    const onPressCollaborations = () => {
         navigation.navigate(NavigationStrings.PROFILE_STACK, {
             screen: NavigationStrings.PROFILE_COLLABORATION_LIST
         })
@@ -59,25 +64,25 @@ const ProfilePage = () => {
         })
     }
 
-    const onPressSBookmarks = () => {
+    const onPressBookmarks = () => {
         navigation.navigate(NavigationStrings.PROFILE_STACK, {
             screen: NavigationStrings.PROFILE_BOOKMARK_SCREEN
         })
     }
 
-    const onPressWallet = () => {
-        navigation.navigate(NavigationStrings.HOME_STACK, {
-            screen: NavigationStrings.HOME_WALLET_SCREEN
+    const onPressCrowdfunding = () => {
+        navigation.navigate(NavigationStrings.PROFILE_STACK, {
+            screen: NavigationStrings.PROFILE_ALL_CROWDFUNDING
         })
     }
 
-    const onPressSubscription = () => {
+    const onPressSubscriptions = () => {
         navigation.navigate(NavigationStrings.PROFILE_STACK, {
             screen: NavigationStrings.PROFILE_SUBSCRIPTIONS_SCREEN
         })
     }
 
-    const onPressReferal = () => {
+    const onPressReferrals = () => {
         navigation.navigate(NavigationStrings.PROFILE_STACK, {
             screen: NavigationStrings.PROFILE_REFERALS_SCREEN
         })
@@ -114,20 +119,23 @@ const ProfilePage = () => {
     }
 
 
-
+    const onPressRewards = () => {
+        const rewardsScreen = NavigationStrings.PROFILE_REWARDS_SCREEN || NavigationStrings.PROFILE_SHOP_SCREEN;
+        navigation.navigate(NavigationStrings.PROFILE_STACK, { screen: rewardsScreen });
+    }
 
     const cardData = [
-        { id: 1, icon: Entypo, iconName: "line-graph", text: "Analytics", onPress: onPressCreatorRequest },
-        { id: 2, icon: FontAwesome6, iconName: "handshake-simple", text: "Collaborations", onPress: onPressCollaboration },
+        { id: 1, icon: Entypo, iconName: "line-graph", text: "Analytics", onPress: onPressAnalytics },
+        { id: 2, icon: FontAwesome6, iconName: "handshake-simple", text: "Collaborations", onPress: onPressCollaborations },
         { id: 3, icon: Entypo, iconName: "shopping-basket", text: "Orders", onPress: onPressOrders },
         { id: 4, icon: FontAwesome, iconName: "list-ul", text: "Lists", onPress: onPressLists },
-        { id: 5, icon: FontAwesome, iconName: "bookmark", text: "Bookmarks", onPress: onPressSBookmarks },
-        { id: 6, icon: MaterialCommunityIcons, iconName: "hand-heart", text: "Crowdfunding", onPress: onPressWallet },
-        { id: 7, icon: Octicons, iconName: "video", text: "Subscriptions", onPress: onPressSubscription },
-        { id: 8, icon: FontAwesome6, iconName: "users-line", text: "Referrals", onPress: onPressReferal },
+        { id: 5, icon: FontAwesome, iconName: "bookmark", text: "Bookmarks", onPress: onPressBookmarks },
+        { id: 6, icon: MaterialCommunityIcons, iconName: "hand-heart", text: "Crowdfunding", onPress: onPressCrowdfunding },
+        { id: 7, icon: Octicons, iconName: "video", text: "Subscriptions", onPress: onPressSubscriptions },
+        { id: 8, icon: FontAwesome6, iconName: "users-line", text: "Referrals", onPress: onPressReferrals },
         { id: 9, icon: Entypo, iconName: "shop", text: "Shop", onPress: onPressShop },
         { id: 10, icon: MaterialIcons, iconName: "event", text: "Events", onPress: onPressEvents },
-        { id: 11, icon: Ionicons, iconName: "gift", text: "Rewards", onPress: onPressShop },
+        { id: 11, icon: Ionicons, iconName: "gift", text: "Rewards", onPress: onPressRewards },
         { id: 12, icon: FontAwesome5, iconName: "hammer", text: "Auction", onPress: onPressAuction },
     ]
 

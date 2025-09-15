@@ -39,9 +39,9 @@ const styles = StyleSheet.create({
         height: verticalScale(92),
     },
     logo: {
-        width: moderateScale(200),
+        width: moderateScale(160),
         height: verticalScale(92),
-        marginLeft: moderateScale(-30),
+        marginLeft: moderateScale(15),
     },
     crossContainer: {
         marginRight: moderateScale(16),

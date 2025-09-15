@@ -13,8 +13,7 @@ import { Provider } from 'react-redux';
 import { store } from './src/redux-store/store';
 import InternetStatusPopup from './src/utils/InternetStatusPopup';
 
-const STATUSBAR_HEIGHT = Platform.OS === 'android' ? 24 : 20; // 👈 fallback height for older Android
-
+const STATUSBAR_HEIGHT = Platform.OS === 'android' ? 24 : 20;
 const App = () => {
   const [showSplash, setShowSplash] = useState(true);
 
@@ -36,12 +35,10 @@ const App = () => {
   return (
     <Provider store={store}>
       <View style={{ flex: 1, backgroundColor: Colors.THEME }}>
-        {/* ✅ Custom Fake StatusBar for old versions */}
         {Platform.OS === 'android' && Platform.Version < 21 && (
           <View style={[styles.statusBar, { backgroundColor: Colors.THEME }]} />
         )}
 
-        {/* ✅ Native StatusBar for new versions */}
         <StatusBar
           backgroundColor={Colors.THEME}
           barStyle="light-content"

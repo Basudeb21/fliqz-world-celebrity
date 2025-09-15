@@ -43,9 +43,7 @@ const Referals = () => {
                     />
 
                 )}
-                // ListFooterComponent={
 
-                // }
                 contentContainerStyle={styles.scrollContent}
             />
 

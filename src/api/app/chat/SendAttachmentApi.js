@@ -37,7 +37,7 @@ const SendAttachmentApi = async ({ token, id, file }) => {
         });
 
         const response = await axios.post(
-            `${API.BASE_URL}message/${id}/send-message`,
+            `${API.BASE_URL}message/@${id}/send-message`,
             formData,
             {
                 headers: {

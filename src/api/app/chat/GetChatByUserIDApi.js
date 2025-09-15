@@ -7,7 +7,7 @@ const GetChatByUserIDApi = async ({
 }) => {
     try {
 
-        const response = await axios.post(`${API.BASE_URL}message/${id}/details`,
+        const response = await axios.post(`${API.BASE_URL}message/@${id}/details`,
             {},
             {
                 headers: {

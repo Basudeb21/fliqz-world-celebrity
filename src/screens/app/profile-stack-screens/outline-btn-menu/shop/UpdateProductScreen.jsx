@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, ToastAndroid, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, ToastAndroid } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { BackpressTopBar } from '../../../../../components/framework/navbar';
@@ -16,12 +16,13 @@ import { GradientIconButton } from '../../../../../components/framework/button';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { UpdateProductApi } from '../../../../../api/app/shop';
 import { useSelector } from 'react-redux';
+import API from '../../../../../api/common/API';
 
 const UpdateProductScreen = ({ route }) => {
     const { product } = route.params;
     const token = useSelector(state => state.auth.token);
 
-    const baseURL = 'https://your-backend-domain.com'; // <-- Replace with your backend domain
+    const baseURL = API.STORAGE_URL;
 
     const [name, setName] = useState(product.name);
     const [price, setPrice] = useState(product.price);
@@ -33,31 +34,40 @@ const UpdateProductScreen = ({ route }) => {
 
     const formatImage = (img) => {
         if (typeof img === 'string') {
-            // Convert relative URLs to full URLs
             const uri = img.startsWith('http') ? img : `${baseURL}${img}`;
             return { uri, isRemote: true };
         }
-        // Already an object (local or remote)
+
+        const finalUri = img.uri || img.url || (img.path ? `file://${img.path}` : '');
+
         return {
             ...img,
-            uri: img.uri || img.url || (img.path ? `file://${img.path}` : ''),
+            uri: finalUri,
             isRemote: img.isRemote !== undefined ? img.isRemote : true
         };
     };
 
     const [images, setImages] = useState(() => {
-        if (!product.images) return [];
-
         let imageArray = [];
 
-        if (Array.isArray(product.images)) {
-            imageArray = product.images;
-        } else if (typeof product.images === 'object') {
-            // Handle object format {0: "url1", 1: "url2"}
-            imageArray = Object.values(product.images);
+        if (product.images) {
+            if (Array.isArray(product.images)) {
+                imageArray = product.images;
+            } else if (typeof product.images === 'object') {
+                imageArray = Object.values(product.images);
+            }
+        } else if (product.thumbnail_url && Array.isArray(product.thumbnail_url)) {
+            imageArray = product.thumbnail_url;
+        } else if (product.file_url) {
+            imageArray = [product.file_url];
         }
 
-        return imageArray.map(formatImage);
+        if (!imageArray.length) {
+            return [];
+        }
+
+        const formatted = imageArray.map(formatImage);
+        return formatted;
     });
 
     const onPressUpdateProduct = async () => {
@@ -74,14 +84,14 @@ const UpdateProductScreen = ({ route }) => {
                 type,
                 images
             );
-            console.log(res);
+            console.log("📝 UpdateProductApi Response:", res);
+
             if (res.status) {
                 ToastAndroid.show(res.message, ToastAndroid.SHORT);
             } else {
                 ToastAndroid.show(res.message || 'Update failed', ToastAndroid.SHORT);
             }
         } catch (err) {
-            console.log('Update Error:', err);
             ToastAndroid.show('Update failed', ToastAndroid.SHORT);
         }
     };
@@ -128,7 +138,10 @@ const UpdateProductScreen = ({ route }) => {
                 <Spacer height={scale(10)} />
                 <GalleryPickerBox
                     images={images}
-                    setImages={setImages}
+                    setImages={(newImages) => {
+                        console.log("📸 New images selected:", newImages);
+                        setImages(newImages.map(formatImage));
+                    }}
                 />
                 <Spacer height={scale(10)} />
                 <TextAreaBox

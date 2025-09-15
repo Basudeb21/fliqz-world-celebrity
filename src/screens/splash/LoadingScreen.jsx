@@ -20,9 +20,7 @@ const LoadingScreen = () => {
                 const userData = await AsyncStorage.getItem('userData');
                 const parsed = userData ? JSON.parse(userData) : null;
 
-
                 if (parsed?.token) {
-
                     dispatch(loginSuccess({
                         user: parsed.data,
                         token: parsed.token,
@@ -33,9 +31,10 @@ const LoadingScreen = () => {
                         routes: [{ name: NavigationStrings.MAIN_STACK }],
                     });
                 } else {
+                    // Navigate to SPLASH_INFO instead of SPLASH_STACK
                     navigation.reset({
                         index: 0,
-                        routes: [{ name: NavigationStrings.AUTH_STACK }],
+                        routes: [{ name: NavigationStrings.SPLASH_INFO }],
                     });
                 }
             } catch (error) {

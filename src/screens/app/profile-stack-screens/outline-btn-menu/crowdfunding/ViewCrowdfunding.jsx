@@ -1,14 +1,20 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { BackpressTopBar } from '../../../../../components/framework/navbar'
 
 const ViewCrowdfunding = () => {
     return (
-        <View>
+        <SafeAreaView>
+            <BackpressTopBar title={"View Crowdfunding"} />
             <Text>ViewCrowdfunding</Text>
-        </View>
+
+        </SafeAreaView>
     )
 }
 
 export default ViewCrowdfunding
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+
+})

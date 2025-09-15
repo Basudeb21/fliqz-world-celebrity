@@ -88,6 +88,10 @@ export default {
     PROFILE_CREATE_NEW_COLLABORATION: "CreateNewCollaboration",
     PROFILE_EDIT_COLLABORATION: "EditCollaboration",
     PROFILE_UPDATE_SHOP_ITEM: "UpdateShopItem",
+    PROFILE_CREATE_CROWDFUNDING: "CreateCrowdfunding",
+    PROFILE_ALL_CROWDFUNDING: "AllCrowdfunding",
+    PROFILE_VIEW_CROWDFUNDING: "ViewCrowdfunding",
+
 
 
     // Settings Stack Screens

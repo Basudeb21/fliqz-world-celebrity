@@ -8,6 +8,8 @@ import { Spacer } from '../boots';
 import StatusModal from '../modal/StatusModal';
 
 const ProfileViewInfoCard = ({ data }) => {
+    console.log("DATA OF PROFILE : ", data);
+
     const renderBadge = ({ item }) => (
         <Image
             source={{ uri: item.icon }}

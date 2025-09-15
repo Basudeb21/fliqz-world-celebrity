@@ -7,7 +7,7 @@ const SendTipAtChatApi = async ({
     price
 }) => {
     try {
-        const response = await axios.post(`${API.BASE_URL}message/${id}/send-tip`, { price },
+        const response = await axios.post(`${API.BASE_URL}message/@${id}/send-tip`, { price },
             {
                 headers: {
                     Authorization: `Bearer ${token}`,

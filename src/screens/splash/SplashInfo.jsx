@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     },
     btn: {
         position: "absolute",
-        bottom: moderateScale(30),
+        bottom: moderateScale(50),
         alignItems: "center",
         width: '100%',
     }
