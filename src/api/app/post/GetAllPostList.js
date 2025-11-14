@@ -20,7 +20,6 @@ const GetAllPostsApi = async (
                 },
             }
         );
-
         return response.data || null;
     } catch (error) {
         console.error("Unable to fetch posts", {

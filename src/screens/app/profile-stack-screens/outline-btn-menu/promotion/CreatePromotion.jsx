@@ -41,7 +41,6 @@ const CreatePromotion = () => {
         fetchSettings();
     }, [token]);
 
-    // 🟢 Update summary live when promotion or duration changes
     useEffect(() => {
         if (selectedPromotion && selectedDuration) {
             const startDate = new Date();

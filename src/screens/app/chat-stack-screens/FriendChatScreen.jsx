@@ -22,6 +22,7 @@ const FriendChatScreen = ({ route }) => {
     const [loading, setLoading] = useState(true);
 
     const fetchChatData = async () => {
+
         try {
             const response = await GetChatByUserIDApi({ token, id: user.username });
             if (response.success && response.data?.chat_message) {
@@ -54,7 +55,6 @@ const FriendChatScreen = ({ route }) => {
             if (response.success) {
                 messageSendPressSounds();
                 setMessage('');
-
                 fetchChatData();
             }
         }

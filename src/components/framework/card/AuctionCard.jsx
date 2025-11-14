@@ -16,7 +16,13 @@ const AuctionCard = ({ product, onPress }) => {
 
             <View style={styles.content}>
                 <Text style={styles.productName}>{product.name}</Text>
-                <Text style={styles.productDescription}>{product.description}</Text>
+                <Text
+                    style={styles.productDescription}
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                >
+                    {product.description}
+                </Text>
                 <View style={styles.row}>
                     <View>
                         <Text style={styles.bidTxt}>Min Bid</Text>

@@ -3,21 +3,18 @@ import API from "../../common/API";
 
 const SendMessageApi = async ({ token, id, message }) => {
     try {
-        const formData = new FormData();
-        formData.append("message", message);
-
         const response = await axios.post(
             `${API.BASE_URL}message/@${id}/send-message`,
-            formData,
+            { message },
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    "Content-Type": "multipart/form-data",
+                    "Content-Type": "application/json",
                 },
             }
         );
 
-        console.log("CHAT SEND CURRENT RESPONSE: ", response.data.data);
+        console.log("CHAT SEND CURRENT RESPONSE:", response.data);
         return response.data;
 
     } catch (error) {
@@ -25,7 +22,7 @@ const SendMessageApi = async ({ token, id, message }) => {
         return {
             success: false,
             message: error?.response?.data?.message || "Failed to send message",
-            data: error?.response?.data
+            data: error?.response?.data,
         };
     }
 };
