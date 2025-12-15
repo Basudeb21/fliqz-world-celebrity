@@ -31,7 +31,6 @@ const LoadingScreen = () => {
                         routes: [{ name: NavigationStrings.MAIN_STACK }],
                     });
                 } else {
-                    // Navigate to SPLASH_INFO instead of SPLASH_STACK
                     navigation.reset({
                         index: 0,
                         routes: [{ name: NavigationStrings.SPLASH_INFO }],

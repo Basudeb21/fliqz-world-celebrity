@@ -4,14 +4,16 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { BackpressTopBar } from '../../../../../components/framework/navbar';
 import { s } from 'react-native-size-matters';
 import { FloatingActionButton } from '../../../../../components/framework/button';
-import { Colors } from '../../../../../constants';
+import { Colors, NavigationStrings } from '../../../../../constants';
 import { CollaborationOverviewCard } from '../../../../../components/framework/card';
 import { useSelector } from 'react-redux';
 import { CollabListApi } from '../../../../../api/app/collaboration';
 import { Loader, Spacer } from '../../../../../components/framework/boots';
+import { useNavigation } from '@react-navigation/native';
 
 const CollaborationList = () => {
     const token = useSelector(state => state.auth.token);
+    const navigation = useNavigation()
 
     const [allCollabs, setAllCollabs] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -19,10 +21,14 @@ const CollaborationList = () => {
     const [loading, setLoading] = useState(false);
     const [refreshing, setRefreshing] = useState(false);
 
+    const onPressAddCollab = () => {
+        navigation.navigate(NavigationStrings.PROFILE_CREATE_NEW_COLLABORATION);
+    }
+
+
     const fetchCollabs = async (page = 1, isRefreshing = false) => {
         if (!token || loading) return;
         setLoading(true);
-
         try {
             const res = await CollabListApi({ token, page });
             const data = res?.data;
@@ -78,6 +84,7 @@ const CollaborationList = () => {
                 columnWrapperStyle={{ justifyContent: "space-evenly" }}
                 keyExtractor={(item, index) => item.id?.toString() || index.toString()}
                 renderItem={({ item, index }) => (
+
                     <CollaborationOverviewCard
                         id={item.id}
                         image={item.image_url}
@@ -98,7 +105,7 @@ const CollaborationList = () => {
 
 
             <View style={styles.fabBtn}>
-                <FloatingActionButton onPress={() => console.log('Add Collaboration')} />
+                <FloatingActionButton onPress={onPressAddCollab} />
             </View>
         </SafeAreaView>
     );

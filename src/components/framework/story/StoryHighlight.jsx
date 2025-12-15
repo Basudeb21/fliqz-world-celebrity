@@ -4,7 +4,7 @@ import { Colors } from '../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 
 const StoryHighlight = ({ image, userName, onPress }) => {
-    console.log(image);
+    console.log("Image :: ", image);
 
     return (
         <View style={styles.container}>
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 
     imageWrapper: {
         height: verticalScale(120),
-        width: moderateScale(80),
+        width: moderateScale(95),
         borderRadius: scale(12),
         overflow: 'hidden',
         elevation: scale(8),
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     },
     userName: {
         fontWeight: "500",
-        alignSelf: "center",
+        alignSelf: "flex-start",
         marginStart: moderateScale(7),
         marginTop: verticalScale(4),
 

@@ -5,7 +5,7 @@ import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import { helpAndSupportCards } from '../../../../data/helpAndSupportCards'
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons'
 import { GradientIconTextCard } from '../../../../components/framework/card'
-import { GradientIconButton } from '../../../../components/framework/button'
+import { FloatingActionButton, GradientIconButton, SupportFloatingActionButton } from '../../../../components/framework/button'
 import { Spacer } from '../../../../components/framework/boots'
 import { BackpressTopBar } from '../../../../components/framework/navbar'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
@@ -22,7 +22,9 @@ const HelpAndSettingsScreen = () => {
     };
 
 
-
+    const onPressOpenChatBot = () => {
+        navigation.navigate(NavigationStrings.SETTINGS_CHAT_BOT);
+    }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
@@ -53,10 +55,12 @@ const HelpAndSettingsScreen = () => {
                         <Spacer height={20} />
                         <GradientIconButton Icon={MaterialIcons} iconName={"add-circle"} iconSize={20} label='Add Support Ticket' />
                         <Spacer height={40} />
-
                     </>
                 }
             />
+            <View>
+                <SupportFloatingActionButton onPress={onPressOpenChatBot} />
+            </View>
         </SafeAreaView>
     )
 }

@@ -15,7 +15,6 @@ import { GradientIcon } from '../icon';
 import { LikePostApi } from '../../../api/app/post';
 
 
-
 const BottomBar = ({ focused = true, createdAt, data }) => {
     const [favoriteFocused, setFavoriteFocused] = useState(data.is_liked);
     const [likeCount, setLikeCount] = useState(data.like_count);

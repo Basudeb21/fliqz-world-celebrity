@@ -1,3 +1,6 @@
+export { default as ThemeOutlineIconButton } from "./ThemeOutlineIconButton";
+export { default as ActiveDeactiveButton } from "./ActiveDeactiveButton";
+export { default as SupportFloatingActionButton } from "./SupportFloatingActionButton";
 export { default as FloatingActionButton } from "./FloattingActionButton";
 export { default as GradientIconButton } from "./GradientIconButton";
 export { default as GradientIconButtonNoText } from "./GradientIconButtonNoText";

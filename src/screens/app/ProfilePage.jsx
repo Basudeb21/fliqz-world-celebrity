@@ -120,7 +120,7 @@ const ProfilePage = () => {
 
 
     const onPressRewards = () => {
-        const rewardsScreen = NavigationStrings.PROFILE_REWARDS_SCREEN || NavigationStrings.PROFILE_SHOP_SCREEN;
+        const rewardsScreen = NavigationStrings.PROFILE_REWARDS;
         navigation.navigate(NavigationStrings.PROFILE_STACK, { screen: rewardsScreen });
     }
 
@@ -149,7 +149,6 @@ const ProfilePage = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-
             <FlatList
                 ListHeaderComponent={
                     <View>

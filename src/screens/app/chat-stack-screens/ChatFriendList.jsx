@@ -22,9 +22,6 @@ const ChatFriendList = () => {
             setLoading(true);
             try {
                 const res = await AllChatsApi({ token });
-                console.log("Chat Users : ", res);
-
-
 
                 if (res.success && Array.isArray(res.data)) {
                     setUsers(res.data);

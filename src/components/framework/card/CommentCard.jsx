@@ -4,7 +4,7 @@ import { Colors } from '../../../constants';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { CommentPressModal } from '../modal';
 
-const CommentCard = ({ post_item, onDelete, onEditRequest }) => {
+const CommentCard = ({ post_item, onDelete, onEditRequest, onCopy }) => {
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -34,6 +34,7 @@ const CommentCard = ({ post_item, onDelete, onEditRequest }) => {
                 post_item={post_item}
                 onDelete={onDelete}
                 onEditRequest={onEditRequest}
+                onCopy={onCopy}
             />
         </>
     );

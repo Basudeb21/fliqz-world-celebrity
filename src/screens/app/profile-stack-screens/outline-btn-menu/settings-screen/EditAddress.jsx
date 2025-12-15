@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { moderateScale, verticalScale } from 'react-native-size-matters';
 import { Colors } from '../../../../../constants';
 import { Spacer } from '../../../../../components/framework/boots';
-import { FloatingActionButton, GradientTextButton } from '../../../../../components/framework/button';
+import { GradientTextButton } from '../../../../../components/framework/button';
 import { BackpressTopBar, DropdownBox } from '../../../../../components/framework/navbar';
 import { PhoneNumberInput, TextAreaBox, TextInputBox } from '../../../../../components/framework/input';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { GetAllCountryApi } from '../../../../../api/app/user';
 import { useSelector } from 'react-redux';
 import { CreateAddressApi } from '../../../../../api/app/address';
+import { useNavigation } from '@react-navigation/native';
 
 const EditAddress = () => {
     const [countryCode, setCountryCode] = useState('IN');
@@ -28,6 +29,8 @@ const EditAddress = () => {
 
     const token = useSelector(state => state.auth.token);
     const user = useSelector(state => state.auth.user);
+
+    const navigation = useNavigation();
 
     useEffect(() => {
         const fetchCountries = async () => {
@@ -63,8 +66,12 @@ const EditAddress = () => {
         });
 
         ToastAndroid.show(res.message, ToastAndroid.SHORT);
-    };
 
+        // 🔥 FIX: Go back so the list screen can refresh
+        if (res.success) {
+            navigation.goBack();
+        }
+    };
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>

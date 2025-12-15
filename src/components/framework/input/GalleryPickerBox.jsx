@@ -41,28 +41,23 @@ const GalleryPickerBox = ({ images = [], setImages, placeholder = 'Select photos
         setImages(updatedImages)
     }
 
-    // Get valid image URI for display - more robust version
     const getImageUri = (img) => {
         if (!img) return '';
 
         console.log("Processing image:", img);
 
-        // Handle string URLs
         if (typeof img === 'string') {
             return img.startsWith('http') ? img : `https://${img}`;
         }
 
-        // Handle object with uri property
         if (img.uri) {
             return img.uri;
         }
 
-        // Handle object with url property
         if (img.url) {
             return img.url;
         }
 
-        // Handle object with path property (from image picker)
         if (img.path) {
             return img.path;
         }
@@ -70,7 +65,7 @@ const GalleryPickerBox = ({ images = [], setImages, placeholder = 'Select photos
         return '';
     }
 
-    // Check if image is valid for display
+
     const isValidImage = (img) => {
         const uri = getImageUri(img);
         return uri && (uri.startsWith('http') || uri.startsWith('file'));

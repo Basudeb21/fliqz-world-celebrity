@@ -1,11 +1,14 @@
 import { ImageBackground, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Video from 'react-native-video' // 👈 add this
 import { moderateScale, verticalScale } from 'react-native-size-matters'
-import { Colors } from '../../../constants'
+import { Colors, Images } from '../../../constants'
 import { BottomBar, Topbar } from '../navbar'
 import { HR, Spacer } from '../boots'
 import { QuizDisplayModal } from '../modal'
+import SensitiveContent from './SensitiveContent'
+import BlockableTextCard from './BlockableTextCard'
+
 
 const SharedPost = ({
     userName,
@@ -15,18 +18,82 @@ const SharedPost = ({
     data,
     badges
 }) => {
-    const isPoll = data?.poll && !Array.isArray(data.poll)
-    console.log("Post Data : ", data)
+    const [isShow, setIsShow] = useState(data?.attachment[0]?.flagged_by_ai);
+    const [isPersonalText, setIsPersonalText] = useState(data.is_personal_details_detected);
+    const [isMinorText, setIsMinorText] = useState(data.is_minor_message_detected);
+    const isPoll = data?.poll && !Array.isArray(data.poll);
+
+    const onPressShow = () => {
+        setIsShow(0)
+    }
 
     const attachment = data?.attachment?.[0]
     const isVideo = attachment?.type === "videos"
 
     const imageSource =
         isPoll && (!data.attachment || data.attachment.length === 0)
-            ? { uri: "https://myvault-web.codextechnolife.com/assets/images/banner.jpg" }
+            ? { uri: Images.BANNER_IMG }
             : data.attachment?.length > 0
                 ? { uri: attachment.path }
                 : null
+
+    const hasSensitiveText = (isMinorText == 1 || isPersonalText == 1);
+    const hasSensitiveMedia = (isShow == 1);
+
+    let contentToRender = null;
+
+    if (hasSensitiveText && !isPoll) {
+        contentToRender = (
+            <>
+                <BlockableTextCard />
+                {imageSource && !hasSensitiveMedia && (
+                    <ImageBackground source={imageSource} style={styles.postImage}>
+                        {isPoll && (
+                            <QuizDisplayModal
+                                text={data.text}
+                                pollAnswers={data.poll.poll_answer}
+                            />
+                        )}
+                    </ImageBackground>
+                )}
+            </>
+        );
+    } else if (hasSensitiveMedia) {
+        // If media is sensitive, show SensitiveContent
+        contentToRender = (
+            <>
+                <Text style={styles.postTxt}>{data.text}</Text>
+                <SensitiveContent onPress={onPressShow} />
+            </>
+        );
+    } else {
+        // Show normal content
+        contentToRender = (
+            <>
+                <Text style={styles.postTxt}>{data.text}</Text>
+                {imageSource && (
+                    isVideo ? (
+                        <Video
+                            source={{ uri: attachment.path }}
+                            style={styles.postVideo}
+                            controls
+                            resizeMode="cover"
+                            paused={true}
+                        />
+                    ) : (
+                        <ImageBackground source={imageSource} style={styles.postImage}>
+                            {isPoll && (
+                                <QuizDisplayModal
+                                    text={data.text}
+                                    pollAnswers={data.poll.poll_answer}
+                                />
+                            )}
+                        </ImageBackground>
+                    )
+                )}
+            </>
+        );
+    }
 
     return (
         <View style={styles.container}>
@@ -38,36 +105,13 @@ const SharedPost = ({
                 badges={badges}
             />
 
-            {!isPoll && <Text style={styles.postTxt}>{data.text}</Text>}
+            {contentToRender}
 
             {crowdfunding && crowdfunding.title ? (
                 <Text style={styles.crowdfundingTitle}>
                     {crowdfunding.title}
                 </Text>
-            ) : (
-                <>
-                    {isVideo ? (
-                        <Video
-                            source={{ uri: attachment.path }}
-                            style={styles.postVideo}
-                            controls
-                            resizeMode="cover"
-                            paused={true}
-                        />
-                    ) : (
-                        imageSource && (
-                            <ImageBackground source={imageSource} style={styles.postImage}>
-                                {isPoll && (
-                                    <QuizDisplayModal
-                                        text={data.text}
-                                        pollAnswers={data.poll.poll_answer}
-                                    />
-                                )}
-                            </ImageBackground>
-                        )
-                    )}
-                </>
-            )}
+            ) : null}
 
             <BottomBar createdAt={createdAt} data={data} />
             <Spacer height={7} />

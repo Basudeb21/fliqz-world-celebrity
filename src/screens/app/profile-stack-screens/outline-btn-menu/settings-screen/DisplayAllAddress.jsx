@@ -1,5 +1,5 @@
 import { StyleSheet, View, FlatList, ToastAndroid } from 'react-native';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AddressCard } from '../../../../../components/framework/card';
 import { moderateScale, scale } from 'react-native-size-matters';
@@ -9,7 +9,7 @@ import { Spacer } from '../../../../../components/framework/boots';
 import { useSelector } from 'react-redux';
 import { AllAddressApi, DeleteAddressApi } from '../../../../../api/app/address';
 import { FloatingActionButton } from '../../../../../components/framework/button';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 const DisplayAllAddress = () => {
     const [addresses, setAddresses] = useState([]);
@@ -23,14 +23,16 @@ const DisplayAllAddress = () => {
         }
     }, [token]);
 
-    useEffect(() => {
-        fetchAddresses();
-    }, [fetchAddresses]);
+    useFocusEffect(
+        useCallback(() => {
+            fetchAddresses();
+        }, [fetchAddresses])
+    );
 
     const onPressEdit = (item) => {
         navigation.navigate(NavigationStrings.SETTINGS_UPDATE_ADDRESS, {
             data: item
-        })
+        });
     };
 
     const onPressDelete = async (id) => {
@@ -59,7 +61,7 @@ const DisplayAllAddress = () => {
 
     const onPressOpenNewAddress = () => {
         navigation.navigate(NavigationStrings.SETTINGS_EDIT_ADDRESS_SCREEN);
-    }
+    };
 
     return (
         <SafeAreaView style={{ flex: 1 }}>

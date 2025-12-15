@@ -1,14 +1,28 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Ionicons from 'react-native-vector-icons/dist/Ionicons'
 import { Colors } from '../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import { Spacer } from '../boots'
+import { GetTotalFunds } from '../../../api/app/wallet'
+import { useSelector } from 'react-redux'
 
 const ProfileFundCard = () => {
+    const token = useSelector(state => state.auth.token);
+    const [funds, setFunds] = useState();
+    const getTotalFunds = async () => {
+        const res = await GetTotalFunds(token);
+        setFunds(res.data.total_funds);
+    }
+
+    useEffect(() => {
+        getTotalFunds();
+    }, [])
+
+
     return (
         <View style={styles.container}>
-            <Text style={styles.ammount}>$53.06</Text>
+            <Text style={styles.ammount}>${funds}</Text>
             <View style={styles.row}>
                 <TouchableOpacity>
                     <Ionicons

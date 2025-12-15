@@ -5,7 +5,7 @@ import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Images } from '../../../constants';
 
-const StoryHead = ({ title, time }) => {
+const StoryHead = ({ title, time, image }) => {
     const navigation = useNavigation();
     const handleBackPress = () => {
         navigation.goBack();
@@ -22,7 +22,7 @@ const StoryHead = ({ title, time }) => {
             </TouchableOpacity>
 
             <View style={styles.userContainer}>
-                <Image style={styles.image} source={{ uri: Images.CELEBRITY_AVATAR_ONE }} />
+                <Image style={styles.image} source={{ uri: image }} />
                 <View style={styles.centerContainer}>
                     <Text style={styles.title}>{title}</Text>
                     <Text style={styles.time}>{time}</Text>
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     image: {
-        width: moderateScale(40),
+        width: moderateScale(45),
         height: verticalScale(40),
         borderRadius: scale(100),
         marginRight: moderateScale(10),

@@ -25,6 +25,8 @@ import { BackpressTopBar } from '../../../components/framework/navbar';
 import { SendCommentArea } from '../../../components/framework/input';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Clipboard from '@react-native-clipboard/clipboard';
+
 
 const AllComments = () => {
     const route = useRoute();
@@ -138,6 +140,10 @@ const AllComments = () => {
                             setEditingCommentId(id);
                             setEditingInitialValue(message);
                             setValue(message);
+                        }}
+                        onCopy={(msg) => {
+                            Clipboard.setString(msg);
+                            ToastAndroid.show("Comment Copied", ToastAndroid.SHORT);
                         }}
                     />
                 )}

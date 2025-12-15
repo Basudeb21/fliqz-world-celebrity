@@ -11,7 +11,7 @@ import { SendAttachmentApi } from '../../../api/app/chat';
 import { useSelector } from 'react-redux';
 
 
-const MessageSendArea = ({ placeholder, value, setValue, onPress, user }) => {
+const MessageSendArea = ({ placeholder, value, setValue, onPress, user, showOthersMenu = true }) => {
     const token = useSelector((state) => state.auth.token);
 
     const handlePickImage = async () => {
@@ -61,23 +61,26 @@ const MessageSendArea = ({ placeholder, value, setValue, onPress, user }) => {
                 scrollEnabled
             />
             <View style={styles.btnContainer}>
-                <TouchableOpacity style={styles.icon} onPress={handlePickImage}>
-                    <GradientIcon
-                        name={"add-photo-alternate"}
-                        size={28}
-                        IconPack={MaterialIcons}
-                        colors={[Colors.BUTTON_GRADIENT_ONE, Colors.BUTTON_GRADIENT_TWO]}
-                    />
-                </TouchableOpacity>
+                {showOthersMenu &&
+                    <>
+                        <TouchableOpacity style={styles.icon} onPress={handlePickImage}>
+                            <GradientIcon
+                                name={"add-photo-alternate"}
+                                size={28}
+                                IconPack={MaterialIcons}
+                                colors={[Colors.BUTTON_GRADIENT_ONE, Colors.BUTTON_GRADIENT_TWO]}
+                            />
+                        </TouchableOpacity>
 
-                <TouchableOpacity style={styles.icon}>
-                    <GradientIcon
-                        name={"hipchat"}
-                        size={20}
-                        IconPack={Fontisto}
-                        colors={[Colors.BUTTON_GRADIENT_ONE, Colors.BUTTON_GRADIENT_TWO]}
-                    />
-                </TouchableOpacity>
+                        <TouchableOpacity style={styles.icon}>
+                            <GradientIcon
+                                name={"hipchat"}
+                                size={20}
+                                IconPack={Fontisto}
+                                colors={[Colors.BUTTON_GRADIENT_ONE, Colors.BUTTON_GRADIENT_TWO]}
+                            />
+                        </TouchableOpacity>
+                    </>}
 
                 <TouchableOpacity style={styles.icon} onPress={onPress}>
                     <GradientIcon

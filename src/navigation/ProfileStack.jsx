@@ -11,8 +11,9 @@ import { AddNewEvent, EventDetailsScreen, EventsScreen, UpdateEventScreen } from
 import AuthStack from './AuthStack';
 import FAQ from '../screens/app/profile-stack-screens/outline-btn-menu/FAQ';
 import { CollaborationList, CreateNewCollaboration, EditCollaboration } from '../screens/app/profile-stack-screens/outline-btn-menu/collaboration';
-import { DisplayAllAddress, EditProfile } from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen';
+import { ChatBotPage, DisplayAllAddress, EditProfile } from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen';
 import { AllCrowdfunding, CreateNewCrowdfunding, ViewCrowdfunding } from '../screens/app/profile-stack-screens/outline-btn-menu/crowdfunding';
+import { Rewards } from '../screens/app/profile-stack-screens/outline-btn-menu/rewards';
 
 const ProfileStack = () => {
     const Stack = createNativeStackNavigator();
@@ -29,11 +30,15 @@ const ProfileStack = () => {
             <Stack.Screen name={NavigationStrings.PROFILE_REFERALS_SCREEN} component={Referals} />
             <Stack.Screen name={NavigationStrings.VIEW_ORDER} component={ViewOrder} />
             <Stack.Screen name={NavigationStrings.HOME_VIEW_LIST_CONTENT} component={ViewListContent} />
+            <Stack.Screen name={NavigationStrings.PROFILE_BECOME_A_CREATOR} component={Analytics} />
+
+            {/* Settings */}
             <Stack.Screen name={NavigationStrings.PROFILE_HELP_AND_SUPPORT_SCREEN} component={HelpAndSettingsScreen} />
             <Stack.Screen name={NavigationStrings.PROFILE_SETTINGS_SCREEN} component={SettingsScreen} />
             <Stack.Screen name={NavigationStrings.PROFILE_FAQ_SCREEN} component={FAQ} />
             <Stack.Screen name={NavigationStrings.SETTINGS_STACK} component={SettingsStack} />
-            <Stack.Screen name={NavigationStrings.PROFILE_BECOME_A_CREATOR} component={Analytics} />
+            <Stack.Screen name={NavigationStrings.SETTINGS_CHAT_BOT} component={ChatBotPage} />
+
 
             {/* Auction */}
             <Stack.Screen name={NavigationStrings.PROFILE_AUCTION_SCREEN} component={Auction} />
@@ -65,6 +70,10 @@ const ProfileStack = () => {
             <Stack.Screen name={NavigationStrings.PROFILE_ALL_CROWDFUNDING} component={AllCrowdfunding} />
             <Stack.Screen name={NavigationStrings.PROFILE_VIEW_CROWDFUNDING} component={ViewCrowdfunding} />
             <Stack.Screen name={NavigationStrings.PROFILE_CREATE_CROWDFUNDING} component={CreateNewCrowdfunding} />
+
+            {/* Rewards */}
+            <Stack.Screen name={NavigationStrings.PROFILE_REWARDS} component={Rewards} />
+
 
 
             <Stack.Screen name={NavigationStrings.AUTH_STACK} component={AuthStack} />

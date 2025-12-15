@@ -115,7 +115,6 @@ const QuizModal = ({ visible, onClose }) => {
 
                     <ScrollView style={{ maxHeight: verticalScale(400) }} showsVerticalScrollIndicator={false}>
                         <View style={styles.body}>
-                            {/* Question */}
                             <TextInput
                                 style={styles.textInput}
                                 placeholder='Enter a quiz question'
@@ -129,7 +128,6 @@ const QuizModal = ({ visible, onClose }) => {
                             <HR height={1} color={Colors.PLACEHOLDER} />
                             <Spacer height={verticalScale(10)} />
 
-                            {/* Answers */}
                             {answers.map((answer, index) => (
                                 <View key={index} style={styles.answerRow}>
                                     <View style={{ width: '80%' }}>
@@ -154,7 +152,6 @@ const QuizModal = ({ visible, onClose }) => {
                                 </View>
                             ))}
 
-                            {/* Add New Answer */}
                             {!loading && (
                                 <TouchableOpacity style={styles.addNewAnswer} onPress={addAnswerField}>
                                     <MaterialIcons name="add-circle-outline" size={22} color={Colors.THEME} />
@@ -193,6 +190,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+
     modalContainer: {
         width: '90%',
         borderRadius: 10,

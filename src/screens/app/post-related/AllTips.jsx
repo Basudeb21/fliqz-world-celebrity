@@ -4,14 +4,15 @@ import { TipsData } from '../../../data/TipsData'
 import { Colors } from '../../../constants'
 import { BackpressTopBar } from '../../../components/framework/navbar'
 import { TipsTable } from '../../../components/framework/tables'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const AllTips = () => {
     const tipsData = TipsData;
     return (
-        <View style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
             <BackpressTopBar title={"Tips Leader Board"} />
             <TipsTable data={tipsData} />
-        </View>
+        </SafeAreaView>
     )
 }
 

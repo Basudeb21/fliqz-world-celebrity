@@ -4,20 +4,21 @@ import {
     ToastAndroid
 } from "react-native";
 
-const GetStoriesApi = async (token,) => {
+const GetStoriesByID = async ({ token, id }) => {
     try {
         if (!token) {
             ToastAndroid.show("Token not found...", ToastAndroid.SHORT);
             return null;
         }
 
-        const response = await axios.post(`${API.BASE_URL}story`, {}, {
+        const response = await axios.post(`${API.BASE_URL}story/${id}}/details?type=other`, {}, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         });
 
         return response.data?.data || null;
+
 
     } catch (error) {
         console.error("Unable to fetch events...", {
@@ -29,4 +30,4 @@ const GetStoriesApi = async (token,) => {
     }
 };
 
-export default GetStoriesApi;
+export default GetStoriesByID;

@@ -1,30 +1,31 @@
 import axios from "axios";
 import API from "../../common/API";
 
-const FollowUserApi = async (
-    token,
-    user_id
-) => {
+const FollowUserApi = async (token, user_id) => {
     try {
 
-        const response = await axios.post(`${API.BASE_URL}list/${user_id}/follow`, {}, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
+        const url = `${API.BASE_URL}list/${user_id}/follow`;
+        console.log("📌 FOLLOW API URL:", url);
+
+        const response = await axios.post(
+            url,
+            null,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
             }
-        })
+        );
 
-        console.log(response.data);
-
+        console.log("FOLLOW RESPONSE:", response.data);
         return response.data;
 
     } catch (error) {
-        console.error("Unable to react the post", {
-            message: error.message,
-            status: error?.response?.status,
-            data: error?.response?.data,
-        })
+        console.log("🔥 FOLLOW ERROR FULL:", JSON.stringify(error?.response?.data, null, 2));
+        console.log("🔥 STATUS:", error?.response?.status);
+        console.log("🔥 HEADERS:", error?.response?.headers);
+        return null;
     }
-}
+};
 
 export default FollowUserApi;

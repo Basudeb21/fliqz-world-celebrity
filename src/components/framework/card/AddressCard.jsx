@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
         padding: scale(12),
         flex: 1,
         margin: scale(6),
-        minHeight: scale(180), // ✅ ensures equal height across cards
+        minHeight: scale(180),
         justifyContent: 'space-between',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },

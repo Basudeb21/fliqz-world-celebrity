@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { DeleteCommentApi } from '../../../api/app/post';
 
 
-const CommentPressModal = ({ visible, onClose, post_item, onDelete, onEditRequest }) => {
+const CommentPressModal = ({ visible, onClose, post_item, onDelete, onEditRequest, onCopy }) => {
 
     const token = useSelector(state => state.auth.token);
 
@@ -79,7 +79,12 @@ const CommentPressModal = ({ visible, onClose, post_item, onDelete, onEditReques
                             color={Colors.THEME}
                             size={24}
                         />
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => {
+                                onCopy?.(post_item.message);
+                                onClose();
+                            }}
+                        >
                             <Text style={styles.btnLabel}>Copy</Text>
                         </TouchableOpacity>
                     </View>

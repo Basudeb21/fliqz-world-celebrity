@@ -48,12 +48,14 @@ import {
     useSelector
 } from 'react-redux';
 
-import API from '../../../api/common/API';
 
 const StoryHighlightArea = () => {
     const [storyModal, setStoryModal] = useState(false);
     const [stories, setStories] = useState([]);
+    const [myStories, setMyStories] = useState([]);
     const token = useSelector(state => state.auth.token);
+    const user = useSelector(state => state.auth.user);
+
     const navigation = useNavigation();
 
     const storyModalData = [
@@ -81,12 +83,15 @@ const StoryHighlightArea = () => {
     useEffect(() => {
         const fetchStories = async () => {
             const res = await GetStoriesApi(token);
+            console.log("Stories :: ", res);
 
             if (res?.story) {
                 setStories(res.story);
-            } else {
-                ToastAndroid.show("No stories available.", ToastAndroid.SHORT);
             }
+            if (res?.story) {
+                setMyStories(res.my_story);
+            }
+
         };
 
         fetchStories();
@@ -100,6 +105,13 @@ const StoryHighlightArea = () => {
             params: { image, userName, storyId },
         });
     };
+
+    const viewMyStory = (image, userName, storyId) => {
+        navigation.navigate(NavigationStrings.HOME_STACK, {
+            screen: NavigationStrings.HOME_VIEW_STORY,
+            params: { image, userName, storyId },
+        });
+    }
 
     const renderStoryItem = ({ item }) => (
         <StoryHighlight
@@ -126,8 +138,9 @@ const StoryHighlightArea = () => {
                         <SelfStoryHighLight
                             image={Images.STORY_SELF}
                             userName={"Your Story"}
-                            userImg={Images.USER_IMAGES}
+                            userImg={user.avatar}
                             onPress={onPressStoryModal}
+                            onPressView={() => viewMyStory()}
                         />
                     }
                     showsHorizontalScrollIndicator={false}

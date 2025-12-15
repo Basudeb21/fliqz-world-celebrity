@@ -60,7 +60,6 @@ const AddListModal = ({ visible, data, onClose }) => {
                             <View style={styles.tipsInput}>
                                 <TextInputBox value={name} setValue={setName} placeholder='Enter list name' />
                             </View>
-
                         </View>
                         <Spacer height={20} />
                         <GradientTextButton label='Add Lists' onPress={onPressSendTips} />

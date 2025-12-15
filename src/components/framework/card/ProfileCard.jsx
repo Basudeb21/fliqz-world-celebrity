@@ -10,7 +10,6 @@ import { GradientTextButton } from '../button'
 const ProfileCard = () => {
     const navigation = useNavigation();
     const user = useSelector((state) => state.auth.user);
-    console.log(user);
 
     const onPressViewProfile = () => {
         navigation.navigate(NavigationStrings.HOME_STACK, {

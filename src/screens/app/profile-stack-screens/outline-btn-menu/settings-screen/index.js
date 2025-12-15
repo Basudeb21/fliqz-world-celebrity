@@ -1,3 +1,4 @@
+export { default as ChatBotPage } from "./ChatBotPage";
 export { default as UpdateAddress } from "./UpdateAddress";
 export { default as DisplayAllAddress } from "./DisplayAllAddress";
 export { default as EditProfile } from "./EditProfile";

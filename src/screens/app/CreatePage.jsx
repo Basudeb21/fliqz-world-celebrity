@@ -194,7 +194,6 @@ const CreatePage = () => {
                                     )}
                                 />
 
-                                {/* Attachments Preview (FlatList Horizontal) */}
                                 <FlatList
                                     data={attachments}
                                     horizontal

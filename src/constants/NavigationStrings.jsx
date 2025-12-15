@@ -91,6 +91,7 @@ export default {
     PROFILE_CREATE_CROWDFUNDING: "CreateCrowdfunding",
     PROFILE_ALL_CROWDFUNDING: "AllCrowdfunding",
     PROFILE_VIEW_CROWDFUNDING: "ViewCrowdfunding",
+    PROFILE_REWARDS: "Rewards",
 
 
 
@@ -106,6 +107,7 @@ export default {
     SETTINGS_PROMOTION_SCREEN: "Promotion",
     SETTINGS_ADD_SUPPORT_TICKET_SCREEN: "SupportTicketScreen",
     SETTINGS_UPDATE_ADDRESS: "UpdateAddress",
+    SETTINGS_CHAT_BOT: "ChatBotHome",
 
     // Post Screens
     ALL_REACTS: "AllReacts",

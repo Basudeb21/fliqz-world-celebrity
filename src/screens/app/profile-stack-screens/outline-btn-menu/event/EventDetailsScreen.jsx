@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { Colors, Images, NavigationStrings } from '../../../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
@@ -14,6 +14,7 @@ import { BackpressTopBar } from '../../../../../components/framework/navbar'
 import TimeDifference from '../../../../../utils/TimeDifference'
 import { PaymentModal } from '../../../../../components/framework/modal'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { Spacer } from '../../../../../components/framework/boots'
 
 
 const EventDetailsScreen = ({ route }) => {
@@ -35,83 +36,90 @@ const EventDetailsScreen = ({ route }) => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <BackpressTopBar title={"Event Details"} />
-            <Image source={{ uri: Images.EVENT_EIGHT }} style={styles.eventImg} />
-            <Text style={styles.eventName}>{event.title}</Text>
-            <Text style={styles.eventAbout}> {event.description}</Text>
-            <View style={styles.eventDetails}>
-                <Image source={{ uri: Images.CELEBRITY_AVATAR_ONE }} style={styles.celebImg} />
-                <View style={styles.infoContainer}>
-                    <View style={styles.infoBox}>
-                        <FontAwesome
-                            name={"calendar"}
-                            size={18}
-                            color={Colors.THEME}
-                        />
-                        <Text style={styles.eventDate}>{DateFormat(event.start_time)}</Text>
-                    </View>
+            <ScrollView>
+                <Image source={{ uri: Images.EVENT_EIGHT }} style={styles.eventImg} />
+                <Text style={styles.eventName}>{event.title}</Text>
+                <Text style={styles.eventAbout}> {event.description}</Text>
+                <View style={styles.eventDetails}>
+                    <Image source={{ uri: Images.CELEBRITY_AVATAR_ONE }} style={styles.celebImg} />
+                    <View style={styles.infoContainer}>
+                        <View style={styles.infoBox}>
+                            <FontAwesome
+                                name={"calendar"}
+                                size={18}
+                                color={Colors.THEME}
+                            />
+                            <Text style={styles.eventDate}>{DateFormat(event.start_time)}</Text>
+                        </View>
 
-                    <View style={styles.infoBox}>
-                        <Ionicons
-                            name={"time-outline"}
-                            size={18}
-                            color={Colors.THEME}
-                        />
-                        <Text style={styles.eventDate}>11:24 UTC</Text>
+                        <View style={styles.infoBox}>
+                            <Ionicons
+                                name={"time-outline"}
+                                size={18}
+                                color={Colors.THEME}
+                            />
+                            <Text style={styles.eventDate}>11:24 UTC</Text>
+                        </View>
+                        <View style={styles.infoBox}>
+                            <MaterialCommunityIcons
+                                name={"timer-sand"}
+                                size={18}
+                                color={Colors.THEME}
+                            />
+                            <Text style={styles.eventDate}>{TimeDifference(event.start_time, event.end_time)}</Text>
+                        </View>
+                        <View style={styles.infoBox}>
+                            <MaterialCommunityIcons
+                                name={"seat-outline"}
+                                size={18}
+                                color={Colors.THEME}
+                            />
+                            <Text style={styles.eventDate}>Seat Available: {event.quantity_total}</Text>
+                        </View>
+                        <View style={styles.infoBox}>
+                            <FontAwesome
+                                name={"language"}
+                                size={18}
+                                color={Colors.THEME}
+                            />
+                            <Text style={styles.eventDate}>Language: English</Text>
+                        </View>
+                        <View style={styles.infoBox}>
+                            <Entypo
+                                name={"location"}
+                                size={18}
+                                color={Colors.THEME}
+                            />
+                            <Text style={styles.eventDate}>{event.location}</Text>
+                        </View>
+
+
                     </View>
-                    <View style={styles.infoBox}>
-                        <MaterialCommunityIcons
-                            name={"timer-sand"}
-                            size={18}
-                            color={Colors.THEME}
-                        />
-                        <Text style={styles.eventDate}>{TimeDifference(event.start_time, event.end_time)}</Text>
+                </View>
+                <View style={styles.orgContainer}>
+                    <View>
+                        <Text style={styles.orgName}>Kriti Garry</Text>
+                        <Text style={styles.orgProf}>{event.event_type}</Text>
                     </View>
-                    <View style={styles.infoBox}>
-                        <MaterialCommunityIcons
-                            name={"seat-outline"}
-                            size={18}
-                            color={Colors.THEME}
-                        />
-                        <Text style={styles.eventDate}>Seat Available: {event.quantity_total}</Text>
-                    </View>
-                    <View style={styles.infoBox}>
-                        <FontAwesome
-                            name={"language"}
-                            size={18}
-                            color={Colors.THEME}
-                        />
-                        <Text style={styles.eventDate}>Language: English</Text>
-                    </View>
-                    <View style={styles.infoBox}>
+                    <View style={styles.priceContainer}>
                         <Entypo
-                            name={"location"}
-                            size={18}
+                            name={"price-tag"}
+                            size={24}
                             color={Colors.THEME}
                         />
-                        <Text style={styles.eventDate}>{event.location}</Text>
+                        <Text style={styles.eventPrice}>${event.price}</Text>
                     </View>
-
-
                 </View>
-            </View>
-            <View style={styles.orgContainer}>
-                <View>
-                    <Text style={styles.orgName}>Kriti Garry</Text>
-                    <Text style={styles.orgProf}>{event.event_type}</Text>
-                </View>
-                <View style={styles.priceContainer}>
-                    <Entypo
-                        name={"price-tag"}
-                        size={24}
-                        color={Colors.THEME}
-                    />
-                    <Text style={styles.eventPrice}>${event.price}</Text>
-                </View>
-            </View>
+                <Spacer height={60} />
+            </ScrollView>
             <View style={styles.btn}>
                 {
                     isSame &&
-                    <GradientTextButton width='90%' label='Update' onPress={() => onPressUpdateEvent({ event })} />
+                    <GradientTextButton
+                        width='90%'
+                        label='Update'
+                        onPress={() => onPressUpdateEvent({ event })}
+                    />
                 }
 
                 {

@@ -29,9 +29,9 @@ const PostThreeDotsModal = ({ id, visible, onClose, followState, blockState, dat
 
     const onPressFollow = async () => {
         try {
-            const result = await FollowUserApi(token, data.id);
 
-            console.log("result : ", result);
+            const result = await FollowUserApi(token, data.user_id);
+
 
             if (result?.success) {
                 setIsFollowed(!isFollowed);
@@ -47,7 +47,6 @@ const PostThreeDotsModal = ({ id, visible, onClose, followState, blockState, dat
 
     const onPressDeletePost = async () => {
         const res = await DeletePostApi(token, data.id);
-        console.log("DELETE POST : ", res);
 
         if (res?.success) {
             ToastAndroid.show(res.message, ToastAndroid.SHORT);
@@ -59,8 +58,6 @@ const PostThreeDotsModal = ({ id, visible, onClose, followState, blockState, dat
     const onPressBlock = async () => {
         try {
             const result = await BlockUserApi(token, id);
-
-            console.log("result : ", result);
 
             if (result?.success) {
                 setIsBlocked(!isBlocked);
