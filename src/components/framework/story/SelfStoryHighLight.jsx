@@ -5,38 +5,53 @@ import {
     Text,
     TouchableOpacity,
     View
-} from 'react-native'
+} from 'react-native';
 
-import React from 'react'
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
+import React from 'react';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Colors } from '../../../constants';
 
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import { Colors } from '../../../constants'
+const SelfStoryHighLight = ({
+    image,
+    userName,
+    userImg,
+    onPress,
+    empty,
+    onPressView
+}) => {
 
+    const imageSource =
+        typeof image === 'string'
+            ? image.startsWith('http')
+                ? { uri: image }
+                : image
+            : image;
 
-const SelfStoryHighLight = ({ image, userName, userImg, onPress, empty, onPressView }) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.storyContainer} onPress={onPressView}>
                 <View style={styles.imageWrapper}>
                     <ImageBackground
-                        source={{ uri: image }}
+                        source={imageSource}
                         style={styles.storyImg}
                         resizeMode="cover"
                     >
-                        {!empty && (
-                            <TouchableOpacity style={styles.userImgContainer} onPress={onPress}>
-                                <Image source={{ uri: userImg }} style={styles.userImg} />
-                            </TouchableOpacity>
+                        {!empty && userImg && (
+                            <View style={styles.userImgContainer}>
+                                <Image
+                                    source={{ uri: userImg }}
+                                    style={styles.userImg}
+                                />
+                            </View>
                         )}
                     </ImageBackground>
                 </View>
             </TouchableOpacity>
 
-            {/* "+" Button always visible */}
             <TouchableOpacity style={styles.storyAddBtn} onPress={onPress}>
                 <Ionicons
-                    name={'add-circle'}
+                    name="add-circle"
                     size={25}
                     color={Colors.THEME}
                 />
@@ -44,23 +59,19 @@ const SelfStoryHighLight = ({ image, userName, userImg, onPress, empty, onPressV
 
             <Text style={styles.userName}>{userName}</Text>
         </View>
-    )
-}
+    );
+};
 
-export default SelfStoryHighLight
+export default SelfStoryHighLight;
 
 const styles = StyleSheet.create({
     container: {
-        alignSelf: "flex-start",
-        justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
     storyContainer: {
-        alignSelf: "flex-start",
         padding: scale(3),
         marginStart: moderateScale(10),
     },
-
     imageWrapper: {
         height: verticalScale(120),
         width: moderateScale(95),
@@ -68,42 +79,33 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         elevation: scale(8),
     },
-
     storyImg: {
-        flex: 1,
-        width: null,
-        height: null,
+        width: '100%',
+        height: '100%',
     },
     userName: {
         fontWeight: "500",
-        alignSelf: "flex-start",
-        marginStart: moderateScale(20),
         marginTop: verticalScale(4),
     },
-
     userImgContainer: {
-        marginTop: verticalScale(10),
-        borderWidth: scale(2),
+        position: 'absolute',
+        top: 15,
+        left: 12,
+        borderWidth: 2,
         borderColor: Colors.THEME,
-        borderRadius: scale(100),
-        height: verticalScale(44),
-        width: moderateScale(54),
-        alignSelf: "center",
-        justifyContent: "center",
-        alignItems: "center"
+        borderRadius: 100,
+        padding: 2,
     },
-
     userImg: {
-        height: verticalScale(40),
-        width: moderateScale(50),
-        borderRadius: scale(100),
+        height: 40,
+        width: 40,
+        borderRadius: 20,
     },
-
     storyAddBtn: {
         position: "absolute",
+        top: 45,
+        left: 52,
         backgroundColor: Colors.WHITE,
-        borderRadius: scale(100),
-        top: 48,
-        right: 20
+        borderRadius: 100,
     }
 });

@@ -9,6 +9,7 @@ import {
     KeyboardAvoidingView,
     TouchableOpacity,
     FlatList,
+    Platform,
 } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -29,24 +30,29 @@ import {
     OutLineButton,
 } from '../../components/framework/button';
 import { Loader, Spacer } from '../../components/framework/boots';
-import { BackpressTopBar } from '../../components/framework/navbar';
+import { BackpressTopBar, DropdownBox } from '../../components/framework/navbar';
 import { TextArea } from '../../components/framework/input';
 import { AddNewPostApi } from '../../api/app/post';
 import { PollModal, QuizModal } from '../../components/framework/modal';
 import PostPriceModal from '../../components/framework/modal/PostPriceModal';
+
 const CreatePage = () => {
     const [text, setText] = useState('');
     const [loading, setLoading] = useState(false);
     const [attachments, setAttachments] = useState([]);
     const [quizAnswers, setQuizAnswers] = useState([]);
+    const [pollData, setPollData] = useState(null);
+    const [price, setPrice] = useState(0);
+
     const token = useSelector((state) => state.auth.token);
+
     const [pollVisible, setPollVisible] = useState(false);
     const [quizVisible, setQuizVisible] = useState(false);
     const [selectPriceVisible, setSelectPriceVisible] = useState(false);
-    const [pollQuestion, setPollQuestion] = useState("");
-    const [pollAnswers, setPollAnswers] = useState(["", ""]);
-    const [pollData, setPollData] = useState(null);
-    const [isPollSaved, setIsPollSaved] = useState(false);
+    const privacyOptions = [
+        "public",
+        ""
+    ]
 
     const requestStoragePermission = async () => {
         if (Platform.OS !== 'android') return true;
@@ -56,17 +62,15 @@ const CreatePage = () => {
                 PermissionsAndroid.PERMISSIONS.READ_MEDIA_VIDEO,
             ]);
             return Object.values(granted).every(
-                (status) => status === PermissionsAndroid.RESULTS.GRANTED
+                status => status === PermissionsAndroid.RESULTS.GRANTED
             );
-        } catch (err) {
-            console.warn('Permission error:', err);
+        } catch {
             return false;
         }
     };
 
     const handleMediaPick = async () => {
         const permissionGranted = await requestStoragePermission();
-
         if (!permissionGranted) {
             ToastAndroid.show('Permission denied', ToastAndroid.SHORT);
             return;
@@ -81,24 +85,29 @@ const CreatePage = () => {
                 compressImageQuality: 0.8,
             });
 
-            const selected = media.map((file) => ({
+            const selected = media.map(file => ({
                 uri: file.path,
                 type: file.mime,
                 name: file.filename || file.path.split('/').pop(),
             }));
 
-            setAttachments((prev) => [...prev, ...selected]);
+            setAttachments(prev => [...prev, ...selected]);
         } catch (error) {
             if (error?.message !== 'User cancelled image selection') {
-                ToastAndroid.show(`Error: ${error.message}`, ToastAndroid.LONG);
+                ToastAndroid.show(error.message, ToastAndroid.SHORT);
             }
         }
         setLoading(false);
     };
 
     const handelSetPost = async () => {
-        if (!text.trim() && attachments.length === 0 && quizAnswers.length === 0) {
-            ToastAndroid.show("Post cannot be empty", ToastAndroid.SHORT);
+        if (
+            !text.trim() &&
+            attachments.length === 0 &&
+            !pollData &&
+            quizAnswers.length === 0
+        ) {
+            ToastAndroid.show('Post cannot be empty', ToastAndroid.SHORT);
             return;
         }
 
@@ -107,9 +116,9 @@ const CreatePage = () => {
             const result = await AddNewPostApi(
                 token,
                 text,
-                0,
+                price,
                 attachments,
-                null,
+                pollData,
                 quizAnswers,
                 false
             );
@@ -118,19 +127,15 @@ const CreatePage = () => {
                 ToastAndroid.show(result.message, ToastAndroid.SHORT);
                 setText('');
                 setAttachments([]);
+                setPollData(null);
                 setQuizAnswers([]);
-                postDonePressSounds();
-            } else {
-                console.warn('Post API failed:', result?.message || 'Unknown error');
             }
         } catch (error) {
-            console.error('Post API Error:', error);
+            console.log('Post API Error:', error);
         } finally {
             setLoading(false);
         }
     };
-
-
 
     const buttonItems = [
         {
@@ -145,24 +150,36 @@ const CreatePage = () => {
             label: 'Notification',
         },
         { Icon: AntDesign, icnonName: 'calendar', label: 'Schedule' },
-        { Icon: FontAwesome5, icnonName: 'dollar-sign', label: 'Price', onPress: () => setSelectPriceVisible(true) },
         {
-            Icon: FontAwesome5, icnonName: 'poll', label: 'Poll', onPress: () => {
-                setQuizAnswers([]);
-                setPollVisible(true);
-            }
+            Icon: FontAwesome5,
+            icnonName: 'dollar-sign',
+            label: 'Price',
+            onPress: () => setSelectPriceVisible(true),
         },
         {
-            Icon: MaterialIcons, icnonName: 'quiz', label: 'Quiz', onPress: () => {
-                setPollAnswers([]);
+            Icon: FontAwesome5,
+            icnonName: 'poll',
+            label: 'Poll',
+            onPress: () => {
+                setQuizAnswers([]);
+                setPollData(null);
+                setPollVisible(true);
+            },
+        },
+        {
+            Icon: MaterialIcons,
+            icnonName: 'quiz',
+            label: 'Quiz',
+            onPress: () => {
+                setPollData(null);
                 setQuizVisible(true);
-            }
+            },
         },
     ];
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
-            <KeyboardAvoidingView style={{ flex: 1 }}>
+        <SafeAreaView style={styles.areaView}>
+            <KeyboardAvoidingView style={styles.container}>
                 <BackpressTopBar title={'New Post'} />
 
                 <View style={{ flex: 1, paddingHorizontal: 20 }}>
@@ -177,59 +194,47 @@ const CreatePage = () => {
                                     value={text}
                                     setValue={setText}
                                 />
+                                <Spacer height={10} />
+                                <DropdownBox
+                                />
                                 <Spacer height={20} />
+
                                 <FlatList
                                     data={buttonItems}
-                                    keyExtractor={(_, index) => index.toString()}
+                                    keyExtractor={(_, i) => i.toString()}
                                     scrollEnabled={false}
                                     renderItem={({ item }) => (
                                         <View style={{ marginBottom: 15 }}>
-                                            <IconTxtHRInputButton
-                                                Icon={item.Icon}
-                                                icnonName={item.icnonName}
-                                                label={item.label}
-                                                onPress={item.onPress}
-                                            />
+                                            <IconTxtHRInputButton {...item} />
                                         </View>
                                     )}
                                 />
 
+
+
                                 <FlatList
                                     data={attachments}
                                     horizontal
-                                    keyExtractor={(_, index) => index.toString()}
-                                    showsHorizontalScrollIndicator={false}
-                                    contentContainerStyle={{ marginTop: 10 }}
+                                    keyExtractor={(_, i) => i.toString()}
                                     renderItem={({ item, index }) => (
                                         <View style={styles.mediaWrapper}>
-                                            <Image
-                                                source={{ uri: item.uri }}
-                                                style={styles.thumbnail}
-                                                resizeMode="cover"
-                                            />
+                                            <Image source={{ uri: item.uri }} style={styles.thumbnail} />
                                             <TouchableOpacity
                                                 style={styles.removeBtn}
                                                 onPress={() =>
-                                                    setAttachments((prev) =>
-                                                        prev.filter(
-                                                            (_, i) => i !== index
-                                                        )
+                                                    setAttachments(prev =>
+                                                        prev.filter((_, i) => i !== index)
                                                     )
                                                 }
                                             >
-                                                <Text style={styles.removeBtnText}>
-                                                    ×
-                                                </Text>
+                                                <Text style={styles.removeBtnText}>×</Text>
                                             </TouchableOpacity>
                                         </View>
                                     )}
                                 />
 
                                 <View style={styles.btnArea}>
-                                    <OutLineButton
-                                        label_two={'Clear'}
-                                        onPress={() => setText('')}
-                                    />
+                                    <OutLineButton label_two="Clear" onPress={() => setText('')} />
                                     <Spacer height={15} />
                                     <GradientTextButton
                                         label="Post"
@@ -246,28 +251,31 @@ const CreatePage = () => {
 
                 {loading && <Loader color={Colors.THEME} />}
 
-                {selectPriceVisible && <PostPriceModal visible={selectPriceVisible} onClose={() => setSelectPriceVisible(false)} />}
+                {selectPriceVisible && (
+                    <PostPriceModal
+                        visible={selectPriceVisible}
+                        price={price}
+                        setPrice={setPrice}
+                        onClose={() => setSelectPriceVisible(false)}
+                    />
+                )}
 
                 {quizVisible && (
-                    <QuizModal visible={quizVisible} onClose={() => setQuizVisible(false)} />
+                    <QuizModal
+                        visible={quizVisible}
+                        onClose={() => setQuizVisible(false)}
+                        onSubmit={(data) => setQuizAnswers(data)}
+                    />
                 )}
 
                 {pollVisible && (
                     <PollModal
                         visible={pollVisible}
                         onClose={() => setPollVisible(false)}
-                        question={pollQuestion}
-                        setQuestion={setPollQuestion}
-                        answers={pollAnswers}
-                        setAnswers={setPollAnswers}
-                        onSubmit={(pollData) => {
-                            setPollData(pollData);
-                            setIsPollSaved(true);
-                        }}
-
+                        onSubmit={(data) => setPollData(data)}
                     />
-
                 )}
+
             </KeyboardAvoidingView>
         </SafeAreaView>
     );
@@ -275,7 +283,16 @@ const CreatePage = () => {
 
 export default CreatePage;
 
+
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1,
+    },
     scrollContainer: {
         paddingHorizontal: moderateScale(20),
         paddingTop: verticalScale(10),

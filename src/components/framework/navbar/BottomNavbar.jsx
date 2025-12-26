@@ -2,7 +2,7 @@ import { Image, StyleSheet, View } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons'
-import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { Colors, NavigationStrings } from '../../../constants';
 import { ChatPage, CreatePage, HomePage, LivePage, ProfilePage } from '../../../screens/app';
@@ -90,9 +90,9 @@ const BottomNavbar = () => {
                     tabBarLabel: NavigationStrings.LIVE_SCREEN,
                     tabBarIcon: ({ focused }) => (
                         <GradientIcon
-                            name={"live-tv"}
+                            name={focused ? 'youtube-tv' : 'television-play'}
                             size={iconSize}
-                            IconPack={MaterialIcons}
+                            IconPack={MaterialCommunityIcons}
                             colors={[Colors.BUTTON_GRADIENT_ONE, Colors.BUTTON_GRADIENT_TWO]}
                         />
                     ),

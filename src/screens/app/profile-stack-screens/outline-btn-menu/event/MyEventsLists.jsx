@@ -171,8 +171,13 @@ const MyEventsLists = () => {
 export default MyEventsLists;
 
 const styles = StyleSheet.create({
-    container: {
+    areaView: {
         flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
     },
     scrollContent: {
         paddingBottom: verticalScale(16),

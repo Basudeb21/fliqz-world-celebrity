@@ -47,8 +47,12 @@ const AllTransactions = () => {
 export default AllTransactions
 
 const styles = StyleSheet.create({
-    container: {
+    areaView: {
         flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
         backgroundColor: Colors.WHITE,
-    }
+        flex: 1
+    },
 })

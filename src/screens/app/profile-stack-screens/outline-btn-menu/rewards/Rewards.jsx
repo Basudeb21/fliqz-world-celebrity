@@ -95,6 +95,10 @@ const Rewards = () => {
 export default Rewards
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
     container: {
         backgroundColor: Colors.WHITE,
         flex: 1

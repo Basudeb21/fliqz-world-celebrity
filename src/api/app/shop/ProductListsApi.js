@@ -1,10 +1,10 @@
 import axios from "axios";
 import API from "../../common/API";
-import {
-    ToastAndroid
-} from "react-native";
+import { ToastAndroid } from "react-native";
 
-const MyProductListsApi = async (token) => {
+const ProductListsApi = async (token) => {
+    console.log("API Called!!");
+
     try {
         if (!token) {
             ToastAndroid.show("Token not found...", ToastAndroid.SHORT);
@@ -16,10 +16,11 @@ const MyProductListsApi = async (token) => {
                 Authorization: `Bearer ${token}`,
             },
         });
+        console.log("Products :: ", response.data);
 
-        return response.data || null;
+        return response.data || null; // ✅ Return full response.data (which contains status and data)
     } catch (error) {
-        console.error("Unable to fetch auctions", {
+        console.error("Unable to fetch products", {
             message: error.message,
             status: error?.response?.status,
             data: error?.response?.data,
@@ -28,6 +29,4 @@ const MyProductListsApi = async (token) => {
     }
 };
 
-
-
-export default MyProductListsApi;
+export default ProductListsApi;

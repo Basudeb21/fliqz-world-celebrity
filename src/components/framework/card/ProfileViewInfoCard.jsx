@@ -6,9 +6,10 @@ import Entypo from 'react-native-vector-icons/dist/Entypo';
 import { GradientIcon } from '../icon';
 import { Spacer } from '../boots';
 import StatusModal from '../modal/StatusModal';
+import { useSelector } from 'react-redux';
 
 const ProfileViewInfoCard = ({ data }) => {
-    console.log("DATA OF PROFILE : ", data);
+    const user = useSelector(state => state.auth.user);
 
     const renderBadge = ({ item }) => (
         <Image
@@ -52,7 +53,7 @@ const ProfileViewInfoCard = ({ data }) => {
                             <Text style={styles.bio}>{data.bio}</Text>
                         </View>
 
-                        <View style={styles.row}>
+                        {data.id == user.id && <View style={styles.row}>
                             <Text>{data.status}</Text>
                             <Spacer width={10} />
                             <TouchableOpacity onPress={() => setStatusModalVisible(true)}>
@@ -63,7 +64,7 @@ const ProfileViewInfoCard = ({ data }) => {
                                     colors={[Colors.BUTTON_GRADIENT_ONE, Colors.BUTTON_GRADIENT_TWO]}
                                 />
                             </TouchableOpacity>
-                        </View>
+                        </View>}
                     </View>
 
                     <View style={styles.counterContainer}>

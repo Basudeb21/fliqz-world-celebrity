@@ -16,29 +16,31 @@ const CheckoutPage = () => {
         navigation.navigate(NavigationStrings.HOME_PLACE_ORDER_SCREEN)
     }
     return (
-        <SafeAreaView style={{ backgroundColor: Colors.WHITE, flex: 1 }}>
-            <BackpressTopBar title={"Checkout"} />
-            <ScrollView>
-                <Spacer height={10} />
-                <InputFormContainer head={"Billing Address"} />
-                <Spacer height={5} />
+        <SafeAreaView style={styles.areaView}>
+            <View style={styles.container}>
+                <BackpressTopBar title={"Checkout"} />
+                <ScrollView>
+                    <Spacer height={10} />
+                    <InputFormContainer head={"Billing Address"} />
+                    <Spacer height={5} />
 
-                <View style={styles.chkBoxView}>
-                    <Checkbox />
-                    <Text style={styles.txt}>Same as biling address</Text>
-                </View>
+                    <View style={styles.chkBoxView}>
+                        <Checkbox />
+                        <Text style={styles.txt}>Same as biling address</Text>
+                    </View>
 
-                <InputFormContainer head={"Shipping Address"} />
-                <Spacer height={40} />
-                <View style={styles.btn}>
-                    <GradientTextButton
-                        width='90%'
-                        label='Place Order'
-                        onPress={handlePlaceOrder}
-                    />
-                </View>
-                <Spacer height={20} />
-            </ScrollView>
+                    <InputFormContainer head={"Shipping Address"} />
+                    <Spacer height={40} />
+                    <View style={styles.btn}>
+                        <GradientTextButton
+                            width='90%'
+                            label='Place Order'
+                            onPress={handlePlaceOrder}
+                        />
+                    </View>
+                    <Spacer height={20} />
+                </ScrollView>
+            </View>
         </SafeAreaView>
     )
 }
@@ -46,6 +48,14 @@ const CheckoutPage = () => {
 export default CheckoutPage
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     btn: {
         alignItems: "center"
     },

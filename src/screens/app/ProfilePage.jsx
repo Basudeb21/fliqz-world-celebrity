@@ -140,7 +140,6 @@ const ProfilePage = () => {
     ]
 
     const buttonData = [
-        { id: 1, icon: FontAwesome, iconName: "legal", label: "Legal", onPress: onPressShop },
         { id: 3, icon: MaterialIcons, iconName: "support-agent", label: "Help & Support", onPress: onPressHelpAndSupport },
         { id: 4, icon: Ionicons, iconName: "settings-sharp", label: "Settings", onPress: onPressSettings },
     ]
@@ -148,53 +147,55 @@ const ProfilePage = () => {
     const userName = user?.first_name;
 
     return (
-        <SafeAreaView style={styles.container}>
-            <FlatList
-                ListHeaderComponent={
-                    <View>
-                        <BackpressProfileTopBar title={userName} />
-                        <ProfileCard />
-                        <Spacer height={90} />
+        <SafeAreaView style={styles.areaView}>
+            <View style={styles.container}>
+                <FlatList
+                    ListHeaderComponent={
+                        <View>
+                            <BackpressProfileTopBar title={userName} />
+                            <ProfileCard />
+                            <Spacer height={90} />
 
-                    </View>
-                }
-                data={cardData}
-                keyExtractor={(item) => item.id.toString()}
-                numColumns={2}
-                columnWrapperStyle={styles.row}
-                renderItem={({ item }) => (
-                    <ProfileSingleMenuCard
-                        Icon={item.icon}
-                        iconName={item.iconName}
-                        text={item.text}
-                        onPress={item.onPress}
-                        style={styles.card}
-                    />
-                )}
-                contentContainerStyle={styles.contentContainer}
-                ListFooterComponent={
-                    <>
-                        <View style={styles.btnContainer}>
-                            {buttonData.map((item) => (
-                                <OutlineIconButton
-                                    key={item.id}
-                                    Icon={item.icon}
-                                    iconName={item.iconName}
-                                    label={item.label}
-                                    onPress={item.onPress}
-                                />
-                            ))}
                         </View>
-                        <Spacer height={5} />
-                        <View style={{ justifyContent: "center", alignItems: "center" }}>
-                            <OutLineButton label_two={Strings.LOGOUT} width={"90%"} onPress={onPressLogout} />
-                        </View>
-                        <Spacer height={50} />
+                    }
+                    data={cardData}
+                    keyExtractor={(item) => item.id.toString()}
+                    numColumns={2}
+                    columnWrapperStyle={styles.row}
+                    renderItem={({ item }) => (
+                        <ProfileSingleMenuCard
+                            Icon={item.icon}
+                            iconName={item.iconName}
+                            text={item.text}
+                            onPress={item.onPress}
+                            style={styles.card}
+                        />
+                    )}
+                    contentContainerStyle={styles.contentContainer}
+                    ListFooterComponent={
+                        <>
+                            <View style={styles.btnContainer}>
+                                {buttonData.map((item) => (
+                                    <OutlineIconButton
+                                        key={item.id}
+                                        Icon={item.icon}
+                                        iconName={item.iconName}
+                                        label={item.label}
+                                        onPress={item.onPress}
+                                    />
+                                ))}
+                            </View>
+                            <Spacer height={5} />
+                            <View style={{ justifyContent: "center", alignItems: "center" }}>
+                                <OutLineButton label_two={Strings.LOGOUT} width={"90%"} onPress={onPressLogout} />
+                            </View>
+                            <Spacer height={50} />
 
-                    </>
-                }
-                showsVerticalScrollIndicator={false}
-            />
+                        </>
+                    }
+                    showsVerticalScrollIndicator={false}
+                />
+            </View>
         </SafeAreaView>
     )
 }
@@ -202,9 +203,13 @@ const ProfilePage = () => {
 export default ProfilePage
 
 const styles = StyleSheet.create({
-    container: {
+    areaView: {
         flex: 1,
-        backgroundColor: Colors.WHITE
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
     },
     contentContainer: {
         paddingBottom: verticalScale(20),

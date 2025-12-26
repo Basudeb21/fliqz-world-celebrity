@@ -1,35 +1,50 @@
-import { FlatList, StyleSheet } from 'react-native'
-import React from 'react'
+import { FlatList, StyleSheet, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { Colors } from '../../../constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { dummyNotifications } from '../../../data/dummyNotification'
 import { NotificationCard } from '../../../components/framework/card'
 import { BackpressTopBar } from '../../../components/framework/navbar'
 import { Spacer } from '../../../components/framework/boots'
+import { GetAllNotification } from '../../../api/app/notification'
+import { useSelector } from 'react-redux'
 
 
 
 const NotificationScreen = () => {
-    const notifications = dummyNotifications;
+    const token = useSelector(state => state.auth.token);
+    const [notifications, setNotifications] = useState([]);
+    const fetchAllNotification = async () => {
+        const res = await GetAllNotification(token);
+        if (res?.data) {
+            setNotifications(res.data);
+        }
+    };
+
+
+    useEffect(() => {
+        fetchAllNotification();
+    }, [])
     return (
-        <SafeAreaView style={styles.container}>
-            <BackpressTopBar title={"Notifications"} />
-            <FlatList
-                ListHeaderComponent={<Spacer height={15} />}
-                data={notifications}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                    <NotificationCard
-                        userImage={item.userImage}
-                        userName={item.userName}
-                        notification={item.notification}
-                        time={item.time}
-                    />
-                )}
-                showsVerticalScrollIndicator={false}
-                ItemSeparatorComponent={<Spacer height={12} />}
-                ListFooterComponent={<Spacer height={10} />}
-            />
+        <SafeAreaView style={styles.areaView}>
+            <View style={styles.container}>
+                <BackpressTopBar title={"Notifications"} />
+                <FlatList
+                    ListHeaderComponent={<Spacer height={15} />}
+                    data={notifications}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => (
+                        <NotificationCard
+                            userImage={item.avatars[0]}
+                            userName={item.title}
+                            notification={item.description}
+                            time={item.time}
+                        />
+                    )}
+                    showsVerticalScrollIndicator={false}
+                    ItemSeparatorComponent={<Spacer height={12} />}
+                    ListFooterComponent={<Spacer height={10} />}
+                />
+            </View>
         </SafeAreaView>
     )
 }
@@ -37,8 +52,12 @@ const NotificationScreen = () => {
 export default NotificationScreen
 
 const styles = StyleSheet.create({
-    container: {
+    areaView: {
         flex: 1,
-        backgroundColor: Colors.WHITE
+        backgroundColor: Colors.THEME
     },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1,
+    }
 })

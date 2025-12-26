@@ -158,6 +158,14 @@ const Auction = () => {
 export default Auction;
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     scene: {
         flex: 1,
     },

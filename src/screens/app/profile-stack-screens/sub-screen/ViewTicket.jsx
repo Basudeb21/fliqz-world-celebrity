@@ -8,6 +8,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import { Colors, Images } from '../../../../constants'
 import { GradientTextButton } from '../../../../components/framework/button'
 import { TicketModal } from '../../../../components/framework/modal'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 
 const ViewTicket = () => {
@@ -16,90 +17,100 @@ const ViewTicket = () => {
         setModalVisible(false);
     };
     return (
-        <View>
-            <Image source={{ uri: Images.EVENT_EIGHT }} style={styles.eventImg} />
-            <Text style={styles.eventName}>Event One</Text>
-            <Text style={styles.eventAbout}> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla soluta qui, architecto beatae quasi totam alias molestias a magnam iste!</Text>
-            <View style={styles.eventDetails}>
-                <Image source={{ uri: Images.CELEBRITY_AVATAR_ONE }} style={styles.celebImg} />
-                <View style={styles.infoContainer}>
-                    <View style={styles.infoBox}>
-                        <FontAwesome
-                            name={"calendar"}
-                            size={18}
-                            color={Colors.THEME}
-                        />
-                        <Text style={styles.eventDate}>25-02-05</Text>
-                    </View>
+        <SafeAreaView style={styles.areaView}>
+            <View style={styles.container}>
+                <Image source={{ uri: Images.EVENT_EIGHT }} style={styles.eventImg} />
+                <Text style={styles.eventName}>Event One</Text>
+                <Text style={styles.eventAbout}> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla soluta qui, architecto beatae quasi totam alias molestias a magnam iste!</Text>
+                <View style={styles.eventDetails}>
+                    <Image source={{ uri: Images.CELEBRITY_AVATAR_ONE }} style={styles.celebImg} />
+                    <View style={styles.infoContainer}>
+                        <View style={styles.infoBox}>
+                            <FontAwesome
+                                name={"calendar"}
+                                size={18}
+                                color={Colors.THEME}
+                            />
+                            <Text style={styles.eventDate}>25-02-05</Text>
+                        </View>
 
-                    <View style={styles.infoBox}>
-                        <Ionicons
-                            name={"time-outline"}
-                            size={18}
-                            color={Colors.THEME}
-                        />
-                        <Text style={styles.eventDate}>11:24 UTC</Text>
+                        <View style={styles.infoBox}>
+                            <Ionicons
+                                name={"time-outline"}
+                                size={18}
+                                color={Colors.THEME}
+                            />
+                            <Text style={styles.eventDate}>11:24 UTC</Text>
+                        </View>
+                        <View style={styles.infoBox}>
+                            <MaterialCommunityIcons
+                                name={"timer-sand"}
+                                size={18}
+                                color={Colors.THEME}
+                            />
+                            <Text style={styles.eventDate}>25-02-05</Text>
+                        </View>
+                        <View style={styles.infoBox}>
+                            <MaterialCommunityIcons
+                                name={"seat-outline"}
+                                size={18}
+                                color={Colors.THEME}
+                            />
+                            <Text style={styles.eventDate}>Seat Available: 100</Text>
+                        </View>
+                        <View style={styles.infoBox}>
+                            <FontAwesome
+                                name={"language"}
+                                size={18}
+                                color={Colors.THEME}
+                            />
+                            <Text style={styles.eventDate}>Language: English</Text>
+                        </View>
+                        <View style={styles.infoBox}>
+                            <Entypo
+                                name={"location"}
+                                size={18}
+                                color={Colors.THEME}
+                            />
+                            <Text style={styles.eventDate}>USA</Text>
+                        </View>
+
                     </View>
-                    <View style={styles.infoBox}>
-                        <MaterialCommunityIcons
-                            name={"timer-sand"}
-                            size={18}
-                            color={Colors.THEME}
-                        />
-                        <Text style={styles.eventDate}>25-02-05</Text>
+                </View>
+                <View style={styles.orgContainer}>
+                    <View>
+                        <Text style={styles.orgName}>Kriti Garry</Text>
+                        <Text style={styles.orgProf}>Musician</Text>
                     </View>
-                    <View style={styles.infoBox}>
-                        <MaterialCommunityIcons
-                            name={"seat-outline"}
-                            size={18}
-                            color={Colors.THEME}
-                        />
-                        <Text style={styles.eventDate}>Seat Available: 100</Text>
-                    </View>
-                    <View style={styles.infoBox}>
-                        <FontAwesome
-                            name={"language"}
-                            size={18}
-                            color={Colors.THEME}
-                        />
-                        <Text style={styles.eventDate}>Language: English</Text>
-                    </View>
-                    <View style={styles.infoBox}>
+                    <View style={styles.priceContainer}>
                         <Entypo
-                            name={"location"}
-                            size={18}
+                            name={"price-tag"}
+                            size={24}
                             color={Colors.THEME}
                         />
-                        <Text style={styles.eventDate}>USA</Text>
+                        <Text style={styles.eventPrice}>$60</Text>
                     </View>
-
                 </View>
-            </View>
-            <View style={styles.orgContainer}>
-                <View>
-                    <Text style={styles.orgName}>Kriti Garry</Text>
-                    <Text style={styles.orgProf}>Musician</Text>
+                <View style={styles.btn}>
+                    <GradientTextButton width='90%' label='View Ticket' onPress={() => setModalVisible(true)} />
                 </View>
-                <View style={styles.priceContainer}>
-                    <Entypo
-                        name={"price-tag"}
-                        size={24}
-                        color={Colors.THEME}
-                    />
-                    <Text style={styles.eventPrice}>$60</Text>
-                </View>
+                <TicketModal visible={modalVisible} onClose={handleCloseModal} />
             </View>
-            <View style={styles.btn}>
-                <GradientTextButton width='90%' label='View Ticket' onPress={() => setModalVisible(true)} />
-            </View>
-            <TicketModal visible={modalVisible} onClose={handleCloseModal} />
-        </View>
+        </SafeAreaView>
     )
 }
 
 export default ViewTicket
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     eventImg: {
         width: "100%",
         height: verticalScale(170)

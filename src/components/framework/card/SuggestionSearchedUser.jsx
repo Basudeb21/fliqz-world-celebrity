@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Colors } from '../../../constants'
 import { scale, verticalScale } from 'react-native-size-matters'
@@ -7,10 +7,10 @@ import { HR } from '../boots'
 const SuggestionSearchedUser = ({ users = [] }) => {
 
   const userPlate = (user) => (
-    <View style={{ flex: 1, width: "100%" }}>
+    <TouchableOpacity style={{ flex: 1, width: "100%" }}>
       <Text style={styles.nameText}>{user.name}</Text>
       <HR width='100%' />
-    </View>
+    </TouchableOpacity>
   );
 
   return (

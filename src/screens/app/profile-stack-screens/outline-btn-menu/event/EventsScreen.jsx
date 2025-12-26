@@ -59,6 +59,14 @@ const EventsScreen = () => {
 export default EventsScreen;
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     scene: {
         flex: 1,
     },

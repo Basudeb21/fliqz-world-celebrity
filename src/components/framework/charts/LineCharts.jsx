@@ -57,8 +57,8 @@ const LineCharts = () => {
     const animatedPath = animation.interpolate({
         inputRange: [0, 1],
         outputRange: [
-            lineGenerator(data.map((d, i) => ({ ...d, y: yMin }))), // Start from bottom
-            fullPath // End at actual path
+            lineGenerator(data.map((d, i) => ({ ...d, y: yMin }))),
+            fullPath
         ]
     });
 
@@ -92,7 +92,6 @@ const LineCharts = () => {
             <TouchableWithoutFeedback onPress={handlePress}>
                 <View>
                     <Svg width={dimensions.width} height={dimensions.height} style={styles.chartContainer}>
-                        {/* Y Axis Grid Lines */}
                         <G>
                             {yTicks.map((tick, i) => (
                                 <Line
@@ -108,7 +107,6 @@ const LineCharts = () => {
                             ))}
                         </G>
 
-                        {/* Y Axis Labels */}
                         <G>
                             {yTicks.map((tick, i) => (
                                 <SvgText
@@ -124,7 +122,6 @@ const LineCharts = () => {
                             ))}
                         </G>
 
-                        {/* X Axis Labels */}
                         <G>
                             {data.map((item, i) => (
                                 <SvgText
@@ -142,7 +139,6 @@ const LineCharts = () => {
                             ))}
                         </G>
 
-                        {/* Animated Data Line */}
                         <Path
                             d={animatedPath.__getValue()}
                             fill="none"
@@ -150,7 +146,6 @@ const LineCharts = () => {
                             strokeWidth={3}
                         />
 
-                        {/* Data Points */}
                         <G>
                             {data.map((item, i) => (
                                 <Circle
@@ -165,7 +160,6 @@ const LineCharts = () => {
                             ))}
                         </G>
 
-                        {/* Tooltip */}
                         {tooltip.visible && (
                             <G>
                                 <Rect

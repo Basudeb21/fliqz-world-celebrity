@@ -111,6 +111,14 @@ const AuctionItemPage = ({ route }) => {
 export default AuctionItemPage
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     container: {
         width: "50%"
     },

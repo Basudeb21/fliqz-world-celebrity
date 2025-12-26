@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import { Colors, Images } from '../../../../../constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -7,10 +7,14 @@ import { GradientTextButton, OutLineButton } from '../../../../../components/fra
 import { OrderTable, Spacer } from '../../../../../components/framework/boots'
 import { TicketTable } from '../../../../../components/framework/tables'
 import { BackpressTopBar } from '../../../../../components/framework/navbar'
-
+import { useSelector } from 'react-redux';
+import { GetMyOrder, GetMyTicket } from '../../../../../api/app/order'
 const Orders = () => {
     const [productButton, setProductButton] = useState(true);
     const [ticketButton, setTicketButton] = useState(false);
+    const [orders, setOrders] = useState([]);
+    const [tickets, setTickets] = useState([]);
+    const token = useSelector(state => state.auth.token);
 
     const onPressProducts = () => {
         setProductButton(true);
@@ -22,33 +26,51 @@ const Orders = () => {
         setTicketButton(true);
     }
 
+    useEffect(() => {
+        const fetchData = async () => {
+            if (!token) return;
+
+            const orderRes = await GetMyOrder(token);
+            if (orderRes?.data?.data) {
+                const formattedOrders = orderRes.data.data.flatMap(order =>
+                    order.items.map(item => ({
+                        id: item.id,
+                        image: item.product?.thumbnail_url
+                            || 'https://via.placeholder.com/100',
+                        orderType: item.product_name,
+                        quantity: item.quantity,
+                        orderDate: new Date(order.created_at).toDateString(),
+                        orderPrice: `$${item.total}`,
+                        status: order.order_status,
+                    }))
+                );
+                setOrders(formattedOrders);
+            }
+
+            const ticketRes = await GetMyTicket(token);
+            if (ticketRes?.data?.data) {
+                const formattedTickets = ticketRes.data.data.map(ticket => ({
+                    id: ticket.id,
+                    image: ticket.event?.cover_image
+                        || 'https://via.placeholder.com/100',
+                    ticketType: ticket.event?.title,
+                    quantity: ticket.quantity,
+                    eventDate: new Date(ticket.event?.start_time).toDateString(),
+                    orderPrice: `$${ticket.total_amount}`,
+                    status: ticket.payment_status === 'paid'
+                        ? 'Purchased'
+                        : ticket.payment_status,
+                }));
+
+                setTickets(formattedTickets);
+            }
+        };
+
+        fetchData();
+    }, [token]);
 
 
-    const productData = [
-        { id: 1, image: Images.PRODUCT_ONE, orderType: "Laptop", quantity: "2", orderDate: "May 20\n2025,", orderPrice: "$80.25", status: "Delivered" },
-        { id: 2, image: Images.PRODUCT_TWO, orderType: "Shoe", quantity: "1", orderDate: "May 21\n2025,", orderPrice: "$650.00", status: "Shipped" },
-        { id: 3, image: Images.PRODUCT_THREE, orderType: "Watch", quantity: "3", orderDate: "May 22\n2025,", orderPrice: "$120.75", status: "Processing" },
-        { id: 4, image: Images.PRODUCT_FOUR, orderType: "Mobile", quantity: "2", orderDate: "May 23\n2025,", orderPrice: "$89.99", status: "Cancelled" },
-        { id: 5, image: Images.PRODUCT_FIVE, orderType: "Sunglass", quantity: "1", orderDate: "May 24\n2025,", orderPrice: "$199.00", status: "Delivered" },
-        { id: 6, image: Images.PRODUCT_ONE, orderType: "Laptop", quantity: "1", orderDate: "May 25\n2025,", orderPrice: "$780.00", status: "Shipped" },
-        { id: 7, image: Images.PRODUCT_TWO, orderType: "Shoe", quantity: "2", orderDate: "May 26\n2025,", orderPrice: "$1300.00", status: "Delivered" },
-        { id: 8, image: Images.PRODUCT_THREE, orderType: "Watch", quantity: "4", orderDate: "May 27\n2025,", orderPrice: "$240.50", status: "Processing" },
-        { id: 9, image: Images.PRODUCT_FOUR, orderType: "Mobile", quantity: "1", orderDate: "May 28\n2025,", orderPrice: "$45.99", status: "Delivered" },
-        { id: 10, image: Images.PRODUCT_FIVE, orderType: "Sunglass", quantity: "2", orderDate: "May 29\n2025,", orderPrice: "$390.00", status: "Shipped" }
-    ]
 
-    const ticketData = [
-        { id: 1, image: Images.TICKET_ONE, ticketType: "Event 1", quantity: "2", eventDate: "May 20\n2025,", orderPrice: "$80.25", status: "Purchased" },
-        { id: 2, image: Images.TICKET_TWO, ticketType: "Event 2", quantity: "1", eventDate: "May 21\n2025,", orderPrice: "$650.00", status: "Purchased" },
-        { id: 3, image: Images.TICKET_THREE, ticketType: "Event 3", quantity: "3", eventDate: "May 22\n2025,", orderPrice: "$120.75", status: "Purchased" },
-        { id: 4, image: Images.TICKET_FOUR, ticketType: "Event 4", quantity: "2", eventDate: "May 23\n2025,", orderPrice: "$89.99", status: "Purchased" },
-        { id: 5, image: Images.TICKET_FIVE, ticketType: "Event 5", quantity: "1", eventDate: "May 24\n2025,", orderPrice: "$199.00", status: "Purchased" },
-        { id: 6, image: Images.TICKET_ONE, ticketType: "Event 6", quantity: "1", eventDate: "May 25\n2025,", orderPrice: "$780.00", status: "Purchased" },
-        { id: 7, image: Images.TICKET_TWO, ticketType: "Event 7", quantity: "2", eventDate: "May 26\n2025,", orderPrice: "$1300.00", status: "Purchased" },
-        { id: 8, image: Images.TICKET_THREE, ticketType: "Event 8", quantity: "4", eventDate: "May 27\n2025,", orderPrice: "$240.50", status: "Purchased" },
-        { id: 9, image: Images.TICKET_FOUR, ticketType: "Event 9", quantity: "1", eventDate: "May 28\n2025,", orderPrice: "$45.99", status: "Purchased" },
-        { id: 10, image: Images.TICKET_FIVE, ticketType: "Event 10", quantity: "2", eventDate: "May 29\n2025,", orderPrice: "$390.00", status: "Purchased" }
-    ]
 
 
     return (
@@ -62,7 +84,8 @@ const Orders = () => {
                 </View>
                 <Spacer height={20} />
                 {
-                    productButton ? <OrderTable data={productData} /> : <TicketTable data={ticketData} />
+                    productButton ? <OrderTable data={orders} /> : <TicketTable data={tickets} />
+
                 }
             </ScrollView>
 

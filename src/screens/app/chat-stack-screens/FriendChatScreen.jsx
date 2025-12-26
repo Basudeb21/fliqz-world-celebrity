@@ -101,9 +101,13 @@ const FriendChatScreen = ({ route }) => {
 export default FriendChatScreen;
 
 const styles = StyleSheet.create({
-    container: {
+    areaView: {
         flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
         backgroundColor: Colors.WHITE,
+        flex: 1
     },
     chatContainer: {
         flex: 1,

@@ -13,19 +13,21 @@ import { Colors } from '../../../constants';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { StoryViewButtonGroup } from '../../../components/framework/button';
 import { StoryHead } from '../../../components/framework/navbar';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
 import { GetStoriesByID } from '../../../api/app/story';
 import Images from "../../../constants/Images";
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Video from 'react-native-video';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 
-
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const ViewStory = () => {
     const [storyList, setStoryList] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [imageHeight, setImageHeight] = useState(300);
+    const [paused, setPaused] = useState(false);
+
     const insets = useSafeAreaInsets();
     const progress = useRef(new Animated.Value(0)).current;
     const animationRef = useRef(null);
@@ -45,9 +47,13 @@ const ViewStory = () => {
     }, []);
 
     const currentStory = storyList[currentIndex];
+    const isVideo = currentStory?.image_url?.endsWith('.mp4');
 
     useEffect(() => {
-        if (!currentStory?.image_url) return;
+        if (!currentStory?.image_url || isVideo) {
+            setImageHeight(height * 0.75);
+            return;
+        }
 
         Image.getSize(
             currentStory.image_url,
@@ -57,7 +63,7 @@ const ViewStory = () => {
             },
             () => setImageHeight(300)
         );
-    }, [currentStory]);
+    }, [currentStory, isVideo]);
 
     useEffect(() => {
         if (!storyList.length) return;
@@ -78,25 +84,19 @@ const ViewStory = () => {
             if (!finished) return;
 
             hasFinished.current = true;
-
-            if (currentIndex < storyList.length - 1) {
-                setCurrentIndex(prev => prev + 1);
-            } else {
-                navigation.goBack();
-            }
+            handleNext();
         });
     };
 
-    const pauseProgress = () => animationRef.current?.stop();
+    const pauseProgress = () => {
+        setPaused(true);
+        animationRef.current?.stop();
+    };
 
     const resumeProgress = () => {
-        if (hasFinished.current && currentIndex === storyList.length - 1) {
-            navigation.goBack();
-            return;
-        }
+        setPaused(false);
 
         const current = progress.__getValue();
-
         animationRef.current = Animated.timing(progress, {
             toValue: 1,
             duration: 4000 * (1 - current),
@@ -105,102 +105,115 @@ const ViewStory = () => {
 
         animationRef.current.start(({ finished }) => {
             if (!finished) return;
-            hasFinished.current = true;
-
-            if (currentIndex < storyList.length - 1) {
-                setCurrentIndex(prev => prev + 1);
-            } else {
-                navigation.goBack();
-            }
+            handleNext();
         });
     };
 
-    // -------------------- NEXT / PREV HANDLERS --------------------
     const handleNext = () => {
         if (currentIndex < storyList.length - 1) {
             setCurrentIndex(prev => prev + 1);
-        } else navigation.goBack();
+        } else {
+            navigation.goBack();
+        }
     };
 
     const handlePrev = () => {
         if (currentIndex > 0) setCurrentIndex(prev => prev - 1);
     };
 
-    // -------------------- SAFE RETURN AFTER HOOKS --------------------
     const hasData = storyList.length > 0;
 
     return (
-        <SafeAreaView style={[styles.container, {
-            paddingTop: insets.top,
-            paddingBottom: insets.bottom,
-        }]}>
-            <StoryViewButtonGroup onPause={pauseProgress} onResume={resumeProgress} />
-
-            {!hasData ? (
-                <Image
-                    source={Images.BANNER_IMG}
-                    style={{ width: "100%", height: 300 }}
-                    resizeMode="cover"
+        <SafeAreaView style={styles.areaView}>
+            <View style={[
+                styles.container,
+                { paddingTop: insets.top, paddingBottom: insets.bottom }
+            ]}>
+                <StoryViewButtonGroup
+                    onPause={pauseProgress}
+                    onResume={resumeProgress}
                 />
-            ) : (
-                <>
-                    <TouchableOpacity style={styles.leftTouch} onPress={handlePrev} />
-                    <TouchableOpacity style={styles.rightTouch} onPress={handleNext} />
 
-                    <TouchableWithoutFeedback onPressIn={pauseProgress} onPressOut={resumeProgress}>
-                        <View style={styles.imageWrapper}>
-                            <ImageBackground
-                                source={{ uri: currentStory.image_url }}
-                                style={[styles.storyImage, { height: imageHeight }]}
-                                resizeMode="stretch"
+                {!hasData ? (
+                    <Image
+                        source={Images.BANNER_IMG}
+                        style={{ width: "100%", height: 300 }}
+                        resizeMode="cover"
+                    />
+                ) : (
+                    <>
+                        <TouchableOpacity style={styles.leftTouch} onPress={handlePrev} />
+                        <TouchableOpacity style={styles.rightTouch} onPress={handleNext} />
+
+                        <TouchableWithoutFeedback
+                            onPressIn={pauseProgress}
+                            onPressOut={resumeProgress}
+                        >
+                            <View style={styles.imageWrapper}>
+                                {isVideo ? (
+                                    <Video
+                                        source={{ uri: currentStory.image_url }}
+                                        style={[styles.storyImage, { height: imageHeight }]}
+                                        resizeMode="contain"
+                                        paused={paused}
+                                        repeat={false}
+                                        controls={false}
+                                        onEnd={handleNext}
+                                    />
+                                ) : (
+                                    <ImageBackground
+                                        source={{ uri: currentStory.image_url }}
+                                        style={[styles.storyImage, { height: imageHeight }]}
+                                        resizeMode="contain"
+                                    />
+                                )}
+                            </View>
+                        </TouchableWithoutFeedback>
+
+                        <View style={[styles.overlay, { top: insets.top }]}>
+                            <View style={styles.progressBarContainer}>
+                                {storyList.map((_, index) => (
+                                    <View key={index} style={styles.progressBarBackground}>
+                                        {index === currentIndex ? (
+                                            <Animated.View
+                                                style={[
+                                                    styles.progressBarFill,
+                                                    {
+                                                        backgroundColor: Colors.THEME,
+                                                        width: progress.interpolate({
+                                                            inputRange: [0, 1],
+                                                            outputRange: ['0%', '100%'],
+                                                        }),
+                                                    },
+                                                ]}
+                                            />
+                                        ) : (
+                                            <View
+                                                style={[
+                                                    styles.progressBarFill,
+                                                    {
+                                                        backgroundColor:
+                                                            index < currentIndex
+                                                                ? Colors.THEME
+                                                                : Colors.PLACEHOLDER,
+                                                        width: "100%",
+                                                    },
+                                                ]}
+                                            />
+                                        )}
+                                    </View>
+                                ))}
+                            </View>
+
+                            <StoryHead
+                                title={currentStory.user.name}
+                                time={currentStory?.time_elapsed || ""}
+                                image={currentStory?.user.avatar}
                             />
                         </View>
-                    </TouchableWithoutFeedback>
-
-
-                    <View style={[styles.overlay, { top: insets.top }]} >
-                        <View style={styles.progressBarContainer}>
-                            {storyList.map((_, index) => (
-                                <View key={index} style={styles.progressBarBackground}>
-                                    {index === currentIndex ? (
-                                        <Animated.View
-                                            style={[
-                                                styles.progressBarFill,
-                                                {
-                                                    backgroundColor: Colors.THEME,
-                                                    width: progress.interpolate({
-                                                        inputRange: [0, 1],
-                                                        outputRange: ['0%', '100%'],
-                                                    }),
-                                                },
-                                            ]}
-                                        />
-                                    ) : (
-                                        <View
-                                            style={[
-                                                styles.progressBarFill,
-                                                {
-                                                    backgroundColor:
-                                                        index < currentIndex
-                                                            ? Colors.THEME
-                                                            : Colors.PLACEHOLDER,
-                                                    width: "100%",
-                                                },
-                                            ]}
-                                        />
-                                    )}
-                                </View>
-                            ))}
-                        </View>
-
-                        <StoryHead
-                            title={currentStory.user.name}
-                            time={currentStory?.time_elapsed || ""}
-                            image={currentStory?.user.avatar}
-                        />
-                    </View>
-                </>
-            )}
+                    </>
+                )}
+            </View>
         </SafeAreaView>
     );
 };
@@ -208,6 +221,10 @@ const ViewStory = () => {
 export default ViewStory;
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
     container: {
         flex: 1,
         backgroundColor: Colors.STORY_BACKGROUND
@@ -217,10 +234,10 @@ const styles = StyleSheet.create({
     },
     progressBarBackground: {
         flex: 1,
-        height: 2,
+        height: scale(2),
         backgroundColor: Colors.PLACEHOLDER,
-        marginHorizontal: 2,
-        borderRadius: 3,
+        marginHorizontal: moderateScale(2),
+        borderRadius: scale(3),
         overflow: 'hidden',
     },
     progressBarFill: {
@@ -253,8 +270,8 @@ const styles = StyleSheet.create({
     overlay: {
         position: 'absolute',
         width: '100%',
-        paddingTop: 10,
-        paddingHorizontal: 10,
+        paddingTop: verticalScale(10),
+        paddingHorizontal: moderateScale(10),
         zIndex: 10,
     },
 });

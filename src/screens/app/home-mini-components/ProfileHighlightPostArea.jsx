@@ -34,6 +34,12 @@ const ProfileHighlightPostArea = () => {
 export default ProfileHighlightPostArea
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
     container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
     },
 })

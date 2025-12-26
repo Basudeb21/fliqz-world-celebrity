@@ -1,6 +1,8 @@
 export default {
     BLACK_LOGO: require("../imgs/logo.gif"),
     WHITE_LOGO: require("../imgs/logo2.gif"),
+    TRANSPARENT_LOGO: require("../imgs/trans_logo.gif"),
+
     MAINTAIN_IMG: require("../imgs/maintain.png"),
 
     BANNER_IMG: "https://myvault-web.codextechnolife.com/assets/images/banner.jpg",

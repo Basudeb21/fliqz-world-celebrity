@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { FlatList, ImageBackground, StyleSheet, View, Dimensions, TouchableOpacity } from 'react-native';
 import { scale, verticalScale } from 'react-native-size-matters';
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons'
-import { Colors } from '../../../constants';
+import { Colors, Images } from '../../../constants';
 import API from '../../../api/common/API';
 import { likePressSound } from '../../../sound/SoundManager';
 import { Spacer, ThreeDots } from '../boots';
@@ -13,7 +13,13 @@ const { width } = Dimensions.get('window');
 const ProductScrollingWithIndegator = ({ imageList }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const flatListRef = useRef();
-    const [isFavorite, setIsFavorite] = useState(false)
+    const [isFavorite, setIsFavorite] = useState(false);
+    const safeImageList =
+        Array.isArray(imageList) && imageList.length > 0
+            ? imageList
+            : [null];
+
+
 
     const handleScroll = (event) => {
         const slide = Math.round(event.nativeEvent.contentOffset.x / width);
@@ -28,7 +34,7 @@ const ProductScrollingWithIndegator = ({ imageList }) => {
         <View style={styles.container}>
             <FlatList
                 ref={flatListRef}
-                data={imageList}
+                data={safeImageList}
                 horizontal
                 pagingEnabled
                 showsHorizontalScrollIndicator={false}
@@ -37,7 +43,7 @@ const ProductScrollingWithIndegator = ({ imageList }) => {
                 scrollEventThrottle={16}
                 renderItem={({ item }) => (
                     <View style={styles.imageWrapper}>
-                        <ImageBackground source={{ uri: API.STORAGE_URL + item }} style={styles.image}>
+                        <ImageBackground source={{ uri: imageList == null ? Images.BANNER_IMG : API.STORAGE_URL + item }} style={styles.image}>
                             <TouchableOpacity style={styles.iconWrapper} onPress={onPressIsFavorite}>
                                 <GradientIcon
                                     IconPack={MaterialIcons}
@@ -51,7 +57,11 @@ const ProductScrollingWithIndegator = ({ imageList }) => {
                 )}
             />
             <Spacer height={10} />
-            <ThreeDots active={activeIndex + 1} total={imageList.length} />
+            <ThreeDots
+                active={activeIndex + 1}
+                total={safeImageList.length}
+            />
+
         </View>
     )
 }

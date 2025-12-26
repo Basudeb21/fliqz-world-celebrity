@@ -96,6 +96,14 @@ const AddNewAuction = () => {
 export default AddNewAuction;
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     form: {
         paddingHorizontal: moderateScale(20),
         paddingTop: verticalScale(20),

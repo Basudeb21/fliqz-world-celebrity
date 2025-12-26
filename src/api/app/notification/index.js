@@ -1,0 +1,1 @@
+export { default as GetAllNotification } from "./GetAllNotification";

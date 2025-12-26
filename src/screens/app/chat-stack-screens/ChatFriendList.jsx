@@ -89,9 +89,13 @@ const ChatFriendList = () => {
 export default ChatFriendList;
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
     container: {
         backgroundColor: Colors.WHITE,
-        height: '100%'
+        flex: 1
     },
     scrollContent: {
         paddingBottom: 20,

@@ -39,6 +39,14 @@ const SuggestionArea = () => {
 export default SuggestionArea
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     textContainer: {
         marginStart: moderateScale(10),
         flexDirection: "row",

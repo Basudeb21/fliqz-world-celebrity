@@ -10,6 +10,7 @@ import { BackpressTopBar } from '../../../../../components/framework/navbar'
 import { DateTimeInputBox, TextAreaBox, TextInputBox } from '../../../../../components/framework/input'
 import { AddEventApi } from '../../../../../api/app/event-api'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { Colors } from '../../../../../constants'
 
 const AddNewEvent = () => {
     const token = useSelector((state) => state.auth.token);
@@ -96,6 +97,14 @@ const AddNewEvent = () => {
 export default AddNewEvent
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     form: {
         marginTop: verticalScale(20),
         paddingHorizontal: moderateScale(10),

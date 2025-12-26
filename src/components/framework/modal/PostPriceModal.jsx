@@ -10,49 +10,51 @@ import { GradientTextButton } from '../button'
 import { Spacer } from '../boots'
 import { SendTipsApi } from '../../../api/app/post'
 
-const PostPriceModal = ({ visible, data, onClose }) => {
-    const [price, setPrice] = useState();
-    const token = useSelector(state => state.auth.token);
-
+const PostPriceModal = ({ visible, price, setPrice, onClose }) => {
 
     return (
-        <Modal
-            visible={visible}
-            animationType="fade"
-            transparent={true}
-            onRequestClose={onClose}
-        >
+        <Modal visible={visible} transparent animationType="fade">
             <View style={styles.modalBackground}>
                 <View style={styles.modalContainer}>
+
                     <View style={styles.modalTop}>
                         <Text style={styles.topText}>Price for post</Text>
                         <TouchableOpacity onPress={onClose}>
-                            <Entypo
-                                name={"cross"}
-                                color={Colors.THEME}
-                                size={scale(20)}
-                                style={styles.icon}
-                            />
+                            <Entypo name="cross" size={20} color={Colors.THEME} />
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.body}>
-                        <View style={styles.tipsContainer}>
-                            <Text style={styles.tipSLabel}>Set a price for the post</Text>
-                            <View style={styles.tipsInput}>
-                                <AmmountInput value={price} setValue={setPrice} placeholder='Enter the ammount' />
-                            </View>
 
-                        </View>
+                    <View style={styles.body}>
+                        <Text style={styles.tipSLabel}>Set a price for the post</Text>
+
+                        <AmmountInput
+                            value={price}
+                            setValue={setPrice}
+                            placeholder="Enter amount"
+                        />
+
                         <Spacer height={20} />
-                        <GradientTextButton label='Update Price' />
+
+                        <GradientTextButton
+                            label="Update Price"
+                            onPress={() => {
+                                if (!price || Number(price) <= 0) {
+                                    ToastAndroid.show("Enter valid price", ToastAndroid.SHORT);
+                                    return;
+                                }
+                                paymentDoneSendPressSounds();
+                                onClose();
+                            }}
+                        />
                     </View>
+
                 </View>
             </View>
         </Modal>
     )
 }
 
-export default PostPriceModal
+export default PostPriceModal;
 
 const styles = StyleSheet.create({
     modalBackground: {

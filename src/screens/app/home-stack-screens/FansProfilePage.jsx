@@ -6,6 +6,7 @@ import { Colors, Images, NavigationStrings } from '../../../constants';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import FontAwesome6 from 'react-native-vector-icons/FontAwesome6'
 import Fontisto from 'react-native-vector-icons/Fontisto'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -93,8 +94,36 @@ const FansProfilePage = () => {
     ]
 
     const openShopClick = () => {
-        navigation.navigate(NavigationStrings.HOME_SHOP_SCREEN);
+        navigation.navigate(NavigationStrings.PROFILE_STACK, {
+            screen: NavigationStrings.HOME_USER_SHOP_PAGE,
+            params: {
+                userId: user.id,
+                userName: user.name
+            }
+        });
     };
+
+    const openAuctionClick = () => {
+        navigation.navigate(NavigationStrings.PROFILE_STACK, {
+            screen: NavigationStrings.HOME_USER_AUCTION_PAGE,
+            params: {
+                userId: user.id,
+                userName: user.name
+            }
+        });
+    };
+
+    const openEventClick = () => {
+        navigation.navigate(NavigationStrings.PROFILE_STACK, {
+            screen: NavigationStrings.HOME_USER_EVENTS_PAGE,
+            params: {
+                userId: user.id,
+                userName: user.name
+            }
+        });
+    };
+
+
 
     const fetchedFollowers = async () => {
         try {
@@ -141,40 +170,48 @@ const FansProfilePage = () => {
                     Icon={MaterialCommunityIcons}
                     iconName={"youtube-subscription"}
                     iconSize={20}
-                    width="15%"
+                    width="12%"
                     onPress={onPressSubscribe}
                 />
                 <GradientIconButtonNoText
                     Icon={Ionicons}
                     iconName={"chatbubble-ellipses-sharp"}
                     iconSize={20}
-                    width="15%"
+                    width="12%"
                     onPress={onPressMessage}
                 />
                 <GradientIconButtonNoText
                     Icon={Entypo}
                     iconName={"shop"}
                     iconSize={20}
-                    width="15%"
+                    width="12%"
                     onPress={openShopClick}
                 />
                 <GradientIconButtonNoText
                     Icon={FontAwesome5}
                     iconName={"hammer"}
                     iconSize={20}
-                    width="15%"
+                    width="12%"
+                    onPress={openAuctionClick}
+                />
+                <GradientIconButtonNoText
+                    Icon={MaterialIcons}
+                    iconName={"event"}
+                    iconSize={20}
+                    width="12%"
+                    onPress={openEventClick}
                 />
                 <GradientIconButtonNoText
                     Icon={FontAwesome5}
                     iconName={"user-plus"}
                     iconSize={20}
-                    width="15%"
+                    width="12%"
                 />
                 <GradientIconButtonNoText
-                    Icon={Entypo}
-                    iconName={"chevron-down"}
+                    Icon={FontAwesome6}
+                    iconName={"handshake-simple"}
                     iconSize={20}
-                    width="15%"
+                    width="12%"
                 />
             </View>
             <Spacer height={20} />
@@ -186,18 +223,20 @@ const FansProfilePage = () => {
 
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
-            <FlatList
-                data={[{ key: 'tabs' }]}
-                keyExtractor={(item) => item.key}
-                ListHeaderComponent={renderHeader}
-                renderItem={() => (
-                    <View style={{ flex: 1, }}>
-                        <FansPostHistoryOnProfile username={user.username} />
-                    </View>
-                )}
-                showsVerticalScrollIndicator={false}
-            />
+        <SafeAreaView style={styles.areaView}>
+            <View style={styles.container}>
+                <FlatList
+                    data={[{ key: 'tabs' }]}
+                    keyExtractor={(item) => item.key}
+                    ListHeaderComponent={renderHeader}
+                    renderItem={() => (
+                        <View style={{ flex: 1, }}>
+                            <FansPostHistoryOnProfile username={user.username} />
+                        </View>
+                    )}
+                    showsVerticalScrollIndicator={false}
+                />
+            </View>
         </SafeAreaView>
     );
 };
@@ -205,6 +244,14 @@ const FansProfilePage = () => {
 export default FansProfilePage;
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     btnContainer: {
         flexDirection: "row",
         paddingHorizontal: moderateScale(10),

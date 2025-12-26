@@ -119,9 +119,13 @@ const FansPostHistoryOnProfile = ({ username }) => {
 export default FansPostHistoryOnProfile;
 
 const styles = StyleSheet.create({
-    container: {
+    areaView: {
         flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
         backgroundColor: Colors.WHITE,
+        flex: 1
     },
     scrollContent: {
         paddingBottom: moderateScale(20),

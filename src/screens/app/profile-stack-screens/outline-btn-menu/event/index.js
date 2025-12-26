@@ -1,3 +1,4 @@
+export { default as UserEventsPage } from "./UserEventsPage";
 export { default as AddNewEvent } from "./AddNewEvent";
 export { default as AllEventsLists } from "./AllEventsLists";
 export { default as EventDetailsScreen } from "./EventDetailsScreen";

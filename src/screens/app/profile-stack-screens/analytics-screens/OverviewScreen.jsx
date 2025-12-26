@@ -16,4 +16,13 @@ const OverviewScreen = ({ data }) => {
 
 export default OverviewScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
+});

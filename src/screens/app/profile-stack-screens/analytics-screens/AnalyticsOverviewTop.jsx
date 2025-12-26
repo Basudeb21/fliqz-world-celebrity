@@ -31,6 +31,14 @@ const AnalyticsOverviewTop = ({ data }) => {
 export default AnalyticsOverviewTop;
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     listContainer: {
         marginTop: verticalScale(10),
         marginHorizontal: moderateScale(10),

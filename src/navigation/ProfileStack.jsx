@@ -2,15 +2,15 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationStrings } from '../constants';
 import { Analytics, Bookmarks, Lists, Referals, Streams, Subscriptions, Wallet } from '../screens/app/profile-stack-screens';
-import { AddNewProduct, Orders, ShopItemInfoPage, ShopScreen, UpdateProductScreen, ViewOrder } from '../screens/app/profile-stack-screens/outline-btn-menu/shop';
+import { AddNewProduct, Orders, ShopItemInfoPage, ShopScreen, UpdateProductScreen, UserShopPage, ViewOrder } from '../screens/app/profile-stack-screens/outline-btn-menu/shop';
 import { ViewListContent } from '../screens/app/profile-stack-screens/sub-screen';
 import { HelpAndSettingsScreen, SettingsScreen } from '../screens/app/profile-stack-screens/outline-btn-menu';
 import SettingsStack from './SettingsStack';
-import { AddNewAuction, AllBids, Auction, AuctionItemPage, EditAuctionItem } from '../screens/app/profile-stack-screens/outline-btn-menu/auction';
-import { AddNewEvent, EventDetailsScreen, EventsScreen, UpdateEventScreen } from '../screens/app/profile-stack-screens/outline-btn-menu/event';
+import { AddNewAuction, AllBids, Auction, AuctionItemPage, EditAuctionItem, UserAuctionPage } from '../screens/app/profile-stack-screens/outline-btn-menu/auction';
+import { AddNewEvent, EventDetailsScreen, EventsScreen, UpdateEventScreen, UserEventsPage } from '../screens/app/profile-stack-screens/outline-btn-menu/event';
 import AuthStack from './AuthStack';
 import FAQ from '../screens/app/profile-stack-screens/outline-btn-menu/FAQ';
-import { CollaborationList, CreateNewCollaboration, EditCollaboration } from '../screens/app/profile-stack-screens/outline-btn-menu/collaboration';
+import { CollaborationList, CreateNewCollaboration, EditCollaboration, ViewCollaboration } from '../screens/app/profile-stack-screens/outline-btn-menu/collaboration';
 import { ChatBotPage, DisplayAllAddress, EditProfile } from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen';
 import { AllCrowdfunding, CreateNewCrowdfunding, ViewCrowdfunding } from '../screens/app/profile-stack-screens/outline-btn-menu/crowdfunding';
 import { Rewards } from '../screens/app/profile-stack-screens/outline-btn-menu/rewards';
@@ -46,25 +46,31 @@ const ProfileStack = () => {
             <Stack.Screen name={NavigationStrings.PROFILE_ADD_NEW_AUCTION} component={AddNewAuction} />
             <Stack.Screen name={NavigationStrings.PROFILE_ALL_BIDS} component={AllBids} />
             <Stack.Screen name={NavigationStrings.PROFILE_EDIT_AUCTION_ITEM} component={EditAuctionItem} />
+            <Stack.Screen name={NavigationStrings.HOME_USER_AUCTION_PAGE} component={UserAuctionPage} />
 
             {/* Event */}
             <Stack.Screen name={NavigationStrings.PROFILE_EVENT_SCREEN} component={EventsScreen} />
             <Stack.Screen name={NavigationStrings.PROFILE_EVENT_DETAILS} component={EventDetailsScreen} />
             <Stack.Screen name={NavigationStrings.PROFILE_EVENT_UPDATE} component={UpdateEventScreen} />
             <Stack.Screen name={NavigationStrings.PROFILE_ADD_NEW_EVENT} component={AddNewEvent} />
+            <Stack.Screen name={NavigationStrings.HOME_USER_EVENTS_PAGE} component={UserEventsPage} />
 
             {/* Shop */}
             <Stack.Screen name={NavigationStrings.PROFILE_SHOP_SCREEN} component={ShopScreen} />
             <Stack.Screen name={NavigationStrings.HOME_SHOP_ITEM_INFO_PAGE} component={ShopItemInfoPage} />
             <Stack.Screen name={NavigationStrings.PROFILE_ADD_NEW_PRODUCT} component={AddNewProduct} />
             <Stack.Screen name={NavigationStrings.PROFILE_UPDATE_SHOP_ITEM} component={UpdateProductScreen} />
-
+            <Stack.Screen name={NavigationStrings.HOME_USER_SHOP_PAGE} component={UserShopPage}
+            />
 
 
             {/* Collaboration */}
             <Stack.Screen name={NavigationStrings.PROFILE_COLLABORATION_LIST} component={CollaborationList} />
             <Stack.Screen name={NavigationStrings.PROFILE_CREATE_NEW_COLLABORATION} component={CreateNewCollaboration} />
             <Stack.Screen name={NavigationStrings.PROFILE_EDIT_COLLABORATION} component={EditCollaboration} />
+            <Stack.Screen name={NavigationStrings.PROFILE_VIEW_COLLABORATION} component={ViewCollaboration} />
+
+
 
             {/* Crowdfunding */}
             <Stack.Screen name={NavigationStrings.PROFILE_ALL_CROWDFUNDING} component={AllCrowdfunding} />

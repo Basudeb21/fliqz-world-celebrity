@@ -18,32 +18,35 @@ const ShopPage = () => {
     }
     const shopItems = dummyShopItems;
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
-            <BackpressTopBar title={"Shop"} />
-            <View>
-                <FlatList
-                    ListHeaderComponent={
-                        <>
-                            <Spacer height={10} />
-                            <SearchBar placeholder={"Search"} />
-                        </>
-                    }
-                    data={shopItems}
-                    numColumns={2}
-                    columnWrapperStyle={styles.row}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item }) => (
-                        <ShopItemCard
-                            image={item.image}
-                            productName={item.itemName}
-                            desc={item.desc}
-                            price={item.price}
-                            onPress={onImagePress}
-                        />
-                    )}
-                    ListFooterComponent={<Spacer height={40} />}
-                    contentContainerStyle={styles.scrollContent}
-                />
+        <SafeAreaView style={styles.areaView}>
+            <View style={styles.container}>
+                <BackpressTopBar title={"Shop"} />
+                <View>
+                    <FlatList
+                        ListHeaderComponent={
+                            <>
+                                <Spacer height={10} />
+                                <SearchBar placeholder={"Search"} />
+                            </>
+                        }
+                        data={shopItems}
+                        numColumns={2}
+                        columnWrapperStyle={styles.row}
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={({ item }) => (
+
+                            <ShopItemCard
+                                image={item.image}
+                                productName={item.itemName}
+                                desc={item.desc}
+                                price={item.price}
+                                onPress={onImagePress}
+                            />
+                        )}
+                        ListFooterComponent={<Spacer height={40} />}
+                        contentContainerStyle={styles.scrollContent}
+                    />
+                </View>
             </View>
         </SafeAreaView>
     )
@@ -52,6 +55,14 @@ const ShopPage = () => {
 export default ShopPage
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     row: {
         marginBottom: verticalScale(12),
         justifyContent: "center",

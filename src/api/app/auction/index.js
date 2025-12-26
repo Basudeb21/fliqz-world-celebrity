@@ -1,3 +1,4 @@
+export { default as GetUserAuctionsApi } from "./GetUserAuctionsApi";
 export { default as AddNewAuctionApi } from "./AddNewAuctionApi";
 export { default as AuctionListApi } from "./AuctionListApi";
 export { default as BidOnItemApi } from "./BidOnItemApi";

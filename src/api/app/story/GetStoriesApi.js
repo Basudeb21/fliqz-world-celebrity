@@ -16,6 +16,7 @@ const GetStoriesApi = async (token,) => {
                 Authorization: `Bearer ${token}`
             }
         });
+        console.log("Story -> ", response.data);
 
         return response.data?.data || null;
 

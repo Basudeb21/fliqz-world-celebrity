@@ -73,6 +73,13 @@ const SettingsScreen = () => {
         })
     }
 
+    const onPressSetting = () => {
+        navigation.navigate(NavigationStrings.SETTINGS_STACK, {
+            screen: NavigationStrings.SETTINGS_TAX_INFORMATION
+        })
+    }
+
+
     const buttonContents = [
         { id: 1, Icon: FontAwesome5, iconName: "user-edit", text: "Edit Profile", onPress: onPressEditProfile },
         { id: 2, Icon: Entypo, iconName: "key", text: "Change Your Password", onPress: onPressChangePassword },
@@ -83,6 +90,7 @@ const SettingsScreen = () => {
         { id: 8, Icon: Fontisto, iconName: "ticket-alt", text: "Support Ticket", onPress: onPressSupportTicket },
         { id: 9, Icon: FontAwesome6, iconName: "bullhorn", text: "Promotion", onPress: onPressPromotion },
         { id: 10, Icon: FontAwesome6, iconName: "tags", text: "Subscription Price", onPress: onPressSubscribtionPrice },
+        { id: 11, Icon: Fontisto, iconName: "info", text: "Tax Information", onPress: onPressSetting },
 
     ]
     return (
@@ -105,8 +113,6 @@ const SettingsScreen = () => {
                         />
                     )}
                 />
-
-
             </View>
         </SafeAreaView>
     )

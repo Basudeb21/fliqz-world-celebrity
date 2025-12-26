@@ -1,7 +1,7 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationStrings } from '../constants';
-import { AddSupportTicketScreen, ChangePassword, DisplayAllAddress, EditAddress, EditProfile, Payments, Privacy, SubscriptionPrice, SupportTicket, UpdateAddress, Verify } from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen';
+import { AddSupportTicketScreen, ChangePassword, DisplayAllAddress, EditAddress, EditProfile, Payments, Privacy, SubscriptionPrice, SupportTicket, TaxInformation, UpdateAddress, Verify } from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen';
 import { CreatePromotion } from '../screens/app/profile-stack-screens/outline-btn-menu/promotion';
 
 const SettingsStack = () => {
@@ -21,7 +21,7 @@ const SettingsStack = () => {
             <Stack.Screen name={NavigationStrings.SETTINGS_ADD_SUPPORT_TICKET_SCREEN} component={AddSupportTicketScreen} />
             <Stack.Screen name={NavigationStrings.PROFILE_ALL_ADDRESS} component={DisplayAllAddress} />
             <Stack.Screen name={NavigationStrings.SETTINGS_UPDATE_ADDRESS} component={UpdateAddress} />
-
+            <Stack.Screen name={NavigationStrings.SETTINGS_TAX_INFORMATION} component={TaxInformation} />
         </Stack.Navigator>
     );
 }

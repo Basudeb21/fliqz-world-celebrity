@@ -137,9 +137,13 @@ const CreatePromotion = () => {
 export default CreatePromotion;
 
 const styles = StyleSheet.create({
-    container: {
+    areaView: {
         flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
         backgroundColor: Colors.WHITE,
+        flex: 1
     },
     form: {
         padding: scale(20),

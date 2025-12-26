@@ -16,17 +16,15 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { GradientTextButton, OutLineButton } from '../button';
 import { HR, Spacer } from '../boots';
 import { scale, verticalScale } from 'react-native-size-matters';
-import { AddNewPostApi } from '../../../api/app/post';
-import { useSelector } from 'react-redux';
 
-const QuizModal = ({ visible, onClose }) => {
-    const token = useSelector((state) => state.auth.token);
-
+const QuizModal = ({ visible, onClose, onSubmit }) => {
     const [question, setQuestion] = useState('');
     const [answers, setAnswers] = useState(['', '']);
-    const [loading, setLoading] = useState(false);
+    const [loading] = useState(false);
 
-    const addAnswerField = () => setAnswers([...answers, '']);
+    const addAnswerField = () => {
+        setAnswers(prev => [...prev, '']);
+    };
 
     const updateAnswer = (text, index) => {
         const updated = [...answers];
@@ -36,7 +34,10 @@ const QuizModal = ({ visible, onClose }) => {
 
     const removeAnswer = (index) => {
         if (answers.length <= 2) {
-            ToastAndroid.show('Quiz must have at least 2 answers', ToastAndroid.SHORT);
+            ToastAndroid.show(
+                'Quiz must have at least 2 answers',
+                ToastAndroid.SHORT
+            );
             return;
         }
         const updated = [...answers];
@@ -49,54 +50,33 @@ const QuizModal = ({ visible, onClose }) => {
         setAnswers(['', '']);
     };
 
-    const onPressCreateQuiz = async () => {
+    const onPressCreateQuiz = () => {
         if (!question.trim()) {
             ToastAndroid.show('Quiz question is required', ToastAndroid.SHORT);
             return;
         }
 
-        const validAnswers = answers.filter((a) => a.trim() !== '');
+        const validAnswers = answers.filter(a => a.trim() !== '');
         if (validAnswers.length < 2) {
             ToastAndroid.show('At least two answers required', ToastAndroid.SHORT);
             return;
         }
 
-        setLoading(true);
-        try {
-            const result = await AddNewPostApi(
-                token,
-                question,
-                0,
-                [],
-                [],
-                {
-                    question,
-                    answers: validAnswers
-                },
-                false
-            );
+        const quizPayload = {
+            question,
+            answers: validAnswers,
+        };
 
-            if (result?.success) {
-                ToastAndroid.show('Quiz created successfully', ToastAndroid.SHORT);
-                clearAll();
-                onClose();
-            } else {
-                ToastAndroid.show(result?.message || 'Failed to create quiz', ToastAndroid.SHORT);
-            }
-        } catch (error) {
-            console.error('Quiz API Error:', error);
-            ToastAndroid.show('Error while creating quiz', ToastAndroid.SHORT);
-        } finally {
-            setLoading(false);
-        }
+        onSubmit(quizPayload); // ✅ send to CreatePage
+        clearAll();
+        onClose();
     };
-
 
     return (
         <Modal
             visible={visible}
             animationType="fade"
-            transparent={true}
+            transparent
             onRequestClose={onClose}
         >
             <View style={styles.modalBackground}>
@@ -105,7 +85,7 @@ const QuizModal = ({ visible, onClose }) => {
                         <Text style={styles.topText}>Add new quiz</Text>
                         <TouchableOpacity onPress={onClose}>
                             <Entypo
-                                name={"cross"}
+                                name="cross"
                                 color={Colors.THEME}
                                 size={scale(20)}
                                 style={styles.icon}
@@ -113,20 +93,22 @@ const QuizModal = ({ visible, onClose }) => {
                         </TouchableOpacity>
                     </View>
 
-                    <ScrollView style={{ maxHeight: verticalScale(400) }} showsVerticalScrollIndicator={false}>
+                    <ScrollView
+                        style={{ maxHeight: verticalScale(400) }}
+                        showsVerticalScrollIndicator={false}
+                    >
                         <View style={styles.body}>
                             <TextInput
                                 style={styles.textInput}
-                                placeholder='Enter a quiz question'
+                                placeholder="Enter a quiz question"
                                 placeholderTextColor={Colors.PLACEHOLDER}
                                 value={question}
                                 onChangeText={setQuestion}
-                                editable={!loading}
                             />
 
-                            <Spacer height={verticalScale(10)} />
+                            <Spacer height={10} />
                             <HR height={1} color={Colors.PLACEHOLDER} />
-                            <Spacer height={verticalScale(10)} />
+                            <Spacer height={10} />
 
                             {answers.map((answer, index) => (
                                 <View key={index} style={styles.answerRow}>
@@ -136,42 +118,61 @@ const QuizModal = ({ visible, onClose }) => {
                                             placeholder={`Enter an answer ${index + 1}`}
                                             placeholderTextColor={Colors.PLACEHOLDER}
                                             value={answer}
-                                            onChangeText={(text) => updateAnswer(text, index)}
-                                            editable={!loading}
+                                            onChangeText={(text) =>
+                                                updateAnswer(text, index)
+                                            }
                                         />
                                     </View>
+
                                     {answers.length > 2 && (
                                         <TouchableOpacity
                                             style={styles.removeButton}
                                             onPress={() => removeAnswer(index)}
-                                            disabled={loading}
                                         >
-                                            <Entypo name="cross" size={16} color={Colors.THEME} />
+                                            <Entypo
+                                                name="cross"
+                                                size={16}
+                                                color={Colors.THEME}
+                                            />
                                         </TouchableOpacity>
                                     )}
                                 </View>
                             ))}
 
-                            {!loading && (
-                                <TouchableOpacity style={styles.addNewAnswer} onPress={addAnswerField}>
-                                    <MaterialIcons name="add-circle-outline" size={22} color={Colors.THEME} />
-                                    <Text style={styles.addText}>Add new quiz answer</Text>
-                                </TouchableOpacity>
-                            )}
+                            <TouchableOpacity
+                                style={styles.addNewAnswer}
+                                onPress={addAnswerField}
+                            >
+                                <MaterialIcons
+                                    name="add-circle-outline"
+                                    size={22}
+                                    color={Colors.THEME}
+                                />
+                                <Text style={styles.addText}>
+                                    Add new quiz answer
+                                </Text>
+                            </TouchableOpacity>
 
                             <View style={styles.btnGroup}>
-                                <OutLineButton label_one='Clear' width='48%' onPress={clearAll} disabled={loading} />
+                                <OutLineButton
+                                    label_one="Clear"
+                                    width="48%"
+                                    onPress={clearAll}
+                                />
                                 <GradientTextButton
-                                    label={loading ? 'Saving...' : 'Save Quiz'}
-                                    width='48%'
+                                    label="Save Quiz"
+                                    width="48%"
                                     onPress={onPressCreateQuiz}
                                     height={verticalScale(30)}
-                                    disabled={loading}
                                 />
                             </View>
 
                             {loading && (
-                                <ActivityIndicator size="small" color={Colors.THEME} style={{ marginTop: 10 }} />
+                                <ActivityIndicator
+                                    size="small"
+                                    color={Colors.THEME}
+                                    style={{ marginTop: 10 }}
+                                />
                             )}
                         </View>
                     </ScrollView>
@@ -190,7 +191,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-
     modalContainer: {
         width: '90%',
         borderRadius: 10,
@@ -200,8 +200,6 @@ const styles = StyleSheet.create({
     modalTop: {
         backgroundColor: Colors.THEME,
         padding: scale(10),
-        borderTopRightRadius: scale(10),
-        borderTopLeftRadius: scale(10),
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -216,8 +214,8 @@ const styles = StyleSheet.create({
     },
     icon: {
         backgroundColor: Colors.WHITE,
-        borderRadius: scale(100),
-        padding: scale(2),
+        borderRadius: 100,
+        padding: 2,
     },
     textInput: {
         borderWidth: 1,
@@ -232,7 +230,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: verticalScale(5),
     },
     removeButton: {
         padding: scale(5),
@@ -241,8 +238,7 @@ const styles = StyleSheet.create({
     addNewAnswer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: verticalScale(8),
-        marginBottom: verticalScale(15),
+        marginVertical: verticalScale(10),
     },
     addText: {
         marginLeft: scale(6),

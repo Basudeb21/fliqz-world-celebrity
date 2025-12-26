@@ -1,3 +1,4 @@
+export { default as GetUserEventsApi } from "./GetUserEventsApi";
 export { default as AddEventApi } from "./AddEventApi";
 export { default as EventTicketBookingPriceApi } from "./EventTicketBookingPriceApi";
 export { default as GetAllEventsApi } from "./GetAllEventsApi";

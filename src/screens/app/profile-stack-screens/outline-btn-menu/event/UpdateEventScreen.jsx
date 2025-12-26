@@ -7,6 +7,7 @@ import { BackpressTopBar } from '../../../../../components/framework/navbar';
 import { AmmountInput, DateTimeInputBox, OutlineQuantityInputBox, TextAreaBox, TextInputBox } from '../../../../../components/framework/input';
 import { UpdateEventApi } from '../../../../../api/app/event-api';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Colors } from '../../../../../constants';
 
 const UpdateEventScreen = ({ route }) => {
     const { event } = route.params;
@@ -63,6 +64,14 @@ const UpdateEventScreen = ({ route }) => {
 export default UpdateEventScreen
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     form: {
         paddingHorizontal: moderateScale(15),
         marginTop: verticalScale(20),

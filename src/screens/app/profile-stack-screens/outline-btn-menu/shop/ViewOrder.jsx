@@ -12,20 +12,22 @@ import { OrderTracker } from '../../../../../components/framework/progress-bar';
 
 const ViewOrder = () => {
     return (
-        <SafeAreaView style={styles.container}>
-            <BackpressTopBar title={"Order Details"} />
-            <ScrollView>
-                <CartProduct />
-                <Text style={styles.track}>Track Order</Text>
-                <OrderTracker current={3} />
-                <Spacer height={20} />
-                <View style={styles.btnContainer}>
-                    <GradientTextButton width="80%" label='Cancel Orders' fontSize={16} />
-                </View>
-                <Spacer height={30} />
-                <ShippingBills />
-                <Spacer height={30} />
-            </ScrollView>
+        <SafeAreaView style={styles.areaView}>
+            <View style={styles.container}>
+                <BackpressTopBar title={"Order Details"} />
+                <ScrollView>
+                    <CartProduct />
+                    <Text style={styles.track}>Track Order</Text>
+                    <OrderTracker current={3} />
+                    <Spacer height={20} />
+                    <View style={styles.btnContainer}>
+                        <GradientTextButton width="80%" label='Cancel Orders' fontSize={16} />
+                    </View>
+                    <Spacer height={30} />
+                    <ShippingBills />
+                    <Spacer height={30} />
+                </ScrollView>
+            </View>
         </SafeAreaView>
     );
 };
@@ -33,6 +35,14 @@ const ViewOrder = () => {
 export default ViewOrder;
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     container: {
         backgroundColor: Colors.WHITE,
         flex: 1,

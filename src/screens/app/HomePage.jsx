@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import {
     BackHandler,
     FlatList,
+    StatusBar,
     StyleSheet,
     ToastAndroid,
+    View,
 } from 'react-native';
 import { Colors, NavigationStrings } from '../../constants';
 import { useNavigation } from '@react-navigation/native';
@@ -26,6 +28,7 @@ const HomePage = () => {
     const user = useSelector(state => state.auth.user);
 
     console.log(token);
+
 
 
     const [allPosts, setAllPosts] = useState([]);
@@ -131,61 +134,77 @@ const HomePage = () => {
     };
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
-            <HomeTopBar
-                searchOnPress={() =>
-                    navigation.navigate(NavigationStrings.HOME_STACK, {
-                        screen: NavigationStrings.HOME_SEARCH_SCREEN,
-                    })
-                }
-                notificationOnPress={() =>
-                    navigation.navigate(NavigationStrings.HOME_STACK, {
-                        screen: NavigationStrings.HOME_NOTIFICATION_SCREEN,
-                    })
-                }
-                walletOnPress={() =>
-                    navigation.navigate(NavigationStrings.HOME_STACK, {
-                        screen: NavigationStrings.HOME_WALLET_SCREEN,
-                    })
-                }
-                cartOnPress={() =>
-                    navigation.navigate(NavigationStrings.HOME_STACK, {
-                        screen: NavigationStrings.HOME_CART_SCREEN,
-                    })
-                }
-            />
+        <SafeAreaView style={styles.areaView}>
+            <StatusBar barStyle={'light-content'} />
+            <View style={styles.container}>
+                <HomeTopBar
+                    searchOnPress={() =>
+                        navigation.navigate(NavigationStrings.HOME_STACK, {
+                            screen: NavigationStrings.HOME_SEARCH_SCREEN,
+                        })
+                    }
+                    notificationOnPress={() =>
+                        navigation.navigate(NavigationStrings.HOME_STACK, {
+                            screen: NavigationStrings.HOME_NOTIFICATION_SCREEN,
+                        })
+                    }
+                    walletOnPress={() =>
+                        navigation.navigate(NavigationStrings.HOME_STACK, {
+                            screen: NavigationStrings.HOME_WALLET_SCREEN,
+                        })
+                    }
+                    cartOnPress={() =>
+                        navigation.navigate(NavigationStrings.HOME_STACK, {
+                            screen: NavigationStrings.HOME_CART_SCREEN,
+                        })
+                    }
+                />
 
-            <FlatList
-                data={filteredPosts}
-                keyExtractor={(item) => item.id.toString()}
-                ListHeaderComponent={
-                    <>
-                        <StoryHighlightArea />
-                        <Spacer height={20} />
-                    </>
-                }
-                renderItem={({ item }) => (
-                    <SharedPost
-                        userAvatar={item.user?.avatar}
-                        userName={item.user?.name}
-                        postText={item.text}
-                        createdAt={item.created}
-                        crowdfunding={item.crowedfunding}
-                        data={item}
-                        badges={item.user?.badge}
-                    />
-                )}
-                ItemSeparatorComponent={() => <Spacer height={20} />}
-                ListFooterComponent={<Spacer height={30} />}
-                onEndReached={handleLoadMore}
-                onEndReachedThreshold={0.5}
-                refreshing={refreshing}
-                onRefresh={handleRefresh}
-                showsVerticalScrollIndicator={false}
-            />
+                <FlatList
+                    data={filteredPosts}
+                    keyExtractor={(item) => item.id.toString()}
+                    ListHeaderComponent={
+                        <>
+                            <StoryHighlightArea />
+                            <Spacer height={20} />
+                        </>
+                    }
+                    renderItem={({ item }) => (
+                        <SharedPost
+                            userAvatar={item.user?.avatar}
+                            userName={item.user?.name}
+                            postText={item.text}
+                            createdAt={item.created}
+                            crowdfunding={item.crowedfunding}
+                            data={item}
+                            badges={item.user?.badge}
+                        />
+                    )}
+                    ItemSeparatorComponent={() => <Spacer height={20} />}
+                    ListFooterComponent={<Spacer height={30} />}
+                    onEndReached={handleLoadMore}
+                    onEndReachedThreshold={0.5}
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                    showsVerticalScrollIndicator={false}
+                />
+            </View>
         </SafeAreaView>
     );
 };
 
 export default HomePage;
 
+
+const styles = StyleSheet.create({
+
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1,
+    }
+
+})

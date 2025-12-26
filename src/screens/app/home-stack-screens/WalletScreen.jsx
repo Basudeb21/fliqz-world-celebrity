@@ -35,36 +35,38 @@ const WalletScreen = () => {
 
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
-            <BackpressTopBar title={"Wallet"} />
-            <ScrollView>
-                <Spacer height={15} />
-                <View style={styles.topContainer}>
-                    <Text>Your payments and Wallet</Text>
-                    <Spacer height={10} />
-                    <HR height={1} />
-                </View>
-                <ProfileFundCard />
-                <View style={styles.btnRow}>
-                    {addFundForm ?
-                        <GradientTextButton label='Add Funds' width='30%' fontSize={14} onPress={handleAddFundFormPress} height={40} /> :
-                        <OutLineButton label_two='Add Funds' width='30%' fontSize={14} onPress={handleAddFundFormPress} height={40} />
-                    }
-                    {viewTransactions ?
-                        <GradientTextButton label='Transactions' width='30%' fontSize={14} onPress={handleViewTransactionsPress} height={40} /> :
-                        <OutLineButton label_two='Transactions' width='30%' fontSize={14} onPress={handleViewTransactionsPress} height={40} />
-                    }
-                    {openWithdraw ?
-                        <GradientTextButton label='Withdraw' width='30%' fontSize={14} onPress={handleOpenWithdrawPress} height={40} /> :
-                        <OutLineButton label_two='Withdraw' width='30%' fontSize={14} onPress={handleOpenWithdrawPress} height={40} />
-                    }
-                </View>
-                <View style={styles.dynamicContainer}>
-                    {addFundForm && <WalletForm />}
-                    {viewTransactions && <AllTransactions />}
-                    {openWithdraw && <WithdrawForm />}
-                </View>
-            </ScrollView>
+        <SafeAreaView style={styles.areaView}>
+            <View style={styles.container}>
+                <BackpressTopBar title={"Wallet"} />
+                <ScrollView>
+                    <Spacer height={15} />
+                    <View style={styles.topContainer}>
+                        <Text>Your payments and Wallet</Text>
+                        <Spacer height={10} />
+                        <HR height={1} />
+                    </View>
+                    <ProfileFundCard />
+                    <View style={styles.btnRow}>
+                        {addFundForm ?
+                            <GradientTextButton label='Add Funds' width='30%' fontSize={14} onPress={handleAddFundFormPress} height={40} /> :
+                            <OutLineButton label_two='Add Funds' width='30%' fontSize={14} onPress={handleAddFundFormPress} height={40} />
+                        }
+                        {viewTransactions ?
+                            <GradientTextButton label='Transactions' width='30%' fontSize={14} onPress={handleViewTransactionsPress} height={40} /> :
+                            <OutLineButton label_two='Transactions' width='30%' fontSize={14} onPress={handleViewTransactionsPress} height={40} />
+                        }
+                        {openWithdraw ?
+                            <GradientTextButton label='Withdraw' width='30%' fontSize={14} onPress={handleOpenWithdrawPress} height={40} /> :
+                            <OutLineButton label_two='Withdraw' width='30%' fontSize={14} onPress={handleOpenWithdrawPress} height={40} />
+                        }
+                    </View>
+                    <View style={styles.dynamicContainer}>
+                        {addFundForm && <WalletForm />}
+                        {viewTransactions && <AllTransactions />}
+                        {openWithdraw && <WithdrawForm />}
+                    </View>
+                </ScrollView>
+            </View>
         </SafeAreaView>
     )
 }
@@ -72,6 +74,14 @@ const WalletScreen = () => {
 export default WalletScreen
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     topContainer: {
         marginHorizontal: moderateScale(10)
     },

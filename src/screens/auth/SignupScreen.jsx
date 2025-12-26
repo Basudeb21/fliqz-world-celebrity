@@ -1,6 +1,6 @@
-import { ImageBackground, KeyboardAvoidingView, ScrollView, StyleSheet, Text, ToastAndroid, View } from 'react-native'
+import { ImageBackground, KeyboardAvoidingView, ScrollView, StatusBar, StyleSheet, Text, ToastAndroid, View } from 'react-native'
 import React, { useState } from 'react'
-import { Colors, Images, NavigationStrings, Strings } from '../../constants'
+import { Colors, Images, NavigationStrings, Strings, Videos } from '../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import FastImage from 'react-native-fast-image';
 import { useNavigation } from '@react-navigation/native';
@@ -14,6 +14,7 @@ import { HR, Link, Spacer } from '../../components/framework/boots';
 import { Checkbox, PasswordInputBox, PhoneNumberInput, TextInputBox } from '../../components/framework/input';
 import { PrivacyModal } from '../../components/framework/modal';
 import { RegisterApi } from '../../api/auth';
+import Video from 'react-native-video';
 
 const SignupScreen = () => {
 
@@ -65,7 +66,7 @@ const SignupScreen = () => {
         navigation.navigate(NavigationStrings.LOGIN_SCREEN)
     }
 
-    const handlehomePress = () => {
+    const handleomePress = () => {
         navigation.navigate(NavigationStrings.MAIN_STACK, {
             screen: NavigationStrings.HOME_SCREEN
         })
@@ -74,12 +75,13 @@ const SignupScreen = () => {
 
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
-            <ScrollView >
+        <SafeAreaView style={styles.areaView}>
+            <StatusBar barStyle={'light-content'} />
+            <ScrollView style={styles.container}>
                 <KeyboardAvoidingView>
                     <ImageBackground source={{ uri: Images.SIGNUP_IMG }} style={styles.image}>
                         <FastImage
-                            source={Images.WHITE_LOGO}
+                            source={Images.TRANSPARENT_LOGO}
                             style={styles.logo}
                             resizeMode={FastImage.resizeMode.contain}
                         />
@@ -183,6 +185,14 @@ const styles = StyleSheet.create({
     txtContainer: {
         marginTop: verticalScale(12)
     },
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     checkBocContainer: {
         marginStart: moderateScale(20),
         flexDirection: "row",
@@ -211,10 +221,10 @@ const styles = StyleSheet.create({
         height: verticalScale(180)
     },
     logo: {
-        width: moderateScale(230),
-        height: verticalScale(230),
-        marginLeft: moderateScale(-50),
-        marginTop: verticalScale(-90)
+        width: moderateScale(120),
+        height: verticalScale(120),
+        marginLeft: moderateScale(10),
+        marginTop: verticalScale(-30)
     },
     loginTxt: {
         fontSize: scale(18),

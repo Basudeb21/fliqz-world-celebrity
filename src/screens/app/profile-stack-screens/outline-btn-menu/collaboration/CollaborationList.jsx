@@ -2,7 +2,7 @@ import { FlatList, StyleSheet, View, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { BackpressTopBar } from '../../../../../components/framework/navbar';
-import { s } from 'react-native-size-matters';
+import { moderateScale, s } from 'react-native-size-matters';
 import { FloatingActionButton } from '../../../../../components/framework/button';
 import { Colors, NavigationStrings } from '../../../../../constants';
 import { CollaborationOverviewCard } from '../../../../../components/framework/card';
@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { CollabListApi } from '../../../../../api/app/collaboration';
 import { Loader, Spacer } from '../../../../../components/framework/boots';
 import { useNavigation } from '@react-navigation/native';
+import { DateFormat } from '../../../../../utils/DateFormat';
 
 const CollaborationList = () => {
     const token = useSelector(state => state.auth.token);
@@ -30,10 +31,8 @@ const CollaborationList = () => {
         if (!token || loading) return;
         setLoading(true);
         try {
-            const res = await CollabListApi({ token, page });
+            const res = await CollabListApi(token, page);
             const data = res?.data;
-            console.log("||", data);
-
 
             if (data) {
                 setLastPage(data.last_page || 1);
@@ -81,15 +80,17 @@ const CollaborationList = () => {
             <FlatList
                 data={allCollabs}
                 numColumns={2}
-                columnWrapperStyle={{ justifyContent: "space-evenly" }}
+                columnWrapperStyle={{ justifyContent: "flex-start", marginHorizontal: moderateScale(10) }}
                 keyExtractor={(item, index) => item.id?.toString() || index.toString()}
                 renderItem={({ item, index }) => (
 
                     <CollaborationOverviewCard
+                        data={item}
                         id={item.id}
                         image={item.image_url}
                         title={item.title}
-                        date={item.created}
+                        date={DateFormat(item.created_at)}
+                        users={item.invited_user}
                         style={{
                             flex: 1,
                             margin: s(5),
@@ -114,9 +115,13 @@ const CollaborationList = () => {
 export default CollaborationList;
 
 const styles = StyleSheet.create({
-    container: {
+    areaView: {
         flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
         backgroundColor: Colors.WHITE,
+        flex: 1
     },
     fabBtn: {
         position: 'absolute',

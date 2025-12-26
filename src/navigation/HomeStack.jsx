@@ -28,9 +28,6 @@ const HomeStack = () => {
                     animation: 'fade',
                 }}
             />
-
-
-
         </Stack.Navigator>
     );
 }

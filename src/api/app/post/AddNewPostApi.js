@@ -8,13 +8,15 @@ const AddNewPostApi = async (
     attachments = [],
     poll = [],
     quiz = [],
-    postWithStory = false
+    postWithStory = false,
+    access_type = "public"
 ) => {
     try {
         const formData = new FormData();
 
         formData.append('price', price);
         formData.append('post_with_story', postWithStory);
+        formData.append('access_type', access_type);
 
         if (poll?.question && poll?.answers?.length > 0) {
             formData.append("text", poll.question);

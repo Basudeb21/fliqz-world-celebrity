@@ -18,4 +18,13 @@ const AllTips = () => {
 
 export default AllTips
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
+})

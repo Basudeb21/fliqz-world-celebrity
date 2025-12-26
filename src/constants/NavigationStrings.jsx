@@ -61,7 +61,7 @@ export default {
     HOME_PLACE_ORDER_SCREEN: "PlaceOrder",
     HOME_VIEW_STORY: "OpenStory",
     HOME_VIEW_PROFILE_POST: "ViewProfilePost",
-
+    HOME_USER_SHOP_PAGE: 'HomeUserShopPage',
 
     // Chat Stack Options
     FRIEND_CHAT_SCREEN: "FriendChatScreen",
@@ -78,7 +78,9 @@ export default {
     PROFILE_REFERALS_SCREEN: "ProfileReferal",
     PROFILE_BECOME_A_CREATOR: "BecomeACreator",
     PROFILE_AUCTION_SCREEN: "AuctionScreen",
+    HOME_USER_AUCTION_PAGE: 'HomeUserAuctionPage',
     PROFILE_AUTION_ITEM_SCREEN: "AuctionItemScreen",
+    HOME_USER_EVENTS_PAGE: "UserEventPage",
     PROFILE_ALL_BIDS: "AllBids",
     PROFILE_ADD_NEW_EVENT: "AddNewEvent",
     PROFILE_ADD_NEW_AUCTION: "AddNewAuction",
@@ -87,6 +89,7 @@ export default {
     PROFILE_COLLABORATION_LIST: "CollaborationList",
     PROFILE_CREATE_NEW_COLLABORATION: "CreateNewCollaboration",
     PROFILE_EDIT_COLLABORATION: "EditCollaboration",
+    PROFILE_VIEW_COLLABORATION: "ViewCollaboration",
     PROFILE_UPDATE_SHOP_ITEM: "UpdateShopItem",
     PROFILE_CREATE_CROWDFUNDING: "CreateCrowdfunding",
     PROFILE_ALL_CROWDFUNDING: "AllCrowdfunding",
@@ -107,6 +110,7 @@ export default {
     SETTINGS_PROMOTION_SCREEN: "Promotion",
     SETTINGS_ADD_SUPPORT_TICKET_SCREEN: "SupportTicketScreen",
     SETTINGS_UPDATE_ADDRESS: "UpdateAddress",
+    SETTINGS_TAX_INFORMATION: "TaxInformation",
     SETTINGS_CHAT_BOT: "ChatBotHome",
 
     // Post Screens

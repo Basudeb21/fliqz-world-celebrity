@@ -16,27 +16,29 @@ const OrderSuccessfull = () => {
         navigation.navigate(NavigationStrings.PROFILE_STACK)
     }
     return (
-        <SafeAreaView>
-            <BackpressTopBar title={"Order Status"} />
-            <FastImage
-                source={Images.WHITE_LOGO}
-                style={styles.logo}
-                resizeMode={FastImage.resizeMode.contain}
-            />
-            <View style={styles.icon}>
-                <Ionicons
-                    color={Colors.THEME}
-                    size={70}
-                    name={"checkmark-circle"}
+        <SafeAreaView style={styles.areaView}>
+            <View style={styles.container}>
+                <BackpressTopBar title={"Order Status"} />
+                <FastImage
+                    source={Images.WHITE_LOGO}
+                    style={styles.logo}
+                    resizeMode={FastImage.resizeMode.contain}
                 />
-                <Spacer height={40} />
-                <Text style={styles.head}>Order Placed Successfully!</Text>
-                <Text style={styles.sub}>
-                    Your order’s in good hands. Get ready for something <Text style={styles.red}>great!</Text>
-                </Text>
-            </View>
-            <View style={styles.btn}>
-                <GradientTextButton label='Order Details' width='40%' onPress={openOrderDetails} />
+                <View style={styles.icon}>
+                    <Ionicons
+                        color={Colors.THEME}
+                        size={70}
+                        name={"checkmark-circle"}
+                    />
+                    <Spacer height={40} />
+                    <Text style={styles.head}>Order Placed Successfully!</Text>
+                    <Text style={styles.sub}>
+                        Your order’s in good hands. Get ready for something <Text style={styles.red}>great!</Text>
+                    </Text>
+                </View>
+                <View style={styles.btn}>
+                    <GradientTextButton label='Order Details' width='40%' onPress={openOrderDetails} />
+                </View>
             </View>
         </SafeAreaView>
     )
@@ -45,6 +47,14 @@ const OrderSuccessfull = () => {
 export default OrderSuccessfull
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     logo: {
         alignSelf: "center",
         width: moderateScale(600),

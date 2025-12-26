@@ -1,15 +1,23 @@
-import { Image, StyleSheet, Text, ToastAndroid, View } from 'react-native'
+import { Image, StyleSheet, Text, ToastAndroid, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { Colors, Images } from '../../../constants'
+import { Colors, Images, NavigationStrings } from '../../../constants'
 import { GradientTextButton } from '../button'
 import { scale, verticalScale } from 'react-native-size-matters'
 import { CommonSuggestionImageGroup } from '../iamge'
 import { useSelector } from 'react-redux'
 import { CollabDeleteApi } from '../../../api/app/collaboration'
+import { useNavigation } from '@react-navigation/native'
 
-const CollaborationOverviewCard = ({ id, image, title, date, }) => {
-    const images = [Images.CELEBRITY_AVATAR_ONE, Images.CELEBRITY_AVATAR_TWO, Images.CELEBRITY_AVATAR_THREE]
+const CollaborationOverviewCard = ({ id, image, title, date, users, onPress, data }) => {
     const token = useSelector(state => state.auth.token);
+    const navigation = useNavigation();
+    const onPressView = () => {
+        navigation.navigate(
+            NavigationStrings.PROFILE_VIEW_COLLABORATION,
+            { collaboration: data }
+        );
+    };
+
 
     const onPressDelete = async () => {
         const resp = await CollabDeleteApi({ token, id });
@@ -19,13 +27,15 @@ const CollaborationOverviewCard = ({ id, image, title, date, }) => {
     }
     return (
         <View style={styles.card}>
-            <Image source={{ uri: image }} style={styles.cardImage} />
+            <TouchableOpacity onPress={onPressView}>
+                <Image source={{ uri: image }} style={styles.cardImage} />
+            </TouchableOpacity>
             <View style={styles.cardBody}>
                 <Text style={styles.cardTitle}>{title}</Text>
                 <Text style={styles.collaborationDate}>{`Date: ${date}`}</Text>
                 <View style={styles.invitedImageArea}>
                     <Text style={styles.inviteText}>Invited: </Text>
-                    <CommonSuggestionImageGroup images={images} />
+                    <CommonSuggestionImageGroup images={users} />
                 </View>
                 <View style={styles.btnRow}>
                     <GradientTextButton label="Edit" onPress={() => console.log('Edit Collaboration')} width='45%' height={25} fontSize={11} />

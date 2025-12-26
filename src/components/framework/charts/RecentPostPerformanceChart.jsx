@@ -21,18 +21,17 @@ const RecentPostPerformanceChart = React.memo(() => {
     const data = {
         labels: ['Post 1', 'Post 2', 'Post 3', 'Post 4', 'Post 5', 'Post 6'],
         series: [
-            [1250, 320, 180],   // Likes, Comments, Shares for Post 1
-            [1900, 440, 230],   // Post 2
-            [1700, 380, 200],   // Post 3
-            [2100, 520, 270],   // Post 4
-            [2400, 700, 350],   // Post 5
-            [1900, 400, 200],   // Post 6
+            [1250, 320, 180],
+            [1900, 440, 230],
+            [1700, 380, 200],
+            [2100, 520, 270],
+            [2400, 700, 350],
+            [1900, 400, 200],
         ],
         colors: [Colors.CYAN, Colors.YELLOW, Colors.PURPLE],
         legend: ['Likes', 'Comments', 'Shares']
     };
 
-    // Calculate scales
     const xScale = (index) => padding.left + (index * (chartWidth - padding.left - padding.right)) / (data.labels.length - 1);
     const barWidth = (chartWidth - padding.left - padding.right) / data.labels.length * 0.6;
 

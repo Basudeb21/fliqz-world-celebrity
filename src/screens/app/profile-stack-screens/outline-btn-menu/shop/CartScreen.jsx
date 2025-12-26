@@ -17,29 +17,31 @@ const CartScreen = () => {
         navigation.navigate(NavigationStrings.HOME_CART_CHECKOUT_SCREEN)
     }
     return (
-        <SafeAreaView style={styles.container}>
-            <BackpressTopBar title={"Cart"} />
-            <ScrollView>
-                <Spacer height={10} />
-                <CartItem />
-                <Spacer height={40} />
-                <CartItem />
-                <Spacer height={20} />
-                <ProductSummary />
-                <View style={styles.btnRow}>
-                    <GradientIconButton
-                        Icon={Fontisto}
-                        label={"Checkout"}
-                        iconName={"mastercard"}
-                        iconSize={14}
-                        width='90%'
-                        fontSize={14}
-                        onPress={onPressCheckout}
-                    />
-                </View>
-                <Spacer height={80} />
+        <SafeAreaView style={styles.areaView}>
+            <View style={styles.container}>
+                <BackpressTopBar title={"Cart"} />
+                <ScrollView>
+                    <Spacer height={10} />
+                    <CartItem />
+                    <Spacer height={40} />
+                    <CartItem />
+                    <Spacer height={20} />
+                    <ProductSummary />
+                    <View style={styles.btnRow}>
+                        <GradientIconButton
+                            Icon={Fontisto}
+                            label={"Checkout"}
+                            iconName={"mastercard"}
+                            iconSize={14}
+                            width='90%'
+                            fontSize={14}
+                            onPress={onPressCheckout}
+                        />
+                    </View>
+                    <Spacer height={120} />
 
-            </ScrollView>
+                </ScrollView>
+            </View>
         </SafeAreaView>
     )
 }
@@ -47,6 +49,14 @@ const CartScreen = () => {
 export default CartScreen
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     container: {
         backgroundColor: Colors.WHITE
     },

@@ -1,3 +1,5 @@
+export { default as LoadingbarStaticWithLabel } from "./LoadingbarStaticWithLabel";
+export { default as LoadingbarStatic } from "./LoadingbarStatic";
 export { default as ThreeDots } from "./ThreeDots";
 export { default as Loader } from "./Loader";
 export { default as HR } from "./HR";

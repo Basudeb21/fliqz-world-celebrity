@@ -6,7 +6,8 @@ import {
     Text,
     ToastAndroid,
     View,
-    Platform
+    Platform,
+    StatusBar
 } from 'react-native';
 import React, { useState } from 'react';
 import { Colors, Images, NavigationStrings, Strings } from '../../constants';
@@ -78,16 +79,17 @@ const LoginScreen = () => {
     };
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={styles.areaView}>
+            <StatusBar barStyle={'light-content'} />
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-                style={{ flex: 1 }}
+                style={styles.container}
                 enabled
             >
                 <ScrollView keyboardShouldPersistTaps="handled">
                     <ImageBackground source={{ uri: Images.LOGIN_IMG }} style={styles.image}>
                         <FastImage
-                            source={Images.WHITE_LOGO}
+                            source={Images.TRANSPARENT_LOGO}
                             style={styles.logo}
                             resizeMode={FastImage.resizeMode.contain}
                         />
@@ -134,15 +136,23 @@ const LoginScreen = () => {
 export default LoginScreen;
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     image: {
         width: "100%",
         height: verticalScale(260),
     },
     logo: {
-        width: moderateScale(230),
-        height: verticalScale(230),
-        marginLeft: moderateScale(-50),
-        marginTop: verticalScale(-90),
+        width: moderateScale(120),
+        height: verticalScale(120),
+        marginLeft: moderateScale(10),
+        marginTop: verticalScale(-30)
     },
     loginTxt: {
         fontSize: scale(18),

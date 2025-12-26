@@ -41,7 +41,6 @@ const FollowersGrowthChart = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Followers Growth</Text>
-
             <Svg width={chartWidth} height={chartHeight} style={[styles.chart, { alignSelf: 'center' }]}>
                 <G>
                     {labels.map((label, index) => (

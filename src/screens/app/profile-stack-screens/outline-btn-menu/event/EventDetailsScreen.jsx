@@ -147,6 +147,14 @@ const EventDetailsScreen = ({ route }) => {
 export default EventDetailsScreen
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     eventImg: {
         width: "100%",
         height: verticalScale(170)

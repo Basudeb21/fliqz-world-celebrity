@@ -4,17 +4,18 @@ import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 
 const CommonSuggestionImageGroup = ({ images = [] }) => {
     const overlapOffset = 13;
+    const validImages = images.filter(img => img);
     return (
-        <View style={[styles.imageStack, { width: moderateScale(30) + (images.length - 1) * overlapOffset }]}>
-            {images.map((img, index) => (
+        <View style={[styles.imageStack, { width: moderateScale(30) + (validImages.length - 1) * overlapOffset }]}>
+            {validImages.map((user, index) => (
                 <Image
-                    key={index}
-                    source={typeof img === "string" ? { uri: img } : img}
+                    key={user.id || index}
+                    source={{ uri: user.avatar }}
                     style={[
                         styles.img,
                         {
                             marginLeft: index === 0 ? 0 : -overlapOffset,
-                            zIndex: images.length - index,
+                            zIndex: validImages.length - index,
                         }
                     ]}
                 />
@@ -22,7 +23,6 @@ const CommonSuggestionImageGroup = ({ images = [] }) => {
         </View>
     )
 }
-
 
 export default CommonSuggestionImageGroup
 

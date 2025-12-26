@@ -36,6 +36,14 @@ const ViewProfilePost = () => {
 export default ViewProfilePost;
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     modalBackground: {
         flex: 1,
         backgroundColor: Colors.TRANSPARENT_BLACK_DARK_EIGHT,

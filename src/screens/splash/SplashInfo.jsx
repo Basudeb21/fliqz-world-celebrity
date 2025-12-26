@@ -1,4 +1,4 @@
-import { Image, StyleSheet, View } from 'react-native'
+import { Image, StatusBar, StyleSheet, View } from 'react-native'
 import React, { useState } from 'react'
 import { Colors, NavigationStrings } from '../../constants'
 import { moderateScale, verticalScale } from 'react-native-size-matters';
@@ -38,42 +38,45 @@ const SplashInfo = () => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
-            <SplashHead />
-            <Image source={{ uri: img_arr[index] }} style={styles.imageBG} />
-            <View style={styles.txtContainer}>
-                <Spacer height={50} />
-                <View style={styles.headTxt}>
-                    {index === 0 ? (
-                        <>
-                            <SplashHeadTxt label={head_txt_arr[0]} />
-                            <SplashHeadTxt label={head_txt_arr[1]} color={Colors.THEME} />
-                        </>
-                    ) : (
-                        <SplashHeadTxt
-                            label={head_txt_arr[index + 1]}
-                            color={Colors.THEME}
-                        />
-                    )}
-                </View>
+        <SafeAreaView style={styles.areaView}>
+            <StatusBar barStyle={'light-content'} />
+            <View style={styles.container}>
+                <SplashHead />
+                <Image source={{ uri: img_arr[index] }} style={styles.imageBG} />
+                <View style={styles.txtContainer}>
+                    <Spacer height={50} />
+                    <View style={styles.headTxt}>
+                        {index === 0 ? (
+                            <>
+                                <SplashHeadTxt label={head_txt_arr[0]} />
+                                <SplashHeadTxt label={head_txt_arr[1]} color={Colors.THEME} />
+                            </>
+                        ) : (
+                            <SplashHeadTxt
+                                label={head_txt_arr[index + 1]}
+                                color={Colors.THEME}
+                            />
+                        )}
+                    </View>
 
-                <Spacer height={12} />
-                <View style={styles.contentTxt}>
-                    <SplashBodyTxt label={body_txt_arr[index]} />
+                    <Spacer height={12} />
+                    <View style={styles.contentTxt}>
+                        <SplashBodyTxt label={body_txt_arr[index]} />
+                    </View>
                 </View>
-            </View>
-            <Spacer height={60} />
-            <ThreeDots active={index + 1} total={img_arr.length} />
-            <Spacer height={70} />
-            <View style={styles.btn}>
-                <GradientIconButton
-                    Icon={AntDesign}
-                    label={btn_label[index]}
-                    onPress={handleNext}
-                    iconName={"arrowright"}
-                    iconSize={20}
-                    width='50%'
-                />
+                <Spacer height={60} />
+                <ThreeDots active={index + 1} total={img_arr.length} />
+                <Spacer height={70} />
+                <View style={styles.btn}>
+                    <GradientIconButton
+                        Icon={AntDesign}
+                        label={btn_label[index]}
+                        onPress={handleNext}
+                        iconName={"arrowright"}
+                        iconSize={20}
+                        width='50%'
+                    />
+                </View>
             </View>
         </SafeAreaView>
     )
@@ -82,6 +85,10 @@ const SplashInfo = () => {
 export default SplashInfo
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
     container: {
         flex: 1,
         backgroundColor: Colors.WHITE
