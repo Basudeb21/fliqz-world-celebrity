@@ -70,55 +70,57 @@ const CreateNewCrowdfunding = () => {
         }
     };
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title="Create Crowdfunding" />
 
-            <View style={styles.form}>
-                <TextInputBox
-                    placeholder="Title"
-                    value={title}
-                    setValue={setTitle}
-                />
+            <View style={styles.container}>
+                <View style={styles.form}>
+                    <TextInputBox
+                        placeholder="Title"
+                        value={title}
+                        setValue={setTitle}
+                    />
 
-                <AmmountInput
-                    placeholder="Funding Goal"
-                    value={goalAmount}
-                    setValue={setGoalAmount}
-                />
+                    <AmmountInput
+                        placeholder="Funding Goal"
+                        value={goalAmount}
+                        setValue={setGoalAmount}
+                    />
 
-                <DateInputBox
-                    placeholder="Deadline"
-                    date={deadline}
-                    setDate={setDeadline}
-                    focusedInput={focusedInput}
-                    setFocusedInput={setFocusedInput}
-                    inputKey="deadline"
-                />
+                    <DateInputBox
+                        placeholder="Deadline"
+                        date={deadline}
+                        setDate={setDeadline}
+                        focusedInput={focusedInput}
+                        setFocusedInput={setFocusedInput}
+                        inputKey="deadline"
+                    />
 
-                <GalleryPickerBox
-                    placeholder="Cover Image"
-                    images={attachment}
-                    setImages={setAttachment}
-                />
+                    <GalleryPickerBox
+                        placeholder="Cover Image"
+                        images={attachment}
+                        setImages={setAttachment}
+                    />
 
-                <TextAreaBox
-                    placeholder="Short description"
-                    height={90}
-                    value={description}
-                    setValue={setDescription}
-                />
+                    <TextAreaBox
+                        placeholder="Short description"
+                        height={90}
+                        value={description}
+                        setValue={setDescription}
+                    />
 
-                <TextAreaBox
-                    placeholder="Content"
-                    height={120}
-                    value={content}
-                    setValue={setContent}
-                />
+                    <TextAreaBox
+                        placeholder="Content"
+                        height={120}
+                        value={content}
+                        setValue={setContent}
+                    />
 
-                <GradientTextButton
-                    label={'Create'}
-                    onPress={handleSubmit}
-                />
+                    <GradientTextButton
+                        label={'Create'}
+                        onPress={handleSubmit}
+                    />
+                </View>
             </View>
         </SafeAreaView>
     );

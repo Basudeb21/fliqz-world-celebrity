@@ -133,24 +133,26 @@ const Auction = () => {
     });
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title="Auctions" />
-            <TabView
-                navigationState={{ index, routes }}
-                renderScene={renderScene}
-                onIndexChange={setIndex}
-                initialLayout={{ width: SCREEN_WIDTH }}
-                renderTabBar={props => (
-                    <TabBar
-                        {...props}
-                        indicatorStyle={{ backgroundColor: Colors.THEME }}
-                        style={{ backgroundColor: Colors.WHITE }}
-                        labelStyle={{ color: Colors.BLACK, fontWeight: '600' }}
-                        activeColor={Colors.THEME}
-                        inactiveColor={Colors.PLACEHOLDER}
-                    />
-                )}
-            />
+            <View style={styles.container}>
+                <TabView
+                    navigationState={{ index, routes }}
+                    renderScene={renderScene}
+                    onIndexChange={setIndex}
+                    initialLayout={{ width: SCREEN_WIDTH }}
+                    renderTabBar={props => (
+                        <TabBar
+                            {...props}
+                            indicatorStyle={{ backgroundColor: Colors.THEME }}
+                            style={{ backgroundColor: Colors.WHITE }}
+                            labelStyle={{ color: Colors.BLACK, fontWeight: '600' }}
+                            activeColor={Colors.THEME}
+                            inactiveColor={Colors.PLACEHOLDER}
+                        />
+                    )}
+                />
+            </View>
         </SafeAreaView>
     );
 };

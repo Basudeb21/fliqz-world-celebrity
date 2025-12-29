@@ -52,47 +52,48 @@ const UserShopPage = () => {
     }, [userId]);
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={`${userName}'s Shop`} />
+            <View style={styles.container}>
+                {loading ? (
+                    <View style={styles.loaderContainer}>
+                        <ActivityIndicator size="large" color={Colors.PRIMARY} />
+                    </View>
+                ) : (
+                    <FlatList
+                        ListHeaderComponent={<Spacer height={12} />}
+                        data={products}
+                        numColumns={2}
+                        columnWrapperStyle={styles.columnWrapper}
 
-            {loading ? (
-                <View style={styles.loaderContainer}>
-                    <ActivityIndicator size="large" color={Colors.PRIMARY} />
-                </View>
-            ) : (
-                <FlatList
-                    ListHeaderComponent={<Spacer height={12} />}
-                    data={products}
-                    numColumns={2}
-                    columnWrapperStyle={styles.columnWrapper}
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={({ item }) => {
+                            const imageUrl = item.file_url
+                                ? `${API.STORAGE_URL}${item.file_url}`
+                                : null;
 
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item }) => {
-                        const imageUrl = item.file_url
-                            ? `${API.STORAGE_URL}${item.file_url}`
-                            : null;
-
-                        return (
-                            <ShopItemCard
-                                image={imageUrl}
-                                productName={item.name}
-                                desc={item.description}
-                                price={`$${item.price}`}
-                                onPress={() => onImagePress(item)}
-                            />
-                        );
-                    }}
-                    ListEmptyComponent={
-                        <View style={styles.emptyContainer}>
-                            <Text style={styles.emptyText}>
-                                {userName} hasn't added any products yet
-                            </Text>
-                        </View>
-                    }
-                    ListFooterComponent={<Spacer height={40} />}
-                    contentContainerStyle={styles.scrollContent}
-                />
-            )}
+                            return (
+                                <ShopItemCard
+                                    image={imageUrl}
+                                    productName={item.name}
+                                    desc={item.description}
+                                    price={`$${item.price}`}
+                                    onPress={() => onImagePress(item)}
+                                />
+                            );
+                        }}
+                        ListEmptyComponent={
+                            <View style={styles.emptyContainer}>
+                                <Text style={styles.emptyText}>
+                                    {userName} hasn't added any products yet
+                                </Text>
+                            </View>
+                        }
+                        ListFooterComponent={<Spacer height={40} />}
+                        contentContainerStyle={styles.scrollContent}
+                    />
+                )}
+            </View>
         </SafeAreaView>
     );
 };
@@ -100,6 +101,14 @@ const UserShopPage = () => {
 export default UserShopPage;
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     columnWrapper: {
         justifyContent: 'space-between',
         paddingHorizontal: scale(12),

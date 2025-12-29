@@ -73,40 +73,42 @@ const CollaborationList = () => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title="My Collaboration" />
-            <Spacer height={10} />
+            <View style={styles.container}>
+                <Spacer height={10} />
 
-            <FlatList
-                data={allCollabs}
-                numColumns={2}
-                columnWrapperStyle={{ justifyContent: "flex-start", marginHorizontal: moderateScale(10) }}
-                keyExtractor={(item, index) => item.id?.toString() || index.toString()}
-                renderItem={({ item, index }) => (
+                <FlatList
+                    data={allCollabs}
+                    numColumns={2}
+                    columnWrapperStyle={{ justifyContent: "flex-start", marginHorizontal: moderateScale(10) }}
+                    keyExtractor={(item, index) => item.id?.toString() || index.toString()}
+                    renderItem={({ item, index }) => (
 
-                    <CollaborationOverviewCard
-                        data={item}
-                        id={item.id}
-                        image={item.image_url}
-                        title={item.title}
-                        date={DateFormat(item.created_at)}
-                        users={item.invited_user}
-                        style={{
-                            flex: 1,
-                            margin: s(5),
-                        }}
-                    />
-                )}
-                onEndReached={handleLoadMore}
-                onEndReachedThreshold={0.5}
-                refreshing={refreshing}
-                onRefresh={handleRefresh}
-                ListFooterComponent={loading ? <Loader /> : null}
-            />
+                        <CollaborationOverviewCard
+                            data={item}
+                            id={item.id}
+                            image={item.image_url}
+                            title={item.title}
+                            date={DateFormat(item.created_at)}
+                            users={item.invited_user}
+                            style={{
+                                flex: 1,
+                                margin: s(5),
+                            }}
+                        />
+                    )}
+                    onEndReached={handleLoadMore}
+                    onEndReachedThreshold={0.5}
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                    ListFooterComponent={loading ? <Loader /> : null}
+                />
 
 
-            <View style={styles.fabBtn}>
-                <FloatingActionButton onPress={onPressAddCollab} />
+                <View style={styles.fabBtn}>
+                    <FloatingActionButton onPress={onPressAddCollab} />
+                </View>
             </View>
         </SafeAreaView>
     );

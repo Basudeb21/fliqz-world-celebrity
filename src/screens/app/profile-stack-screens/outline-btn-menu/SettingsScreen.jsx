@@ -94,25 +94,27 @@ const SettingsScreen = () => {
 
     ]
     return (
-        <SafeAreaView style={{ backgroundColor: Colors.WHITE, flex: 1 }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={"Settings"} />
-            <Spacer height={10} />
-            <Text style={styles.txt}>Manage your account</Text>
-            <Spacer height={20} />
             <View style={styles.container}>
-                <HR height={1} />
-                <FlatList
-                    data={buttonContents}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item }) => (
-                        <NoOutlineIconTextButton
-                            Icon={item.Icon}
-                            iconName={item.iconName}
-                            text={item.text}
-                            onPress={item.onPress}
-                        />
-                    )}
-                />
+                <Spacer height={10} />
+                <Text style={styles.txt}>Manage your account</Text>
+                <Spacer height={20} />
+                <View style={styles.subView}>
+                    <HR height={1} />
+                    <FlatList
+                        data={buttonContents}
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={({ item }) => (
+                            <NoOutlineIconTextButton
+                                Icon={item.Icon}
+                                iconName={item.iconName}
+                                text={item.text}
+                                onPress={item.onPress}
+                            />
+                        )}
+                    />
+                </View>
             </View>
         </SafeAreaView>
     )
@@ -121,11 +123,19 @@ const SettingsScreen = () => {
 export default SettingsScreen
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
     txt: {
         color: Colors.PLACEHOLDER,
         marginStart: moderateScale(20)
     },
     container: {
-        marginHorizontal: moderateScale(20)
+        backgroundColor: Colors.WHITE,
+        flex: 1,
+    },
+    subView: {
+        paddingHorizontal: moderateScale(20)
     }
 })

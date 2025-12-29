@@ -5,7 +5,6 @@ import { BackpressTopBar } from '../../../../../components/framework/navbar'
 import { Colors } from '../../../../../constants'
 import { GalleryPickerBox, TextInputBox } from '../../../../../components/framework/input'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
-import { Spacer } from '../../../../../components/framework/boots'
 import { SuggestionSearchedUser } from '../../../../../components/framework/card'
 import { GradientTextButton } from '../../../../../components/framework/button'
 
@@ -17,16 +16,18 @@ const CreateNewCollaboration = () => {
     ];
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title="Create New Collaboration" />
-            <View style={styles.form}>
-                <TextInputBox />
-                <GalleryPickerBox />
-                <TextInputBox />
-                <SuggestionSearchedUser users={fans} />
+            <View style={styles.container}>
+                <View style={styles.form}>
+                    <TextInputBox />
+                    <GalleryPickerBox />
+                    <TextInputBox />
+                    <SuggestionSearchedUser users={fans} />
 
-                <View style={styles.btn}>
-                    <GradientTextButton label='Create Collaboration' />
+                    <View style={styles.btn}>
+                        <GradientTextButton label='Create Collaboration' />
+                    </View>
                 </View>
             </View>
         </SafeAreaView>

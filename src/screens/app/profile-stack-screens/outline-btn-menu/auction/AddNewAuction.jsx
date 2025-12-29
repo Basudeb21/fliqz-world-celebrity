@@ -56,39 +56,41 @@ const AddNewAuction = () => {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={'Add new auction'} />
-            <KeyboardAvoidingView
-                style={{ flex: 1 }}
-            >
-                <ScrollView contentContainerStyle={styles.form}>
-                    <TextInputBox placeholder='Name' value={name} setValue={setName} />
-                    <TextAreaBox placeholder='Description' height={90} value={description} setValue={setDescription} />
-                    <OutlineQuantityInputBox placeholder='Min Budget' value={quantity} setValue={setQuantity} />
-                    <DateInputBox
-                        placeholder='Start Date'
-                        date={startDate}
-                        setDate={setStartDate}
-                        focusedInput={focusedInput}
-                        setFocusedInput={setFocusedInput}
-                        inputKey='startDate'
-                    />
-                    <DateInputBox
-                        placeholder='End Date'
-                        date={endDate}
-                        setDate={setEndDate}
-                        focusedInput={focusedInput}
-                        setFocusedInput={setFocusedInput}
-                        inputKey='endDate'
-                    />
-                    <GalleryPickerBox images={images} setImages={setImages} />
-                    <View style={{ height: 100 }} />
-                </ScrollView>
+            <View style={styles.container}>
+                <KeyboardAvoidingView
+                    style={{ flex: 1 }}
+                >
+                    <ScrollView contentContainerStyle={styles.form}>
+                        <TextInputBox placeholder='Name' value={name} setValue={setName} />
+                        <TextAreaBox placeholder='Description' height={90} value={description} setValue={setDescription} />
+                        <OutlineQuantityInputBox placeholder='Min Budget' value={quantity} setValue={setQuantity} />
+                        <DateInputBox
+                            placeholder='Start Date'
+                            date={startDate}
+                            setDate={setStartDate}
+                            focusedInput={focusedInput}
+                            setFocusedInput={setFocusedInput}
+                            inputKey='startDate'
+                        />
+                        <DateInputBox
+                            placeholder='End Date'
+                            date={endDate}
+                            setDate={setEndDate}
+                            focusedInput={focusedInput}
+                            setFocusedInput={setFocusedInput}
+                            inputKey='endDate'
+                        />
+                        <GalleryPickerBox images={images} setImages={setImages} />
+                        <View style={{ height: 100 }} />
+                    </ScrollView>
 
-                <View style={styles.btn}>
-                    <GradientTextButton label='Save' onPress={onPressAddNewAuction} />
-                </View>
-            </KeyboardAvoidingView>
+                    <View style={styles.btn}>
+                        <GradientTextButton label='Save' onPress={onPressAddNewAuction} />
+                    </View>
+                </KeyboardAvoidingView>
+            </View>
         </SafeAreaView>
     );
 };

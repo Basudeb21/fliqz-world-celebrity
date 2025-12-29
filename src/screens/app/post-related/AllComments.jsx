@@ -121,61 +121,63 @@ const AllComments = () => {
     );
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={'Comments'} />
 
-            <FlatList
-                ref={flatListRef}
-                data={comments}
-                keyExtractor={item => item.id.toString()}
-                renderItem={({ item }) => (
-                    <CommentCard
-                        post_item={item}
-                        onDelete={deletedCommentId => {
-                            setComments(prev =>
-                                prev.filter(c => c.id !== deletedCommentId)
-                            );
-                        }}
-                        onEditRequest={(id, message) => {
-                            setEditingCommentId(id);
-                            setEditingInitialValue(message);
-                            setValue(message);
-                        }}
-                        onCopy={(msg) => {
-                            Clipboard.setString(msg);
-                            ToastAndroid.show("Comment Copied", ToastAndroid.SHORT);
-                        }}
-                    />
-                )}
-                ListEmptyComponent={renderEmptyComponent}
-                contentContainerStyle={
-                    comments.length === 0
-                        ? styles.emptyListStyle
-                        : styles.flatListContainer
-                }
-                showsVerticalScrollIndicator={false}
-            />
+            <View style={styles.container}>
+                <FlatList
+                    ref={flatListRef}
+                    data={comments}
+                    keyExtractor={item => item.id.toString()}
+                    renderItem={({ item }) => (
+                        <CommentCard
+                            post_item={item}
+                            onDelete={deletedCommentId => {
+                                setComments(prev =>
+                                    prev.filter(c => c.id !== deletedCommentId)
+                                );
+                            }}
+                            onEditRequest={(id, message) => {
+                                setEditingCommentId(id);
+                                setEditingInitialValue(message);
+                                setValue(message);
+                            }}
+                            onCopy={(msg) => {
+                                Clipboard.setString(msg);
+                                ToastAndroid.show("Comment Copied", ToastAndroid.SHORT);
+                            }}
+                        />
+                    )}
+                    ListEmptyComponent={renderEmptyComponent}
+                    contentContainerStyle={
+                        comments.length === 0
+                            ? styles.emptyListStyle
+                            : styles.flatListContainer
+                    }
+                    showsVerticalScrollIndicator={false}
+                />
 
 
-            <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-                keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
-            >
-                <View
-                    style={[
-                        styles.sendCommentWrapper,
-                        { paddingBottom: insets.bottom },
-                    ]}
+                <KeyboardAvoidingView
+                    behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                    keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
                 >
-                    <SendCommentArea
-                        placeholder={'Write a comment...'}
-                        postId={postID}
-                        onPress={onPressPostComment}
-                        value={value}
-                        setValue={setValue}
-                    />
-                </View>
-            </KeyboardAvoidingView>
+                    <View
+                        style={[
+                            styles.sendCommentWrapper,
+                            { paddingBottom: insets.bottom },
+                        ]}
+                    >
+                        <SendCommentArea
+                            placeholder={'Write a comment...'}
+                            postId={postID}
+                            onPress={onPressPostComment}
+                            value={value}
+                            setValue={setValue}
+                        />
+                    </View>
+                </KeyboardAvoidingView>
+            </View>
         </SafeAreaView>
     );
 };

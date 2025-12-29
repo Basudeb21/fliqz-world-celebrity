@@ -20,7 +20,6 @@ const StoryHighlight = ({ image, videoThumbnail, userName, onPress }) => {
         <View style={styles.container}>
             <TouchableOpacity style={styles.storyContainer} onPress={onPress}>
                 <View style={styles.imageWrapper}>
-
                     {isVideo && thumbnailUrl ? (
                         <Image
                             source={{ uri: thumbnailUrl }}

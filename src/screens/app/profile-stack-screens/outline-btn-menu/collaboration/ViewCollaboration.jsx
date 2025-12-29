@@ -33,71 +33,73 @@ const ViewCollaboration = () => {
     } = collaboration;
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title="View Collaboration" />
 
-            {/* HEADER IMAGE */}
-            <ImageBackground
-                source={{ uri: image_url }}
-                style={styles.image}
-                resizeMode="cover"
-            >
-                <View style={styles.creatorContainer}>
-                    <View>
-                        <Text style={styles.collaborationName}>
-                            {title}
-                        </Text>
+            <View style={styles.container}>
+                {/* HEADER IMAGE */}
+                <ImageBackground
+                    source={{ uri: image_url }}
+                    style={styles.image}
+                    resizeMode="cover"
+                >
+                    <View style={styles.creatorContainer}>
+                        <View>
+                            <Text style={styles.collaborationName}>
+                                {title}
+                            </Text>
 
-                        <Text style={styles.collaborationCreatorName}>
-                            Collaboration
-                        </Text>
+                            <Text style={styles.collaborationCreatorName}>
+                                Collaboration
+                            </Text>
 
-                        <Text style={styles.collaborationDate}>
-                            Created at : {DateFormat(created_at)}
+                            <Text style={styles.collaborationDate}>
+                                Created at : {DateFormat(created_at)}
+                            </Text>
+                        </View>
+
+                        {invited_user?.[0]?.avatar && (
+                            <Image
+                                source={{ uri: invited_user[0].avatar }}
+                                style={styles.collaborationCreatorImage}
+                            />
+                        )}
+                    </View>
+                </ImageBackground>
+
+                {/* INVITED HEADER */}
+                <View style={styles.invitedHeader}>
+                    <Text style={styles.invitedTitle}>Invited Users</Text>
+
+                    <View style={styles.userCountBadge}>
+                        <FontAwesome5
+                            name="users"
+                            size={scale(12)}
+                            color={Colors.THEME}
+                            style={{ marginRight: scale(6) }}
+                        />
+                        <Text style={styles.userCountText}>
+                            {invited_user.length}
                         </Text>
                     </View>
+                </View>
 
-                    {invited_user?.[0]?.avatar && (
-                        <Image
-                            source={{ uri: invited_user[0].avatar }}
-                            style={styles.collaborationCreatorImage}
+                {/* INVITED LIST */}
+                <FlatList
+                    data={invited_user}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({ item }) => (
+                        <InvitedUserCard
+                            image={item.avatar}
+                            fanName={`${item.first_name} ${item.last_name}`}
+                            fanActiveTime={item.last_active_at || 'Offline'}
+                            onPress={() => console.log(item.name)}
                         />
                     )}
-                </View>
-            </ImageBackground>
-
-            {/* INVITED HEADER */}
-            <View style={styles.invitedHeader}>
-                <Text style={styles.invitedTitle}>Invited Users</Text>
-
-                <View style={styles.userCountBadge}>
-                    <FontAwesome5
-                        name="users"
-                        size={scale(12)}
-                        color={Colors.THEME}
-                        style={{ marginRight: scale(6) }}
-                    />
-                    <Text style={styles.userCountText}>
-                        {invited_user.length}
-                    </Text>
-                </View>
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ paddingBottom: verticalScale(20) }}
+                />
             </View>
-
-            {/* INVITED LIST */}
-            <FlatList
-                data={invited_user}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (
-                    <InvitedUserCard
-                        image={item.avatar}
-                        fanName={`${item.first_name} ${item.last_name}`}
-                        fanActiveTime={item.last_active_at || 'Offline'}
-                        onPress={() => console.log(item.name)}
-                    />
-                )}
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingBottom: verticalScale(20) }}
-            />
         </SafeAreaView>
     );
 };

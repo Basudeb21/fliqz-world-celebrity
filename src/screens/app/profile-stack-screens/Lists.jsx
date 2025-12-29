@@ -37,9 +37,10 @@ const Lists = () => {
         navigation.navigate(NavigationStrings.HOME_VIEW_LIST_CONTENT, { item });
     };
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={"Lists"} />
             <FlatList
+                style={styles.container}
                 ListHeaderComponent={<Spacer height={15} />}
                 data={lists}
                 keyExtractor={(item) => item.id.toString()}
@@ -70,6 +71,14 @@ const Lists = () => {
 export default Lists
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     fab: {
         position: "absolute",
         bottom: verticalScale(60)

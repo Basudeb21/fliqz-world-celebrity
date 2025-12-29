@@ -11,7 +11,7 @@ import { AddNewEvent, EventDetailsScreen, EventsScreen, UpdateEventScreen, UserE
 import AuthStack from './AuthStack';
 import FAQ from '../screens/app/profile-stack-screens/outline-btn-menu/FAQ';
 import { CollaborationList, CreateNewCollaboration, EditCollaboration, ViewCollaboration } from '../screens/app/profile-stack-screens/outline-btn-menu/collaboration';
-import { ChatBotPage, DisplayAllAddress, EditProfile } from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen';
+import { ChatBotPage, EditProfile } from '../screens/app/profile-stack-screens/outline-btn-menu/settings-screen';
 import { AllCrowdfunding, CreateNewCrowdfunding, ViewCrowdfunding } from '../screens/app/profile-stack-screens/outline-btn-menu/crowdfunding';
 import { Rewards } from '../screens/app/profile-stack-screens/outline-btn-menu/rewards';
 
@@ -60,8 +60,7 @@ const ProfileStack = () => {
             <Stack.Screen name={NavigationStrings.HOME_SHOP_ITEM_INFO_PAGE} component={ShopItemInfoPage} />
             <Stack.Screen name={NavigationStrings.PROFILE_ADD_NEW_PRODUCT} component={AddNewProduct} />
             <Stack.Screen name={NavigationStrings.PROFILE_UPDATE_SHOP_ITEM} component={UpdateProductScreen} />
-            <Stack.Screen name={NavigationStrings.HOME_USER_SHOP_PAGE} component={UserShopPage}
-            />
+            <Stack.Screen name={NavigationStrings.HOME_USER_SHOP_PAGE} component={UserShopPage} />
 
 
             {/* Collaboration */}
@@ -87,4 +86,4 @@ const ProfileStack = () => {
     );
 }
 
-export default ProfileStack
+export default ProfileStack;

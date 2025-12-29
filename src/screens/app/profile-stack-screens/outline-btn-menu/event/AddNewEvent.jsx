@@ -51,43 +51,45 @@ const AddNewEvent = () => {
     }
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={"Add New Event"} />
-            <View style={styles.form}>
-                <KeyboardAvoidingView >
-                    <ScrollView>
-                        <TextInputBox placeholder='Event name' value={eventName} setValue={setEventName} />
-                        <Spacer height={10} />
-                        <TextAreaBox placeholder='Description' height={60} value={eventDescription} setValue={setEventDescription} />
-                        <Spacer height={10} />
-                        <TextInputBox placeholder='Location' value={eventLocation} setValue={setEventLocation} />
-                        <Spacer height={10} />
-                        <TextInputBox placeholder='Price' value={eventPrice} setValue={setEventPrice} />
-                        <Spacer height={10} />
-                        <DateTimeInputBox
-                            placeholder='Start Time'
-                            datetime={eventStartTime}
-                            setDatetime={setEventStartTime}
-                            focusedInput={focusedInput}
-                            setFocusedInput={setFocusedInput}
-                            inputKey="startTime"
-                        />
-                        <Spacer height={10} />
+            <View style={styles.container}>
+                <View style={styles.form}>
+                    <KeyboardAvoidingView >
+                        <ScrollView>
+                            <TextInputBox placeholder='Event name' value={eventName} setValue={setEventName} />
+                            <Spacer height={10} />
+                            <TextAreaBox placeholder='Description' height={60} value={eventDescription} setValue={setEventDescription} />
+                            <Spacer height={10} />
+                            <TextInputBox placeholder='Location' value={eventLocation} setValue={setEventLocation} />
+                            <Spacer height={10} />
+                            <TextInputBox placeholder='Price' value={eventPrice} setValue={setEventPrice} />
+                            <Spacer height={10} />
+                            <DateTimeInputBox
+                                placeholder='Start Time'
+                                datetime={eventStartTime}
+                                setDatetime={setEventStartTime}
+                                focusedInput={focusedInput}
+                                setFocusedInput={setFocusedInput}
+                                inputKey="startTime"
+                            />
+                            <Spacer height={10} />
 
-                        <DateTimeInputBox
-                            placeholder='End Time'
-                            datetime={eventEndTime}
-                            setDatetime={setEventEndTime}
-                            focusedInput={focusedInput}
-                            setFocusedInput={setFocusedInput}
-                            inputKey="endTime"
-                        />
-                        <Spacer height={10} />
-                        <TextInputBox placeholder='Quantity Total' value={eventQuantity} setValue={setEventQuantity} />
-                        <Spacer height={40} />
-                        <GradientTextButton label='Create Event' onPress={handleOnPressAddEvent} />
-                    </ScrollView>
-                </KeyboardAvoidingView>
+                            <DateTimeInputBox
+                                placeholder='End Time'
+                                datetime={eventEndTime}
+                                setDatetime={setEventEndTime}
+                                focusedInput={focusedInput}
+                                setFocusedInput={setFocusedInput}
+                                inputKey="endTime"
+                            />
+                            <Spacer height={10} />
+                            <TextInputBox placeholder='Quantity Total' value={eventQuantity} setValue={setEventQuantity} />
+                            <Spacer height={40} />
+                            <GradientTextButton label='Create Event' onPress={handleOnPressAddEvent} />
+                        </ScrollView>
+                    </KeyboardAvoidingView>
+                </View>
             </View>
 
         </SafeAreaView>

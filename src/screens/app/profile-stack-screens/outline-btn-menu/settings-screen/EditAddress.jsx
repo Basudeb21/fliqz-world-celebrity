@@ -74,9 +74,9 @@ const EditAddress = () => {
     };
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={"Edit Address"} />
-            <ScrollView>
+            <ScrollView style={styles.container}>
                 <KeyboardAvoidingView style={styles.body}>
                     <TextInputBox
                         placeholder='Enter Address Title'
@@ -174,6 +174,14 @@ const EditAddress = () => {
 export default EditAddress;
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     body: {
         marginTop: verticalScale(20),
         marginHorizontal: moderateScale(20),

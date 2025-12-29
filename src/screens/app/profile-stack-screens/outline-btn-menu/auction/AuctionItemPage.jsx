@@ -48,60 +48,62 @@ const AuctionItemPage = ({ route }) => {
 
 
     return (
-        <SafeAreaView style={{ backgroundColor: Colors.WHITE, flex: 1 }}>
-            <BackpressTopBar title={"Product Item"} />
-            <View style={styles.row}>
-                <Image
-                    style={styles.image}
-                    source={{
-                        uri: `${API.STORAGE_URL}${product.images[0]}`
-                    }}
-                />
-                <View style={styles.container}>
-                    <Text style={styles.productName}>{product.name}</Text>
-                    <Text style={styles.desc}>{product.description}</Text>
-                    <Text style={styles.data}>Starting Bid: {product.min_budget}</Text>
-                    <Text style={styles.data}>Current Bid: {product.latest_bid || product.min_budget}</Text>
-                    <Text style={styles.data}>Auction Start: {DateFormat(product.created_at)}</Text>
-                    <Text style={styles.data}>Auction End: {DateFormat(product.end_date)}</Text>
-                    <Spacer height={10} />
-                    {
-                        !isSameUser &&
-                        <AmmountInput value={ammount} setValue={setAmmount} />
+        <SafeAreaView style={styles.areaView}>
+            <BackpressTopBar title={"Auction Item"} />
+            <View style={styles.container}>
+                <View style={styles.row}>
+                    <Image
+                        style={styles.image}
+                        source={{
+                            uri: `${API.STORAGE_URL}${product.images[0]}`
+                        }}
+                    />
+                    <View style={styles.subContainer}>
+                        <Text style={styles.productName}>{product.name}</Text>
+                        <Text style={styles.desc}>{product.description}</Text>
+                        <Text style={styles.data}>Starting Bid: {product.min_budget}</Text>
+                        <Text style={styles.data}>Current Bid: {product.latest_bid || product.min_budget}</Text>
+                        <Text style={styles.data}>Auction Start: {DateFormat(product.created_at)}</Text>
+                        <Text style={styles.data}>Auction End: {DateFormat(product.end_date)}</Text>
+                        <Spacer height={10} />
+                        {
+                            !isSameUser &&
+                            <AmmountInput value={ammount} setValue={setAmmount} />
 
-                    }
+                        }
 
-                    {
-                        isSameUser &&
-                        <View style={styles.iconBtnGrp}>
-                            <GradientIconButton
-                                Icon={FontAwesome5}
-                                iconName={"user-edit"}
-                                iconSize={20}
-                                width='100%'
-                                label='Edit'
-                                onPress={() => navigation.navigate(NavigationStrings.PROFILE_EDIT_AUCTION_ITEM, { slug: product.slug })}
-                            />
+                        {
+                            isSameUser &&
+                            <View style={styles.iconBtnGrp}>
+                                <GradientIconButton
+                                    Icon={FontAwesome5}
+                                    iconName={"user-edit"}
+                                    iconSize={20}
+                                    width='100%'
+                                    label='Edit'
+                                    onPress={() => navigation.navigate(NavigationStrings.PROFILE_EDIT_AUCTION_ITEM, { slug: product.slug })}
+                                />
 
-                        </View>
-                    }
+                            </View>
+                        }
+                    </View>
+
                 </View>
-
+                <Spacer height={20} />
+                {
+                    !isSameUser &&
+                    <View style={styles.btnGrp}>
+                        <OutLineButton label_two={'View All Bids'} onPress={() => openAllBids(product.slug)} />
+                        <GradientTextButton label='Place Bid' onPress={handleMakeBid} />
+                    </View>
+                }
+                {
+                    isSameUser &&
+                    <View style={styles.btnGrp}>
+                        <OutLineButton label_two={'View All Bids'} onPress={() => openAllBids(product.slug)} />
+                    </View>
+                }
             </View>
-            <Spacer height={20} />
-            {
-                !isSameUser &&
-                <View style={styles.btnGrp}>
-                    <OutLineButton label_two={'View All Bids'} onPress={() => openAllBids(product.slug)} />
-                    <GradientTextButton label='Place Bid' onPress={handleMakeBid} />
-                </View>
-            }
-            {
-                isSameUser &&
-                <View style={styles.btnGrp}>
-                    <OutLineButton label_two={'View All Bids'} onPress={() => openAllBids(product.slug)} />
-                </View>
-            }
 
 
         </SafeAreaView>
@@ -119,7 +121,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.WHITE,
         flex: 1
     },
-    container: {
+    subContainer: {
         width: "50%"
     },
     row: {

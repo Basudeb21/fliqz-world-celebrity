@@ -82,11 +82,12 @@ const UserAuctionPage = () => {
     }, [userId]);
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={`${userName}'s Auctions`} />
 
             <FlatList
                 data={auctions}
+                style={styles.container}
                 keyExtractor={item => item.id.toString()}
                 renderItem={({ item }) => (
                     <AuctionCard

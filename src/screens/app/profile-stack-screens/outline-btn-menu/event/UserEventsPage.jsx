@@ -81,10 +81,10 @@ const UserEventsPage = () => {
     }, [userId]);
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={`${userName}'s Events`} />
-
             <FlatList
+                style={styles.container}
                 data={events}
                 keyExtractor={item => item.id.toString()}
                 numColumns={2}

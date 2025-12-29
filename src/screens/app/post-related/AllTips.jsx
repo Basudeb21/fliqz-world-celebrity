@@ -9,9 +9,11 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 const AllTips = () => {
     const tipsData = TipsData;
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={"Tips Leader Board"} />
-            <TipsTable data={tipsData} />
+            <View style={styles.container}>
+                <TipsTable data={tipsData} />
+            </View>
         </SafeAreaView>
     )
 }

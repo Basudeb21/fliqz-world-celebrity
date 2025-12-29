@@ -6,8 +6,11 @@ import { Colors } from '../../../../../constants'
 
 const EditCollaboration = () => {
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title="Edit Collaboration" />
+            <View style={styles.container}>
+
+            </View>
         </SafeAreaView>
     )
 }

@@ -41,9 +41,9 @@ const Rewards = () => {
 
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={"Rewards"} />
-            <ScrollView >
+            <ScrollView style={styles.container}>
                 <View style={styles.form}>
                     <DropdownBox
                         placeholder='Select Reward Type'

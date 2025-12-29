@@ -25,14 +25,16 @@ const AddSupportTicketScreen = () => {
     ]
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={"Add support ticket"} />
-            <View style={styles.form}>
-                <DropdownBox placeholder='Select Category' options={categoryOptions} />
-                <TextInputBox placeholder='Enter subject' />
-                <TextAreaBox placeholder='Enter Message' height={120} />
-                <DropdownBox placeholder='Select Category' options={priorityOptions} />
-                <GradientTextButton label='Submit' />
+            <View style={styles.container}>
+                <View style={styles.form}>
+                    <DropdownBox placeholder='Select Category' options={categoryOptions} />
+                    <TextInputBox placeholder='Enter subject' />
+                    <TextAreaBox placeholder='Enter Message' height={120} />
+                    <DropdownBox placeholder='Select Category' options={priorityOptions} />
+                    <GradientTextButton label='Submit' />
+                </View>
             </View>
         </SafeAreaView>
     )
@@ -41,6 +43,14 @@ const AddSupportTicketScreen = () => {
 export default AddSupportTicketScreen
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     form: {
         marginTop: verticalScale(20),
         marginHorizontal: moderateScale(20),

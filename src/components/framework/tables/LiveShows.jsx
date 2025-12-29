@@ -5,11 +5,13 @@ import {
     Dimensions,
     KeyboardAvoidingView,
     Platform,
-    Keyboard
+    Keyboard,
+    StyleSheet
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { dummyReels } from '../../../data/dummyVideos';
 import { LiveStory } from '../story';
+import { Colors } from '../../../constants';
 
 const { height } = Dimensions.get('window');
 const videos = dummyReels;
@@ -57,9 +59,9 @@ export default function LiveShows() {
     };
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={styles.areaView}>
             <KeyboardAvoidingView
-                style={{ flex: 1 }}
+                style={styles.container}
                 behavior={Platform.OS === 'ios' ? 'padding' : null}
                 keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
             >
@@ -100,3 +102,16 @@ export default function LiveShows() {
         </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
+
+
+})

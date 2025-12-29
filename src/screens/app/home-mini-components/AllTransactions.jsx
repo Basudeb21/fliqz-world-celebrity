@@ -1,7 +1,6 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Colors } from '../../../constants'
-import { dummyTransaction } from '../../../data/dummyTransaction'
 import { TransactionCard } from '../../../components/framework/card'
 import { Spacer } from '../../../components/framework/boots'
 import { useSelector } from 'react-redux'
@@ -53,6 +52,5 @@ const styles = StyleSheet.create({
     },
     container: {
         backgroundColor: Colors.WHITE,
-        flex: 1
     },
 })

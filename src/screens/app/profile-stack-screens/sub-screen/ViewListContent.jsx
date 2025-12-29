@@ -29,9 +29,10 @@ const ViewListContent = ({ route }) => {
 
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={item.name + " lists"} />
             <FlatList
+                style={styles.container}
                 data={lists}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
@@ -59,6 +60,14 @@ const ViewListContent = ({ route }) => {
 export default ViewListContent
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     empty: {
         flex: 1,
         alignItems: "center",

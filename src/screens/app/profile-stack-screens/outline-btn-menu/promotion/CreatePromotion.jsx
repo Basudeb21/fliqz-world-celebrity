@@ -87,48 +87,50 @@ const CreatePromotion = () => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={'Promotion'} />
-            <View style={styles.form}>
-                <DropdownBox
-                    placeholder="How do you want to promote yourself?"
-                    value={selectedPromotion?.display_name}
-                    setValue={(val) =>
-                        setSelectedPromotion(promotionOptions.find((item) => item.display_name === val))
-                    }
-                    options={promotionOptions.map((item) => item.display_name)}
-                />
-                <TextInputBox placeholder="Promotion Content" value={content} setValue={setContent} />
-                <DropdownBox
-                    placeholder="Promotion Duration"
-                    value={selectedDuration?.label}
-                    setValue={(val) => setSelectedDuration(durationOptions.find((d) => d.label === val))}
-                    options={durationOptions.map((d) => d.label)}
-                />
-                <GradientTextButton label="Promote" onPress={onPromote} />
-            </View>
-            <Spacer height={50} />
-
-            {summary && (
-                <View style={styles.card}>
-                    <Text style={styles.cardHeader}>Promotion Summary</Text>
-
-                    <View style={styles.row}>
-                        <Text style={styles.label}>Start Date:</Text>
-                        <Text style={styles.value}>{summary.startDate}</Text>
-                    </View>
-
-                    <View style={styles.row}>
-                        <Text style={styles.label}>Expiry Date:</Text>
-                        <Text style={styles.value}>{summary.endDate}</Text>
-                    </View>
-
-                    <View style={[styles.row, styles.priceRow]}>
-                        <Text style={styles.label}>Total Price:</Text>
-                        <Text style={styles.price}>${summary.price}</Text>
-                    </View>
+            <View style={styles.container}>
+                <View style={styles.form}>
+                    <DropdownBox
+                        placeholder="How do you want to promote yourself?"
+                        value={selectedPromotion?.display_name}
+                        setValue={(val) =>
+                            setSelectedPromotion(promotionOptions.find((item) => item.display_name === val))
+                        }
+                        options={promotionOptions.map((item) => item.display_name)}
+                    />
+                    <TextInputBox placeholder="Promotion Content" value={content} setValue={setContent} />
+                    <DropdownBox
+                        placeholder="Promotion Duration"
+                        value={selectedDuration?.label}
+                        setValue={(val) => setSelectedDuration(durationOptions.find((d) => d.label === val))}
+                        options={durationOptions.map((d) => d.label)}
+                    />
+                    <GradientTextButton label="Promote" onPress={onPromote} />
                 </View>
-            )}
+                <Spacer height={50} />
+
+                {summary && (
+                    <View style={styles.card}>
+                        <Text style={styles.cardHeader}>Promotion Summary</Text>
+
+                        <View style={styles.row}>
+                            <Text style={styles.label}>Start Date:</Text>
+                            <Text style={styles.value}>{summary.startDate}</Text>
+                        </View>
+
+                        <View style={styles.row}>
+                            <Text style={styles.label}>Expiry Date:</Text>
+                            <Text style={styles.value}>{summary.endDate}</Text>
+                        </View>
+
+                        <View style={[styles.row, styles.priceRow]}>
+                            <Text style={styles.label}>Total Price:</Text>
+                            <Text style={styles.price}>${summary.price}</Text>
+                        </View>
+                    </View>
+                )}
+            </View>
 
         </SafeAreaView>
     );

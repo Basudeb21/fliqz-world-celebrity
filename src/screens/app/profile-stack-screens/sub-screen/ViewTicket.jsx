@@ -9,6 +9,7 @@ import { Colors, Images } from '../../../../constants'
 import { GradientTextButton } from '../../../../components/framework/button'
 import { TicketModal } from '../../../../components/framework/modal'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { BackpressTopBar } from '../../../../components/framework/navbar'
 
 
 const ViewTicket = () => {
@@ -18,6 +19,7 @@ const ViewTicket = () => {
     };
     return (
         <SafeAreaView style={styles.areaView}>
+            <BackpressTopBar title={'Ticket Details'} />
             <View style={styles.container}>
                 <Image source={{ uri: Images.EVENT_EIGHT }} style={styles.eventImg} />
                 <Text style={styles.eventName}>Event One</Text>

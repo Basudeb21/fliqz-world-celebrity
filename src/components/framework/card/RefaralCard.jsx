@@ -30,11 +30,11 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         alignItems: "center",
-        paddingVertical: verticalScale(20),
+        paddingVertical: verticalScale(10),
         paddingHorizontal: moderateScale(20),
     },
     userImage: {
-        width: moderateScale(40),
+        width: moderateScale(47),
         height: verticalScale(40),
         borderRadius: scale(100),
     },

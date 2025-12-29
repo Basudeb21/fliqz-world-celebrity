@@ -61,39 +61,41 @@ const FriendChatScreen = ({ route }) => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.areaView}>
             <ChatBackPressTopBar info={user} />
-            <View style={styles.chatContainer}>
-                {loading ? (
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <Loader color={Colors.THEME} />
-                    </View>
-                ) : (
-                    <FlatList
-                        ListHeaderComponent={<ProfileTopCard info={user} />}
-                        data={chatData}
-                        keyExtractor={(item) => item.id.toString()}
-                        contentContainerStyle={styles.scrollContent}
-                        renderItem={({ item }) =>
-                            item.sender_id === currentUser.id
-                                ? <ChatSend item={item} time={FormatTime(item.created_at)} />
-                                : <ChatReceive item={item} time={FormatTime(item.created_at)} />
-                        }
+            <View style={styles.container}>
+                <View style={styles.chatContainer}>
+                    {loading ? (
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <Loader color={Colors.THEME} />
+                        </View>
+                    ) : (
+                        <FlatList
+                            ListHeaderComponent={<ProfileTopCard info={user} />}
+                            data={chatData}
+                            keyExtractor={(item) => item.id.toString()}
+                            contentContainerStyle={styles.scrollContent}
+                            renderItem={({ item }) =>
+                                item.sender_id === currentUser.id
+                                    ? <ChatSend item={item} time={FormatTime(item.created_at)} />
+                                    : <ChatReceive item={item} time={FormatTime(item.created_at)} />
+                            }
 
-                    />
-                )}
-            </View>
-            <View>
-                <QuickTipsCard user={user.username} />
+                        />
+                    )}
+                </View>
+                <View>
+                    <QuickTipsCard user={user.username} />
 
+                </View>
+                <MessageSendArea
+                    value={message}
+                    setValue={setMessage}
+                    placeholder="Type a message..."
+                    onPress={onPressSendMessage}
+                    user={user}
+                />
             </View>
-            <MessageSendArea
-                value={message}
-                setValue={setMessage}
-                placeholder="Type a message..."
-                onPress={onPressSendMessage}
-                user={user}
-            />
         </SafeAreaView>
     );
 };

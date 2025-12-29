@@ -11,44 +11,46 @@ import { BackpressTopBar } from '../../../../../components/framework/navbar'
 
 const Verify = () => {
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={"Verify"} />
             <View style={styles.container}>
-                <Text style={styles.txt}>Get verified and start earning now</Text>
-                <Spacer height={20} />
-                <HR height={1} />
+                <View style={styles.subContainer}>
+                    <Text style={styles.txt}>Get verified and start earning now</Text>
+                    <Spacer height={20} />
+                    <HR height={1} />
 
-                <Spacer height={20} />
-                <Text>In order to get verified and receive your badge, please take care of the following steps:</Text>
-                <Spacer height={10} />
-                <View style={styles.boxContainer}>
-                    <View style={styles.row}>
-                        <Feather
-                            size={16}
-                            color={Colors.THEME}
-                            name={"check-circle"}
-                        />
-                        <Text>Confirm your email address.</Text>
-                    </View>
+                    <Spacer height={20} />
+                    <Text>In order to get verified and receive your badge, please take care of the following steps:</Text>
                     <Spacer height={10} />
-                    <View style={styles.row}>
-                        <Feather
-                            size={16}
-                            color={Colors.THEME}
-                            name={"check-circle"}
-                        />
-                        <Text>Set your birthday.</Text>
-                    </View>
-                    <Spacer height={10} />
-                    <View style={styles.row}>
-                        <MaterialCommunityIcons
-                            size={16}
-                            color={Colors.THEME}
-                            name={"timer-sand"}
-                        />
-                        <Text>Identity check in progress.</Text>
-                    </View>
+                    <View style={styles.boxContainer}>
+                        <View style={styles.row}>
+                            <Feather
+                                size={16}
+                                color={Colors.THEME}
+                                name={"check-circle"}
+                            />
+                            <Text>Confirm your email address.</Text>
+                        </View>
+                        <Spacer height={10} />
+                        <View style={styles.row}>
+                            <Feather
+                                size={16}
+                                color={Colors.THEME}
+                                name={"check-circle"}
+                            />
+                            <Text>Set your birthday.</Text>
+                        </View>
+                        <Spacer height={10} />
+                        <View style={styles.row}>
+                            <MaterialCommunityIcons
+                                size={16}
+                                color={Colors.THEME}
+                                name={"timer-sand"}
+                            />
+                            <Text>Identity check in progress.</Text>
+                        </View>
 
+                    </View>
                 </View>
             </View>
         </SafeAreaView>
@@ -58,7 +60,15 @@ const Verify = () => {
 export default Verify
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
     container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
+    subContainer: {
         marginHorizontal: moderateScale(20)
     },
     txt: {

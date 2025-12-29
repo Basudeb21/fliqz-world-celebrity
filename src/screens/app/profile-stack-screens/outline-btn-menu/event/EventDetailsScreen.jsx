@@ -34,9 +34,9 @@ const EventDetailsScreen = ({ route }) => {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={"Event Details"} />
-            <ScrollView>
+            <ScrollView style={styles.container}>
                 <Image source={{ uri: Images.EVENT_EIGHT }} style={styles.eventImg} />
                 <Text style={styles.eventName}>{event.title}</Text>
                 <Text style={styles.eventAbout}> {event.description}</Text>

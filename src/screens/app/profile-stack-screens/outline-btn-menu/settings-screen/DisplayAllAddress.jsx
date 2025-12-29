@@ -64,23 +64,25 @@ const DisplayAllAddress = () => {
     };
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title="All Addresses" />
             <View style={styles.container}>
-                <Spacer height={scale(12)} />
-                <FlatList
-                    data={addresses}
-                    renderItem={renderItem}
-                    keyExtractor={(item) => item.id.toString()}
-                    numColumns={2}
-                    columnWrapperStyle={{
-                        justifyContent: 'space-between',
-                        marginBottom: scale(12),
-                    }}
-                    showsVerticalScrollIndicator={false}
-                />
+                <View style={styles.subContainer}>
+                    <Spacer height={scale(12)} />
+                    <FlatList
+                        data={addresses}
+                        renderItem={renderItem}
+                        keyExtractor={(item) => item.id.toString()}
+                        numColumns={2}
+                        columnWrapperStyle={{
+                            justifyContent: 'space-between',
+                            marginBottom: scale(12),
+                        }}
+                        showsVerticalScrollIndicator={false}
+                    />
+                </View>
+                <FloatingActionButton style={{ bottom: 90 }} onPress={onPressOpenNewAddress} />
             </View>
-            <FloatingActionButton style={{ bottom: 90 }} onPress={onPressOpenNewAddress} />
         </SafeAreaView>
     );
 };
@@ -88,7 +90,15 @@ const DisplayAllAddress = () => {
 export default DisplayAllAddress;
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
     container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
+    subContainer: {
         paddingHorizontal: moderateScale(5),
         backgroundColor: Colors.WHITE,
         flex: 1,

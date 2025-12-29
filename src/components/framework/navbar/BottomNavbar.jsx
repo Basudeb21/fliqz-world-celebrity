@@ -24,8 +24,8 @@ const BottomNavbar = () => {
             screenOptions={{
                 tabBarStyle: {
                     ...styles.navBar,
-                    height: 50 + insets.bottom, // increase height
-                    paddingBottom: insets.bottom, // safe padding
+                    height: 50 + insets.bottom,
+                    paddingBottom: insets.bottom,
                 },
                 headerShown: false,
                 tabBarShowLabel: false,
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
 
     addIconContainer: {
         width: moderateScale(40),
-        height: verticalScale(40),
+        height: verticalScale(36),
         borderRadius: scale(100),
         backgroundColor: Colors.WHITE,
         alignItems: 'center',
@@ -135,7 +135,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     navBar: {
-        // height: 60, // give it enough height
         backgroundColor: Colors.WHITE,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,

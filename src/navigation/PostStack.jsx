@@ -18,4 +18,4 @@ const PostStack = () => {
     );
 }
 
-export default PostStack
+export default PostStack; 

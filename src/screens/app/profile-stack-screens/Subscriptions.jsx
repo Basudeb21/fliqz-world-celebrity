@@ -166,33 +166,35 @@ const Subscriptions = () => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title="My Subscriptions" />
-            <Spacer height={10} />
-            <TabView
-                navigationState={{ index, routes }}
-                renderScene={renderScene}
-                onIndexChange={handleIndexChange}
-                initialLayout={{ width: layout.width }}
-                lazy={true}
-                renderTabBar={props => (
-                    <TabBar
-                        {...props}
-                        indicatorStyle={{ backgroundColor: Colors.THEME }}
-                        style={{ backgroundColor: Colors.WHITE }}
-                        labelStyle={{
-                            color: Colors.THEME,
-                            fontWeight: 'bold',
-                            fontSize: 14,
-                            textTransform: 'none'
-                        }}
-                        inactiveColor={Colors.BLACK}
-                        activeColor={Colors.THEME}
-                        pressColor={Colors.LIGHT_THEME}
-                        tabStyle={{ paddingVertical: 8 }}
-                    />
-                )}
-            />
+            <View style={styles.container}>
+                <Spacer height={10} />
+                <TabView
+                    navigationState={{ index, routes }}
+                    renderScene={renderScene}
+                    onIndexChange={handleIndexChange}
+                    initialLayout={{ width: layout.width }}
+                    lazy={true}
+                    renderTabBar={props => (
+                        <TabBar
+                            {...props}
+                            indicatorStyle={{ backgroundColor: Colors.THEME }}
+                            style={{ backgroundColor: Colors.WHITE }}
+                            labelStyle={{
+                                color: Colors.THEME,
+                                fontWeight: 'bold',
+                                fontSize: 14,
+                                textTransform: 'none'
+                            }}
+                            inactiveColor={Colors.BLACK}
+                            activeColor={Colors.THEME}
+                            pressColor={Colors.LIGHT_THEME}
+                            tabStyle={{ paddingVertical: 8 }}
+                        />
+                    )}
+                />
+            </View>
         </SafeAreaView>
     );
 };
@@ -200,6 +202,14 @@ const Subscriptions = () => {
 export default Subscriptions;
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     container: {
         flex: 1,
         backgroundColor: Colors.WHITE,

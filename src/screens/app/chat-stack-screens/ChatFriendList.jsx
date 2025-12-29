@@ -52,36 +52,38 @@ const ChatFriendList = () => {
     );
 
     return (
-        <View style={styles.container}>
+        <View style={styles.areaView}>
             <BackpressTopBar title={"My Chats"} />
 
-            {loading ? (
-                <ActivityIndicator size="large" color={Colors.THEME} style={{ marginTop: 30 }} />
-            ) : (
-                <FlatList
-                    ListHeaderComponent={
-                        <View style={{ flex: 1 }}>
-                            <Spacer height={20} />
-                            <SearchBar value={searchTxt} setValue={setSearchTxt} placeholder={"Search"} />
-                        </View>
-                    }
-                    data={filteredUsers}
-                    keyExtractor={(item, index) => item.id?.toString() || index.toString()}
-                    renderItem={({ item }) => (
-                        <ChatFriendCard
-                            image={item.avatar}
-                            fanName={item.name || item.username}
-                            fanActiveTime={item.last_text_time || "Offline"}
-                            lastMessage={item.last_text || ""}
-                            unreadCount={item.unread_msg_count || 0}
-                            onPress={() => onPressChatClick(item)}
-                        />
-                    )}
-                    ListFooterComponent={<Spacer height={100} />}
-                    contentContainerStyle={styles.scrollContent}
-                />
+            <View style={styles.container}>
+                {loading ? (
+                    <ActivityIndicator size="large" color={Colors.THEME} style={{ marginTop: 30 }} />
+                ) : (
+                    <FlatList
+                        ListHeaderComponent={
+                            <View style={{ flex: 1 }}>
+                                <Spacer height={20} />
+                                <SearchBar value={searchTxt} setValue={setSearchTxt} placeholder={"Search"} />
+                            </View>
+                        }
+                        data={filteredUsers}
+                        keyExtractor={(item, index) => item.id?.toString() || index.toString()}
+                        renderItem={({ item }) => (
+                            <ChatFriendCard
+                                image={item.avatar}
+                                fanName={item.name || item.username}
+                                fanActiveTime={item.last_text_time || "Offline"}
+                                lastMessage={item.last_text || ""}
+                                unreadCount={item.unread_msg_count || 0}
+                                onPress={() => onPressChatClick(item)}
+                            />
+                        )}
+                        ListFooterComponent={<Spacer height={100} />}
+                        contentContainerStyle={styles.scrollContent}
+                    />
 
-            )}
+                )}
+            </View>
         </View>
     );
 };

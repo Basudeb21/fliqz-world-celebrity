@@ -46,30 +46,32 @@ const AllCrowdfunding = () => {
 
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title="Crowdfunding" />
 
-            <FlatList
-                data={crowdfundings}
-                keyExtractor={(item) => item.id.toString()}
-                numColumns={2}
-                renderItem={({ item }) => (
-                    <CrowdfundingCard
-                        item={item}
-                        onPress={() => onPressOpenCrowdFunding(item)}
-                    />
-                )}
-                contentContainerStyle={{ paddingBottom: 100 }}
-                showsVerticalScrollIndicator={false}
-            />
+            <View style={styles.container}>
+                <FlatList
+                    data={crowdfundings}
+                    keyExtractor={(item) => item.id.toString()}
+                    numColumns={2}
+                    renderItem={({ item }) => (
+                        <CrowdfundingCard
+                            item={item}
+                            onPress={() => onPressOpenCrowdFunding(item)}
+                        />
+                    )}
+                    contentContainerStyle={{ paddingBottom: 100 }}
+                    showsVerticalScrollIndicator={false}
+                />
 
 
-            <FloatingActionButton
-                style={styles.fab}
-                onPress={() =>
-                    navigation.navigate(NavigationStrings.PROFILE_CREATE_CROWDFUNDING)
-                }
-            />
+                <FloatingActionButton
+                    style={styles.fab}
+                    onPress={() =>
+                        navigation.navigate(NavigationStrings.PROFILE_CREATE_CROWDFUNDING)
+                    }
+                />
+            </View>
         </SafeAreaView>
     );
 };

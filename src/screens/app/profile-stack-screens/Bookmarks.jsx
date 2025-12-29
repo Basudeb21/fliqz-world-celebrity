@@ -81,15 +81,17 @@ const Bookmarks = () => {
     }, []);
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title="Bookmarks" />
-            <View style={styles.tabContainer}>
-                <SearchBar placeholder="Search" />
-                {loading ? (
-                    <ActivityIndicator size="large" color={Colors.THEME} style={{ marginTop: 20 }} />
-                ) : (
-                    <BookmarksTabs bookMarkdata={bookMarkdata} />
-                )}
+            <View style={styles.container}>
+                <View style={styles.tabContainer}>
+                    <SearchBar placeholder="Search" />
+                    {loading ? (
+                        <ActivityIndicator size="large" color={Colors.THEME} style={{ marginTop: 20 }} />
+                    ) : (
+                        <BookmarksTabs bookMarkdata={bookMarkdata} />
+                    )}
+                </View>
             </View>
         </SafeAreaView>
     )
@@ -98,6 +100,14 @@ const Bookmarks = () => {
 export default Bookmarks
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     container: {
         flex: 1,
         backgroundColor: Colors.WHITE,

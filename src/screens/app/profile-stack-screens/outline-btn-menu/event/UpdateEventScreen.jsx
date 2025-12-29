@@ -42,20 +42,22 @@ const UpdateEventScreen = ({ route }) => {
 
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={"Update Event"} />
-            <View style={styles.form}>
-                <TextInputBox placeholder='Title' value={title} setValue={setTitle} />
-                <TextAreaBox placeholder='Description' value={description} setValue={setDescription} />
-                <TextInputBox placeholder='Location' value={location} setValue={setLocation} />
-                <AmmountInput placeholder='Price' value={ammount} setValue={setAmmount} />
-                <DateTimeInputBox placeholder='Start time' datetime={startDate} setDatetime={setStartDate} />
-                <DateTimeInputBox placeholder='End time' datetime={endDate} setDatetime={setEndDate} />
-                <OutlineQuantityInputBox placeholder='Quantity' value={quantity} setValue={setQuantity} />
-                <View style={styles.btn}>
-                    <GradientTextButton width='90%' label='Update' onPress={onPressHandleUpdateEvent} />
-                </View>
+            <View style={styles.container}>
+                <View style={styles.form}>
+                    <TextInputBox placeholder='Title' value={title} setValue={setTitle} />
+                    <TextAreaBox placeholder='Description' value={description} setValue={setDescription} />
+                    <TextInputBox placeholder='Location' value={location} setValue={setLocation} />
+                    <AmmountInput placeholder='Price' value={ammount} setValue={setAmmount} />
+                    <DateTimeInputBox placeholder='Start time' datetime={startDate} setDatetime={setStartDate} />
+                    <DateTimeInputBox placeholder='End time' datetime={endDate} setDatetime={setEndDate} />
+                    <OutlineQuantityInputBox placeholder='Quantity' value={quantity} setValue={setQuantity} />
+                    <View style={styles.btn}>
+                        <GradientTextButton width='90%' label='Update' onPress={onPressHandleUpdateEvent} />
+                    </View>
 
+                </View>
             </View>
         </SafeAreaView>
     )

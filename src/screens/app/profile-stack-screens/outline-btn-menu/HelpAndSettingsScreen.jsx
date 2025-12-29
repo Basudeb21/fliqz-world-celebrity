@@ -27,39 +27,41 @@ const HelpAndSettingsScreen = () => {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={"Help and Support"} />
-            <Spacer height={10} />
-            <Text style={styles.updateTxt}>Last updated: 2025-05-06</Text>
-            <Spacer height={10} />
-            <FlatList
-                data={cardContents}
-                keyExtractor={(item) => item.id.toString()}
-                numColumns={2}
-                columnWrapperStyle={styles.row}
-                renderItem={({ item }) => (
-                    <GradientIconTextCard
-                        Icon={item.Icon}
-                        iconName={item.iconName}
-                        label={item.label}
-                        content={item.content}
-                        onPress={() => onPressFAQHandler(item)}
-                    />
+            <View style={styles.container}>
+                <Spacer height={10} />
+                <Text style={styles.updateTxt}>Last updated: 2025-05-06</Text>
+                <Spacer height={10} />
+                <FlatList
+                    data={cardContents}
+                    keyExtractor={(item) => item.id.toString()}
+                    numColumns={2}
+                    columnWrapperStyle={styles.row}
+                    renderItem={({ item }) => (
+                        <GradientIconTextCard
+                            Icon={item.Icon}
+                            iconName={item.iconName}
+                            label={item.label}
+                            content={item.content}
+                            onPress={() => onPressFAQHandler(item)}
+                        />
 
-                )}
-                contentContainerStyle={styles.contentContainer}
-                showsVerticalScrollIndicator={false}
-                ListFooterComponent={
-                    <>
-                        <Text style={styles.bigTxt}>Looking for something else?</Text>
-                        <Spacer height={20} />
-                        <GradientIconButton Icon={MaterialIcons} iconName={"add-circle"} iconSize={20} label='Add Support Ticket' />
-                        <Spacer height={40} />
-                    </>
-                }
-            />
-            <View>
-                <SupportFloatingActionButton onPress={onPressOpenChatBot} />
+                    )}
+                    contentContainerStyle={styles.contentContainer}
+                    showsVerticalScrollIndicator={false}
+                    ListFooterComponent={
+                        <>
+                            <Text style={styles.bigTxt}>Looking for something else?</Text>
+                            <Spacer height={20} />
+                            <GradientIconButton Icon={MaterialIcons} iconName={"add-circle"} iconSize={20} label='Add Support Ticket' />
+                            <Spacer height={40} />
+                        </>
+                    }
+                />
+                <View>
+                    <SupportFloatingActionButton onPress={onPressOpenChatBot} />
+                </View>
             </View>
         </SafeAreaView>
     )
@@ -68,6 +70,14 @@ const HelpAndSettingsScreen = () => {
 export default HelpAndSettingsScreen
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     updateTxt: {
         color: Colors.PLACEHOLDER,
         fontWeight: "500",

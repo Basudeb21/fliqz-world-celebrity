@@ -2,12 +2,12 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { moderateScale, verticalScale } from 'react-native-size-matters';
-import { Colors } from '../../../constants';
 import { BackpressTopBar } from '../../../components/framework/navbar';
 import { HR, Spacer } from '../../../components/framework/boots';
 import { ProfileFundCard } from '../../../components/framework/card';
 import { GradientTextButton, OutLineButton } from '../../../components/framework/button';
 import WalletForm from '../home-mini-components/WalletForm';
+import { Colors } from '../../../constants';
 import { AllTransactions, WithdrawForm } from '../home-mini-components';
 
 const WalletScreen = () => {

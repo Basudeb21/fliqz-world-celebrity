@@ -249,8 +249,8 @@ const EditProfile = () => {
     ];
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
-            <ScrollView contentContainerStyle={{ paddingBottom: 60 }}>
+        <SafeAreaView style={styles.areaView}>
+            <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 60 }}>
                 <BackpressTopBar title={'Edit Profile'} bgColor={Colors.THEME} color={Colors.WHITE} />
 
                 <View style={styles.header}>
@@ -441,9 +441,27 @@ const EditProfile = () => {
 export default EditProfile;
 
 const styles = StyleSheet.create({
-    header: { alignItems: 'center', marginBottom: verticalScale(50) },
-    body: { marginTop: verticalScale(20), marginHorizontal: moderateScale(20) },
-    cover: { width: '100%', height: verticalScale(150), justifyContent: 'center' },
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
+    header: {
+        alignItems: 'center',
+        marginBottom: verticalScale(50)
+    },
+    body: {
+        marginTop: verticalScale(20),
+        marginHorizontal: moderateScale(20)
+    },
+    cover: {
+        width: '100%',
+        height: verticalScale(150),
+        justifyContent: 'center'
+    },
     profileImg: {
         width: moderateScale(80),
         height: moderateScale(80),
@@ -461,7 +479,10 @@ const styles = StyleSheet.create({
         borderWidth: scale(2),
         elevation: scale(10),
     },
-    profileImgContainer: { position: 'absolute', bottom: -40 },
+    profileImgContainer: {
+        position: 'absolute',
+        bottom: -40
+    },
     cameraProfile: {
         position: 'absolute',
         backgroundColor: Colors.WHITE,
@@ -472,5 +493,8 @@ const styles = StyleSheet.create({
         bottom: -5,
         right: 0,
     },
-    btn: { justifyContent: 'center', alignItems: 'center' },
+    btn: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
 });

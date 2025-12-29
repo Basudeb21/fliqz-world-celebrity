@@ -15,40 +15,42 @@ const Privacy = () => {
     const toggle2FASwitch = () => setIs2FAEnabled(prev => !prev);
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={"Privacy"} />
-            <View style={styles.box}>
-                <View style={styles.row}>
-                    <Switch
-                        value={isPublicEnabled}
-                        onValueChange={togglePublicSwitch}
-                        trackColor={{ false: Colors.PLACEHOLDER, true: Colors.PLACEHOLDER }}
-                        thumbColor={isPublicEnabled ? Colors.THEME : Colors.WHITE}
-                        style={styles.toggle}
-                    />
-                    <Text style={styles.head}>Is public account?</Text>
+            <View style={styles.container}>
+                <View style={styles.box}>
+                    <View style={styles.row}>
+                        <Switch
+                            value={isPublicEnabled}
+                            onValueChange={togglePublicSwitch}
+                            trackColor={{ false: Colors.PLACEHOLDER, true: Colors.PLACEHOLDER }}
+                            thumbColor={isPublicEnabled ? Colors.THEME : Colors.WHITE}
+                            style={styles.toggle}
+                        />
+                        <Text style={styles.head}>Is public account?</Text>
+                    </View>
+                    <Spacer height={20} />
+                    <Text>Having your profile set to private means:</Text>
+                    <Spacer height={20} />
+                    <Text>i) It will be hidden for search engines and unregistered users entirely.</Text>
+                    <Spacer height={5} />
+                    <Text>ii) It will also be generally hidden from suggestions and user searches on our platform.</Text>
                 </View>
                 <Spacer height={20} />
-                <Text>Having your profile set to private means:</Text>
-                <Spacer height={20} />
-                <Text>i) It will be hidden for search engines and unregistered users entirely.</Text>
-                <Spacer height={5} />
-                <Text>ii) It will also be generally hidden from suggestions and user searches on our platform.</Text>
-            </View>
-            <Spacer height={20} />
-            <View style={styles.box}>
-                <View style={styles.row}>
-                    <Switch
-                        value={is2FAEnabled}
-                        onValueChange={toggle2FASwitch}
-                        trackColor={{ false: Colors.PLACEHOLDER, true: Colors.PLACEHOLDER }}
-                        thumbColor={is2FAEnabled ? Colors.THEME : Colors.WHITE}
-                        style={styles.toggle}
-                    />
-                    <Text style={styles.head}>Enable email 2FA</Text>
+                <View style={styles.box}>
+                    <View style={styles.row}>
+                        <Switch
+                            value={is2FAEnabled}
+                            onValueChange={toggle2FASwitch}
+                            trackColor={{ false: Colors.PLACEHOLDER, true: Colors.PLACEHOLDER }}
+                            thumbColor={is2FAEnabled ? Colors.THEME : Colors.WHITE}
+                            style={styles.toggle}
+                        />
+                        <Text style={styles.head}>Enable email 2FA</Text>
+                    </View>
+                    <Spacer height={20} />
+                    <Text>If enabled, access from new devices will be restricted until verified.</Text>
                 </View>
-                <Spacer height={20} />
-                <Text>If enabled, access from new devices will be restricted until verified.</Text>
             </View>
         </SafeAreaView>
     )
@@ -57,6 +59,14 @@ const Privacy = () => {
 export default Privacy
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     toggle: {
         alignSelf: "flex-start",
         marginStart: moderateScale(10)

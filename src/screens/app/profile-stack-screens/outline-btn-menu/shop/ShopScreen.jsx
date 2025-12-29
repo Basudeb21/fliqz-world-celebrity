@@ -71,31 +71,32 @@ const ShopScreen = () => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={"Shop"} />
+            <View style={styles.container}>
+                {loading ? (
+                    <Loader />
+                ) : (
+                    <FlatList
+                        data={products}
+                        renderItem={renderItem}
+                        keyExtractor={item => item.id.toString()}
+                        numColumns={2}
+                        columnWrapperStyle={styles.row}
+                        contentContainerStyle={styles.listContent}
+                        ListEmptyComponent={
+                            <View style={styles.emptyContainer}>
+                                <Text style={styles.emptyText}>No products available</Text>
+                            </View>
+                        }
+                    />
+                )}
 
-            {loading ? (
-                <Loader />
-            ) : (
-                <FlatList
-                    data={products}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.id.toString()}
-                    numColumns={2}
-                    columnWrapperStyle={styles.row}
-                    contentContainerStyle={styles.listContent}
-                    ListEmptyComponent={
-                        <View style={styles.emptyContainer}>
-                            <Text style={styles.emptyText}>No products available</Text>
-                        </View>
-                    }
+                <FloatingActionButton
+                    onPress={onPressAddNewProduct}
+                    style={styles.fabBtm}
                 />
-            )}
-
-            <FloatingActionButton
-                onPress={onPressAddNewProduct}
-                style={styles.fabBtm}
-            />
+            </View>
         </SafeAreaView>
     );
 };
@@ -103,9 +104,13 @@ const ShopScreen = () => {
 export default ShopScreen;
 
 const styles = StyleSheet.create({
-    container: {
+    areaView: {
         flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
         backgroundColor: Colors.WHITE,
+        flex: 1
     },
     row: {
         justifyContent: 'space-between',

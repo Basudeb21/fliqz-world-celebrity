@@ -20,10 +20,11 @@ const Referals = () => {
     ];
 
     return (
-        <SafeAreaView style={{ backgroundColor: Colors.WHITE, flex: 1 }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={"Referals"} bgColor={Colors.THEME} color={Colors.WHITE} />
 
             <FlatList
+                style={styles.container}
                 ListHeaderComponent={
                     <View>
                         <InviteLinkCard />
@@ -57,6 +58,14 @@ const Referals = () => {
 export default Referals
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     referal: {
         color: Colors.THEME,
         fontSize: scale(22),

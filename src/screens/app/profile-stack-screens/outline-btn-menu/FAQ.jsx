@@ -70,10 +70,11 @@ const FAQ = () => {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={faqData?.label || "FAQ"} />
 
             <FlatList
+                style={styles.container}
                 data={faqData?.data || []}
                 keyExtractor={(item) => item.id.toString()}
                 contentContainerStyle={{ padding: 16 }}
@@ -109,6 +110,14 @@ const FAQ = () => {
 export default FAQ
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     card: {
         borderRadius: scale(8),
         marginBottom: verticalScale(12),

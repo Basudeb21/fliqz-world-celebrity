@@ -74,9 +74,9 @@ const Orders = () => {
 
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={"Orders"} />
-            <ScrollView>
+            <ScrollView style={styles.container}>
                 <Text style={styles.headText}>Your active tickets</Text>
                 <View style={styles.btnRow}>
                     {productButton ? <GradientTextButton label='Product' width='45%' /> : <OutLineButton label_two={"Product"} width={"45%"} onPress={onPressProducts} />}
@@ -96,6 +96,14 @@ const Orders = () => {
 export default Orders
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     container: {
         flex: 1,
         backgroundColor: Colors.WHITE

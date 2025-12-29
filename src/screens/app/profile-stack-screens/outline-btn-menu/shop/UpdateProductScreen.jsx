@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, ToastAndroid } from 'react-native';
+import { ScrollView, StyleSheet, Text, ToastAndroid, View } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { BackpressTopBar } from '../../../../../components/framework/navbar';
@@ -97,71 +97,73 @@ const UpdateProductScreen = ({ route }) => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={"Update Product"} />
-            <ScrollView style={styles.form}>
-                <TextInputBox
-                    placeholder='Product Name'
-                    value={name}
-                    setValue={setName}
-                />
-                <Spacer height={scale(10)} />
-                <TextInputBox
-                    placeholder='Price'
-                    value={price}
-                    setValue={setPrice}
-                />
-                <Spacer height={scale(10)} />
-                <OutlineQuantityInputBox
-                    placeholder='Quantity'
-                    value={quantity}
-                    setValue={setQuantity}
-                />
-                <Spacer height={scale(10)} />
-                <TextInputBox
-                    placeholder='Type'
-                    value={type}
-                    setValue={setType}
-                />
-                <Spacer height={scale(10)} />
-                <MultiInputBox
-                    placeholder='Sizes'
-                    items={sizes}
-                    setItems={setSizes}
-                />
-                <Spacer height={scale(10)} />
-                <MultiInputBox
-                    placeholder='Colors'
-                    items={colors}
-                    setItems={setColors}
-                />
-                <Spacer height={scale(10)} />
-                <GalleryPickerBox
-                    images={images}
-                    setImages={(newImages) => {
-                        console.log("📸 New images selected:", newImages);
-                        setImages(newImages.map(formatImage));
-                    }}
-                />
-                <Spacer height={scale(10)} />
-                <TextAreaBox
-                    height={120}
-                    placeholder='Description'
-                    value={description}
-                    setValue={setDescription}
-                />
-                <Spacer height={scale(10)} />
-                <GradientIconButton
-                    label='Update'
-                    Icon={MaterialCommunityIcons}
-                    iconName={"update"}
-                    iconSize={20}
-                    width='100%'
-                    fontSize={15}
-                    onPress={onPressUpdateProduct}
-                />
-                <Spacer height={scale(10)} />
-            </ScrollView>
+            <View style={styles.container}>
+                <ScrollView style={styles.form}>
+                    <TextInputBox
+                        placeholder='Product Name'
+                        value={name}
+                        setValue={setName}
+                    />
+                    <Spacer height={scale(10)} />
+                    <TextInputBox
+                        placeholder='Price'
+                        value={price}
+                        setValue={setPrice}
+                    />
+                    <Spacer height={scale(10)} />
+                    <OutlineQuantityInputBox
+                        placeholder='Quantity'
+                        value={quantity}
+                        setValue={setQuantity}
+                    />
+                    <Spacer height={scale(10)} />
+                    <TextInputBox
+                        placeholder='Type'
+                        value={type}
+                        setValue={setType}
+                    />
+                    <Spacer height={scale(10)} />
+                    <MultiInputBox
+                        placeholder='Sizes'
+                        items={sizes}
+                        setItems={setSizes}
+                    />
+                    <Spacer height={scale(10)} />
+                    <MultiInputBox
+                        placeholder='Colors'
+                        items={colors}
+                        setItems={setColors}
+                    />
+                    <Spacer height={scale(10)} />
+                    <GalleryPickerBox
+                        images={images}
+                        setImages={(newImages) => {
+                            console.log("📸 New images selected:", newImages);
+                            setImages(newImages.map(formatImage));
+                        }}
+                    />
+                    <Spacer height={scale(10)} />
+                    <TextAreaBox
+                        height={120}
+                        placeholder='Description'
+                        value={description}
+                        setValue={setDescription}
+                    />
+                    <Spacer height={scale(10)} />
+                    <GradientIconButton
+                        label='Update'
+                        Icon={MaterialCommunityIcons}
+                        iconName={"update"}
+                        iconSize={20}
+                        width='100%'
+                        fontSize={15}
+                        onPress={onPressUpdateProduct}
+                    />
+                    <Spacer height={scale(10)} />
+                </ScrollView>
+            </View>
         </SafeAreaView>
     );
 };
@@ -169,6 +171,14 @@ const UpdateProductScreen = ({ route }) => {
 export default UpdateProductScreen;
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     container: {
         backgroundColor: Colors.WHITE,
         flex: 1

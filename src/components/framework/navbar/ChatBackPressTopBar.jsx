@@ -28,7 +28,7 @@ const ChatBackPressTopBar = ({ info }) => {
                         name={"arrow-back-outline"}
                         size={24}
                         IconPack={Ionicons}
-                        colors={[Colors.BUTTON_GRADIENT_ONE, Colors.BUTTON_GRADIENT_TWO]}
+                        colors={[Colors.WHITE, Colors.WHITE]}
                     />
 
                 </TouchableOpacity>
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
         right: scale(50)
     },
     title: {
-        color: Colors.BLACK,
+        color: Colors.WHITE,
         fontSize: scale(16),
         fontWeight: "500",
     },
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
         marginEnd: moderateScale(15)
     },
     time: {
-        color: Colors.PLACEHOLDER,
+        color: Colors.WHITE,
         fontSize: scale(10),
         fontWeight: "500",
     },

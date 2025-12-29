@@ -65,9 +65,9 @@ const AddNewProduct = () => {
     };
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={styles.areaView}>
             <KeyboardAvoidingView
-                style={{ flex: 1 }}
+                style={styles.container}
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
             >
                 <BackpressTopBar title={'Add new product'} />
@@ -135,6 +135,14 @@ const AddNewProduct = () => {
 export default AddNewProduct;
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     form: {
         marginTop: verticalScale(10),
         paddingHorizontal: moderateScale(20),

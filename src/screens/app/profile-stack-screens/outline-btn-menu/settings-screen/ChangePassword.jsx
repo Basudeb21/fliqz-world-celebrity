@@ -25,28 +25,30 @@ const ChangePassword = () => {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={"Change Password"} />
-            <View style={styles.form}>
-                <PasswordInputBox
-                    placeholder={"Enter your current password"}
-                    value={currentPassword}
-                    setValue={setCurrentPassword}
-                />
-                <Spacer height={20} />
-                <PasswordInputBox
-                    placeholder={"Enter new password"}
-                    value={newPassword}
-                    setValue={setNewPassword}
-                />
-                <Spacer height={20} />
-                <PasswordInputBox
-                    placeholder={"Confirm password"}
-                    value={confirmPassword}
-                    setValue={setConfirmPassword}
-                />
-                <Spacer height={20} />
-                <GradientTextButton label='Change Password' onPress={onPressChangePassword} />
+            <View style={styles.container}>
+                <View style={styles.form}>
+                    <PasswordInputBox
+                        placeholder={"Enter your current password"}
+                        value={currentPassword}
+                        setValue={setCurrentPassword}
+                    />
+                    <Spacer height={20} />
+                    <PasswordInputBox
+                        placeholder={"Enter new password"}
+                        value={newPassword}
+                        setValue={setNewPassword}
+                    />
+                    <Spacer height={20} />
+                    <PasswordInputBox
+                        placeholder={"Confirm password"}
+                        value={confirmPassword}
+                        setValue={setConfirmPassword}
+                    />
+                    <Spacer height={20} />
+                    <GradientTextButton label='Change Password' onPress={onPressChangePassword} />
+                </View>
             </View>
         </SafeAreaView>
     )
@@ -55,6 +57,14 @@ const ChangePassword = () => {
 export default ChangePassword
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     form: {
         marginTop: verticalScale(50),
         marginHorizontal: moderateScale(20)

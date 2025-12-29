@@ -26,4 +26,4 @@ const SettingsStack = () => {
     );
 }
 
-export default SettingsStack
+export default SettingsStack; 

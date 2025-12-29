@@ -25,49 +25,51 @@ const ChatBotPage = () => {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.WHITE }}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={"Chat Support"} />
-            <View style={styles.screen}>
-                {homeActive ? <ChatbotHome /> : <ChatbotMessage />}
+            <View style={styles.container}>
+                <View style={styles.screen}>
+                    {homeActive ? <ChatbotHome /> : <ChatbotMessage />}
 
-            </View>
-            <HR height={1} width='95%' center={true} />
-            <Spacer height={10} />
-            <View style={styles.footer}>
-                {homeActive ?
-                    <GradientIconButtonNoText
-                        Icon={Ionicons}
-                        iconName={"home"}
-                        width='48%'
-                        iconSize={25}
-                        onPress={onPressHome}
-                    /> :
-                    <ThemeOutlineIconButton
-                        Icon={Ionicons}
-                        iconName={"home-outline"}
-                        width='48%'
-                        iconSize={25}
-                        onPress={onPressHome}
-                    />
-                }
-                {messageActive ?
-                    <GradientIconButtonNoText
-                        Icon={Ionicons}
-                        iconName={"chatbox-ellipses"}
-                        width='48%'
-                        iconSize={25}
-                        onPress={onPressMessage}
+                </View>
+                <HR height={1} width='95%' center={true} />
+                <Spacer height={10} />
+                <View style={styles.footer}>
+                    {homeActive ?
+                        <GradientIconButtonNoText
+                            Icon={Ionicons}
+                            iconName={"home"}
+                            width='48%'
+                            iconSize={25}
+                            onPress={onPressHome}
+                        /> :
+                        <ThemeOutlineIconButton
+                            Icon={Ionicons}
+                            iconName={"home-outline"}
+                            width='48%'
+                            iconSize={25}
+                            onPress={onPressHome}
+                        />
+                    }
+                    {messageActive ?
+                        <GradientIconButtonNoText
+                            Icon={Ionicons}
+                            iconName={"chatbox-ellipses"}
+                            width='48%'
+                            iconSize={25}
+                            onPress={onPressMessage}
 
-                    /> :
-                    <ThemeOutlineIconButton
-                        Icon={Ionicons}
-                        iconName={"chatbox-ellipses-outline"}
-                        width='48%'
-                        iconSize={25}
-                        onPress={onPressMessage}
+                        /> :
+                        <ThemeOutlineIconButton
+                            Icon={Ionicons}
+                            iconName={"chatbox-ellipses-outline"}
+                            width='48%'
+                            iconSize={25}
+                            onPress={onPressMessage}
 
-                    />
-                }
+                        />
+                    }
+                </View>
             </View>
         </SafeAreaView>
     )
@@ -76,6 +78,14 @@ const ChatBotPage = () => {
 export default ChatBotPage
 
 const styles = StyleSheet.create({
+    areaView: {
+        flex: 1,
+        backgroundColor: Colors.THEME
+    },
+    container: {
+        backgroundColor: Colors.WHITE,
+        flex: 1
+    },
     screen: {
         backgroundColor: Colors.WHITE,
         flex: 1,

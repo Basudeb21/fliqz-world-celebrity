@@ -26,9 +26,10 @@ const ViewCrowdfunding = () => {
     );
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.areaView}>
             <BackpressTopBar title={"View Crowdfunding"} />
             <ScrollView
+                style={styles.container}
                 contentContainerStyle={styles.scrollContent}
                 showsVerticalScrollIndicator={false}
             >

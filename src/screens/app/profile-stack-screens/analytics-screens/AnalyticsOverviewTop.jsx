@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import { moderateScale, verticalScale } from 'react-native-size-matters';
 import { AnalycisCard } from '../../../../components/framework/card';
+import { Colors } from '../../../../constants';
 
 const AnalyticsOverviewTop = ({ data }) => {
 
