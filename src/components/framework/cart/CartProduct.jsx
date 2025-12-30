@@ -1,24 +1,55 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
-import { Colors, Images } from '../../../constants'
+import { Colors } from '../../../constants'
 import { OutlineQuantityInputBox } from '../input'
 import { Spacer } from '../boots'
-const CartProduct = () => {
+import API from '../../../api/common/API'
+
+const CartProduct = ({ item }) => {
+    const product = item.product
+    const colorValue = item.attribute?.colors
+    const sizeValue = item.attribute?.sizes
+
     return (
         <View style={styles.productContainer}>
-            <Image source={{ uri: Images.PRODUCT_ONE }} style={styles.image} />
+            <Image
+                source={{ uri: API.STORAGE_URL + product.file_url }}
+                style={styles.image}
+            />
+
             <View style={styles.productInfoContainer}>
-                <Text style={styles.productName}>PUMA</Text>
+                <Text style={styles.productName}>{product.name}</Text>
+
                 <Text style={styles.productDesc} numberOfLines={4}>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est, voluptas!
+                    {product.description}
                 </Text>
-                <View style={styles.productInfo}>
-                    <Text>Color: Black, Size: 8</Text>
-                    <Text>$80</Text>
+
+                <View style={styles.productInfoRow}>
+                    <View style={styles.colorSizeRow}>
+                        <Text style={styles.label}>Color:</Text>
+
+                        <View
+                            style={[
+                                styles.colorBox,
+                                { backgroundColor: colorValue || Colors.PLACEHOLDER },
+                            ]}
+                        />
+
+                        <Text style={[styles.label, { marginLeft: scale(12) }]}>
+                            Size: {sizeValue}
+                        </Text>
+                    </View>
+
+                    <Text style={styles.price}>${product.price}</Text>
                 </View>
-                <Spacer height={5} />
-                <OutlineQuantityInputBox width={"60%"} />
+
+                <Spacer height={6} />
+
+                <OutlineQuantityInputBox
+                    width="60%"
+                    value={String(item.quantity)}
+                />
             </View>
         </View>
     )
@@ -36,12 +67,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: moderateScale(20),
         marginTop: verticalScale(10),
         flexDirection: 'row',
-        alignItems: 'flex-start',
         width: '100%',
     },
     productInfoContainer: {
         flex: 1,
-        flexShrink: 1,
         marginStart: moderateScale(12),
     },
     productName: {
@@ -54,7 +83,36 @@ const styles = StyleSheet.create({
         fontSize: scale(12),
         color: Colors.PLACEHOLDER,
     },
-    productInfo: {
-        marginTop: verticalScale(10)
+
+    productInfoRow: {
+        marginTop: verticalScale(10),
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+
+    colorSizeRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+
+    label: {
+        fontSize: scale(12),
+        color: Colors.BLACK,
+    },
+
+    colorBox: {
+        width: scale(16),
+        height: scale(16),
+        borderRadius: scale(4),
+        marginLeft: scale(6),
+        borderWidth: 1,
+        borderColor: Colors.PLACEHOLDER,
+    },
+
+    price: {
+        fontSize: scale(14),
+        fontWeight: '600',
+        color: Colors.BLACK,
     },
 })

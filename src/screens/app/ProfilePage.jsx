@@ -144,6 +144,8 @@ const ProfilePage = () => {
         { id: 4, icon: Ionicons, iconName: "settings-sharp", label: "Settings", onPress: onPressSettings },
     ]
     const user = useSelector((state) => state.auth.user);
+    console.log(user);
+
     const userName = user?.first_name;
 
     return (

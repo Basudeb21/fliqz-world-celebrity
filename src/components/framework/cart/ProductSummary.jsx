@@ -1,15 +1,44 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Colors } from '../../../constants'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
-import { Spacer } from '../boots';
+import { HR, Spacer } from '../boots';
 
-const ProductSummary = () => {
-    const [hideBill, setHideBill] = useState(true)
+const ProductSummary = ({ items = [] }) => {
+    const [hideBill, setHideBill] = useState(true);
+
     const onPressHideBill = () => {
-        setHideBill(!hideBill)
-    }
+        setHideBill(!hideBill);
+    };
+
+    const summary = useMemo(() => {
+        let totalItems = 0;
+        let subTotal = 0;
+
+        items.forEach(item => {
+            const price = Number(item.product.price);
+            const qty = Number(item.quantity);
+
+            totalItems += qty;
+            subTotal += price * qty;
+        });
+
+        const fees = subTotal > 0 ? 0.25 : 0;
+        const discount = 0;
+        const total = subTotal + fees - discount;
+
+        return {
+            totalItems,
+            subTotal,
+            fees,
+            discount,
+            total,
+        };
+    }, [items]);
+
+    if (!items.length) return null;
+
     return (
         <View style={styles.container}>
             <View style={styles.row}>
@@ -18,53 +47,71 @@ const ProductSummary = () => {
                     <FontAwesome6
                         color={Colors.BLACK}
                         name={hideBill ? "chevron-up" : "chevron-down"}
-                        size={20}
+                        size={18}
                     />
                 </TouchableOpacity>
             </View>
-            {hideBill &&
+
+            {hideBill && (
                 <View>
-                    <Text style={styles.tickitCut}>---------------------------</Text>
+                    <Spacer height={15} />
+                    <HR height='1' color={Colors.PLACEHOLDER} />
+                    <Spacer height={15} />
+
                     <View style={styles.row}>
-                        <Text style={styles.dataItem}>Price ( 1item)</Text>
-                        <Text style={styles.dataAmmount}>$80.00</Text>
+                        <Text style={styles.dataItem}>
+                            Price ({summary.totalItems} item{summary.totalItems > 1 ? 's' : ''})
+                        </Text>
+                        <Text style={styles.dataAmmount}>
+                            ${summary.subTotal.toFixed(2)}
+                        </Text>
                     </View>
+
                     <View style={styles.row}>
                         <Text style={styles.dataItem}>Fees</Text>
-                        <Text style={styles.dataAmmount}>$0.25</Text>
+                        <Text style={styles.dataAmmount}>
+                            ${summary.fees.toFixed(2)}
+                        </Text>
                     </View>
+
                     <View style={styles.row}>
                         <Text style={styles.dataItem}>Discount</Text>
-                        <Text style={styles.dataAmmount}>$0.00</Text>
+                        <Text style={styles.dataAmmount}>
+                            -${summary.discount.toFixed(2)}
+                        </Text>
                     </View>
-                    <Text style={styles.tickitCut}>---------------------------</Text>
+
+                    <Spacer height={15} />
+                    <HR height='1' color={Colors.PLACEHOLDER} />
+                    <Spacer height={15} />
+
                     <View style={styles.row}>
-                        <Text style={styles.dataItem}>Total</Text>
-                        <Text style={styles.dataAmmount}>$80.25</Text>
+                        <Text style={[styles.dataItem, { color: Colors.BLACK }]}>
+                            Total
+                        </Text>
+                        <Text style={styles.dataAmmount}>
+                            ${summary.total.toFixed(2)}
+                        </Text>
                     </View>
                 </View>
-            }
-            {
-                !hideBill &&
-                <Spacer height={20} />
-            }
+            )}
 
+            {!hideBill && <Spacer height={20} />}
         </View>
-    )
-}
+    );
+};
 
-export default ProductSummary
+export default ProductSummary;
 
 const styles = StyleSheet.create({
     container: {
-        marginHorizontal: moderateScale(20),
         borderWidth: scale(1),
         padding: scale(15),
         borderRadius: scale(8),
         borderColor: Colors.HR_COLOR
     },
     summary: {
-        fontSize: scale(18),
+        fontSize: scale(15),
         marginTop: scale(10),
         fontWeight: "500"
     },

@@ -1,12 +1,12 @@
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-import { Colors, NavigationStrings } from '../../../constants';
+import { Colors, Images, NavigationStrings } from '../../../constants';
 import HR from './HR';
 import Spacer from './Spacer';
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
-
+import API from '../../../api/common/API';
 
 const COLUMN_WIDTHS = {
     product: moderateScale(90),
@@ -17,15 +17,41 @@ const COLUMN_WIDTHS = {
     actions: moderateScale(30),
 };
 
-const OrderTable = ({
-    data
-}) => {
+const OrderTable = ({ data }) => {
     const navigation = useNavigation();
-    const onPressViewOrderDetails = () => {
-        navigation.navigate(NavigationStrings.VIEW_ORDER)
-    }
+
+    const onPressViewOrderDetails = (item) => {
+        navigation.navigate(NavigationStrings.VIEW_ORDER, { order: item });
+    };
+
+    // ✅ Helper function to get image URI
+    const getImageUri = (imageData) => {
+        if (!imageData) return Images.BANNER_IMG;
+
+        // If it's already a full URL
+        if (typeof imageData === 'string' && imageData.startsWith('http')) {
+            return imageData;
+        }
+
+        // If it's a path
+        if (typeof imageData === 'string') {
+            return `${API.STORAGE_URL}${imageData}`;
+        }
+
+        // If it's an array, get first item
+        if (Array.isArray(imageData) && imageData.length > 0) {
+            const firstImage = imageData[0];
+            if (firstImage.startsWith('http')) {
+                return firstImage;
+            }
+            return `${API.STORAGE_URL}${firstImage}`;
+        }
+
+        return Images.BANNER_IMG;
+    };
+
     return (
-        <View>
+        <View style={{ flex: 1 }}>
             <View style={[styles.row, styles.head]}>
                 <Text style={[styles.headTxt, { width: COLUMN_WIDTHS.product }]}>
                     Products
@@ -47,86 +73,84 @@ const OrderTable = ({
                 </Text>
             </View>
 
-            <Spacer
-                height={10}
-            />
-            <HR
-                height={1}
-                width="94%"
-                center={true}
-            />
+            <Spacer height={10} />
+            <HR height={1} width="94%" center={true} />
 
             <FlatList
                 data={data}
                 keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (
-                    <>
-                        <View style={[styles.row, styles.bodyRow]}>
-                            <View
-                                style={[styles.userInfoContainer,
-                                { width: COLUMN_WIDTHS.product }]}
-                            >
-                                <Image
-                                    source={{ uri: item.image }}
-                                    style={styles.image}
-                                />
+                renderItem={({ item }) => {
+                    const imageUri = getImageUri(item.image);
+
+                    return (
+                        <>
+                            <View style={[styles.row, styles.bodyRow]}>
                                 <View
-                                    style={styles.userNameContainer}
+                                    style={[
+                                        styles.userInfoContainer,
+                                        { width: COLUMN_WIDTHS.product },
+                                    ]}
                                 >
-                                    <Text
-                                        style={styles.userName}>
-                                        {item.orderType}
-                                    </Text>
+                                    <Image
+                                        source={
+                                            typeof imageUri === 'string'
+                                                ? { uri: imageUri }
+                                                : imageUri
+                                        }
+                                        style={styles.image}
+                                        defaultSource={Images.BANNER_IMG}
+                                        onError={(e) => {
+                                            console.log('Image error:', item.orderType);
+                                        }}
+                                    />
+                                    <View style={styles.userNameContainer}>
+                                        <Text style={styles.userName} numberOfLines={2}>
+                                            {item.orderType}
+                                        </Text>
+                                    </View>
                                 </View>
+
+                                <Text
+                                    style={[
+                                        styles.status,
+                                        { width: COLUMN_WIDTHS.quantity },
+                                    ]}
+                                >
+                                    {item.quantity}
+                                </Text>
+                                <Text
+                                    style={[styles.status, { width: COLUMN_WIDTHS.date }]}
+                                >
+                                    {item.orderDate}
+                                </Text>
+                                <Text
+                                    style={[styles.status, { width: COLUMN_WIDTHS.price }]}
+                                >
+                                    {item.orderPrice}
+                                </Text>
+                                <Text
+                                    style={[styles.status, { width: COLUMN_WIDTHS.status }]}
+                                >
+                                    {item.status}
+                                </Text>
+
+                                <TouchableOpacity
+                                    style={{ width: COLUMN_WIDTHS.actions }}
+                                    onPress={() => onPressViewOrderDetails(item)}
+                                >
+                                    <FontAwesome
+                                        name="eye"
+                                        size={16}
+                                        color={Colors.THEME}
+                                    />
+                                </TouchableOpacity>
                             </View>
 
-                            <Text
-                                style={[styles.status,
-                                { width: COLUMN_WIDTHS.quantity }]}
-                            >
-                                {item.quantity}
-                            </Text>
-                            <Text
-                                style={[styles.status,
-                                { width: COLUMN_WIDTHS.date }]}
-                            >
-                                {item.orderDate}
-                            </Text>
-                            <Text
-                                style={[styles.status,
-                                { width: COLUMN_WIDTHS.price }]}
-                            >
-                                {item.orderPrice}
-                            </Text>
-                            <Text
-                                style={[styles.status,
-                                { width: COLUMN_WIDTHS.status }]}
-                            >
-                                {item.status}
-                            </Text>
-
-                            <TouchableOpacity
-                                style={{ width: COLUMN_WIDTHS.actions }}
-                                onPress={onPressViewOrderDetails}
-                            >
-                                <FontAwesome
-                                    name="eye"
-                                    size={16}
-                                    color={Colors.THEME}
-                                />
-                            </TouchableOpacity>
-                        </View>
-
-                        <Spacer
-                            height={10}
-                        />
-                        <HR
-                            height={1}
-                            width="94%"
-                            center={true}
-                        />
-                    </>
-                )}
+                            <Spacer height={10} />
+                            <HR height={1} width="94%" center={true} />
+                        </>
+                    );
+                }}
                 ListFooterComponent={<Spacer height={10} />}
                 contentContainerStyle={styles.scrollContent}
             />
@@ -159,6 +183,7 @@ const styles = StyleSheet.create({
         height: verticalScale(35),
         width: moderateScale(30),
         borderRadius: scale(6),
+        backgroundColor: '#f0f0f0',
     },
     userInfoContainer: {
         flexDirection: 'row',
@@ -166,6 +191,7 @@ const styles = StyleSheet.create({
     },
     userNameContainer: {
         marginStart: moderateScale(10),
+        flex: 1,
     },
     userName: {
         color: Colors.PLACEHOLDER,

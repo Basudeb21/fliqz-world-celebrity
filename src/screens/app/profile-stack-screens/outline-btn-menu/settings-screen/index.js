@@ -1,3 +1,4 @@
+export { default as EditTaxScreen } from "./EditTaxScreen";
 export { default as TaxInformation } from "./TaxInformation";
 export { default as ChatBotPage } from "./ChatBotPage";
 export { default as UpdateAddress } from "./UpdateAddress";

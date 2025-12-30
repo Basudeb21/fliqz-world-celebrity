@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
         borderRadius: scale(6),
         paddingHorizontal: moderateScale(20),
         paddingVertical: verticalScale(50),
+        marginHorizontal: moderateScale(5)
     },
     msg: {
         color: Colors.WHITE,

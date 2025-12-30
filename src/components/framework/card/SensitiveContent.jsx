@@ -36,7 +36,9 @@ const styles = StyleSheet.create({
         borderRadius: scale(6),
         paddingHorizontal: moderateScale(20),
         paddingVertical: verticalScale(50),
-        alignItems: "center"
+        alignItems: "center",
+        marginHorizontal: moderateScale(5)
+
     },
     contentHead: {
         color: Colors.WHITE,

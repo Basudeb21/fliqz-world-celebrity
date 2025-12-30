@@ -6,11 +6,10 @@ import { CartProduct } from '../framework/cart';
 import { GradientIconButton } from '../framework/button';
 import { Spacer } from '../framework/boots';
 
-const CartItem = () => {
-
+const CartItem = ({ item }) => {
     return (
-        <View >
-            <CartProduct />
+        <View>
+            <CartProduct item={item} />
             <Spacer height={30} />
             <View style={styles.btnRow}>
                 <GradientIconButton
@@ -22,18 +21,15 @@ const CartItem = () => {
                     fontSize={14}
                 />
             </View>
-
         </View>
-    )
-}
+    );
+};
 
-export default CartItem
+export default CartItem;
 
 const styles = StyleSheet.create({
-
     btnRow: {
         flexDirection: "row",
-        // justifyContent: "space-evenly"
         paddingStart: moderateScale(20)
     }
-})
+});

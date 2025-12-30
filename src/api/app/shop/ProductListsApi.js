@@ -18,7 +18,7 @@ const ProductListsApi = async (token) => {
         });
         console.log("Products :: ", response.data);
 
-        return response.data || null; // ✅ Return full response.data (which contains status and data)
+        return response.data || null;
     } catch (error) {
         console.error("Unable to fetch products", {
             message: error.message,

@@ -2,7 +2,7 @@ import axios from "axios";
 import API from "../../common/API";
 import { ToastAndroid } from "react-native";
 
-const GetAllCountryApi = async (token) => {
+const GetAllStateByCountry = async (token, country_name) => {
     try {
 
         if (!token) {
@@ -12,7 +12,7 @@ const GetAllCountryApi = async (token) => {
 
 
         const response = await axios.post(
-            `${API.BASE_URL}country`,
+            `${API.BASE_URL}state?country=${country_name}`,
             {},
             {
                 headers: {
@@ -20,6 +20,8 @@ const GetAllCountryApi = async (token) => {
                 },
             }
         );
+        console.log(`State of ${country_name} -> `, response.data);
+
         return response.data || null;
     } catch (error) {
         console.error("Unable to fetch countries - Full error:", error);
@@ -39,4 +41,4 @@ const GetAllCountryApi = async (token) => {
         return null;
     }
 };
-export default GetAllCountryApi;
+export default GetAllStateByCountry;

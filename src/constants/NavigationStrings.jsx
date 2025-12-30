@@ -111,6 +111,7 @@ export default {
     SETTINGS_ADD_SUPPORT_TICKET_SCREEN: "SupportTicketScreen",
     SETTINGS_UPDATE_ADDRESS: "UpdateAddress",
     SETTINGS_TAX_INFORMATION: "TaxInformation",
+    SETTINGS_EDIT_TAX_INFORMATION: "EditTaxInformation",
     SETTINGS_CHAT_BOT: "ChatBotHome",
 
     // Post Screens

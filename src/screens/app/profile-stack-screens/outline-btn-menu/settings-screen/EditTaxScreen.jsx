@@ -1,21 +1,56 @@
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import React, {
+    useState
+} from 'react'
 import { Colors, Images, NavigationStrings } from '../../../../../constants'
-import { BackpressTopBar } from '../../../../../components/framework/navbar'
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 import { HR, Spacer } from '../../../../../components/framework/boots'
 import { GradientIconButton, GradientTextButton } from '../../../../../components/framework/button'
 import { useNavigation } from '@react-navigation/native'
+import { BackpressTopBar } from '../../../../../components/framework/navbar'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { DateInputBox, TextInputBox } from '../../../../../components/framework/input'
+import { GetAllCountryApi, GetAllStateByCountry } from '../../../../../api/app/user'
+import { useSelector } from 'react-redux'
 
-const TaxInformation = () => {
+const EditTaxScreen = () => {
     const navigation = useNavigation();
+    const [taxType, setTaxType] = useState('W-9');
+    const [name, setName] = useState("");
+    const [businessName, setBusinessName] = useState("");
+    const [taxClassification, setTaxClassification] = useState("");
+    const [exemption, setExemption] = useState('');
+    const [llcTaxType, setLlcTaxType] = useState("");
+    const [description, setDescription] = useState("");
+    const [address, setAddress] = useState("");
+    const [country, setCountry] = useState("");
+    const [stateName, setStateName] = useState("");
+    const [city, setCity] = useState();
+    const [zipCode, setZipCode] = useState();
+    const [lastAccountNumber, setLastAccountNumber] = useState("");
+    const [ssn, setSsn] = useState();
+    const [ein, setEin] = useState();
+    const [date, setDate] = useState();
+    const [citizenship, setCitizenship] = useState();
+    const [countryList, setCountryList] = useState([]);
+    const [stateList, setStateList] = useState([]);
+    const [zipCodeList, setZipCodeList] = useState([]);
+    const token = useSelector(state => state.auth.token);
+
+    const getAllCountry = async () => {
+        const res = await GetAllCountryApi(token);
+        const states = await GetAllStateByCountry(token, "Belgium")
+    }
+
+
+
+
     const onPressEditTaxInfo = () => {
         navigation.navigate(NavigationStrings.SETTINGS_EDIT_TAX_INFORMATION);
     }
     return (
         <SafeAreaView style={styles.areaView}>
-            <BackpressTopBar title={"Tax Information"} />
+            <BackpressTopBar title={"Edit Tax Information"} />
             <ScrollView style={styles.container}>
                 <Text style={styles.info}>This information is required to confirm if you are a U.S. or non-U.S. taxpayer and whether Fliqz World is required to withhold taxes from your earnings. Add your tax information now to avoid delays in getting paid.</Text>
                 <View style={styles.form}>
@@ -23,24 +58,74 @@ const TaxInformation = () => {
                     <Text style={styles.formHead}>Request for Taxpayer Identification Number and Certification</Text>
                     <Text style={styles.formTopText}>(Substitute for official IRS Form W-9 for data collection purposes only)</Text>
                     <Text style={styles.infoTitles}>Name (as shown on your income tax return)</Text>
-                    <Text>Niladittya Paul</Text>
+                    <Spacer height={10} />
+                    <TextInputBox
+                        placeholder='Enter name'
+                        value={name}
+                        setValue={setName}
+                    />
                     <Text style={styles.infoTitles}>Business name/disregarded entity name (if different from above)</Text>
-                    <Text>Testing</Text>
+                    <Spacer height={10} />
+                    <TextInputBox
+                        placeholder=''
+                        value={businessName}
+                        setValue={setBusinessName}
+                    />
                     <Text style={styles.infoTitles}>Federal tax classification (Select only one)</Text>
-                    <Text>Partnership</Text>
+                    <Spacer height={10} />
+                    <TextInputBox
+                        placeholder=''
+                        value={taxClassification}
+                        setValue={setTaxClassification}
+                    />
                     <Text style={styles.infoTitles}>Exemptions (codes apply only to certain entities)</Text>
-                    <Text>1234</Text>
-                    <Text>1234</Text>
+                    <Spacer height={10} />
+                    <TextInputBox
+                        placeholder=''
+                        value={exemption}
+                        setValue={setExemption}
+                    />
+                    <Spacer height={10} />
+                    <TextInputBox
+                        placeholder=''
+                        value={exemption}
+                        setValue={setExemption}
+                    />
                     <Text style={styles.infoTitles}>Address (number, street, and apt. or suite no.)</Text>
-                    <Text>Janai Road, West Bengal, Hooghly</Text>
+                    <Spacer height={10} />
+                    <TextInputBox
+                        placeholder=''
+                        value={address}
+                        setValue={setAddress}
+                    />
                     <Text style={styles.infoTitles}>State or province</Text>
-                    <Text>California</Text>
+                    <Spacer height={10} />
+                    <TextInputBox
+                        placeholder=''
+                        value={stateName}
+                        setValue={setStateName}
+                    />
                     <Text style={styles.infoTitles}>City</Text>
-                    <Text>Janai</Text>
+                    <Spacer height={10} />
+                    <TextInputBox
+                        placeholder=''
+                        value={city}
+                        setValue={setCity}
+                    />
                     <Text style={styles.infoTitles}>Zip code</Text>
-                    <Text>90006</Text>
+                    <Spacer height={10} />
+                    <TextInputBox
+                        placeholder=''
+                        value={zipCode}
+                        setValue={setZipCode}
+                    />
                     <Text style={styles.infoTitles}>List account number(s) here (optional)</Text>
-                    <Text>223252544</Text>
+                    <Spacer height={10} />
+                    <TextInputBox
+                        placeholder=''
+                        value={lastAccountNumber}
+                        setValue={setLastAccountNumber}
+                    />
                     <View style={styles.hrContainer}>
                         <HR height={1} color={Colors.LIGHT_PLACEHOLDER} />
                     </View>
@@ -48,9 +133,19 @@ const TaxInformation = () => {
                     <Text>Social security number (SSN)</Text>
                     <Text>Enter your TIN in the appropriate box. The TIN provided must match the name given on above name to avoid backup withholding.</Text>
                     <Text style={styles.infoTitles}>Social security number (SSN)</Text>
-                    <Text>696969696</Text>
+                    <Spacer height={10} />
+                    <TextInputBox
+                        placeholder=''
+                        value={ssn}
+                        setValue={setSsn}
+                    />
                     <Text style={styles.infoTitles}>Employer identification number (EIN)</Text>
-                    <Text>696969696</Text>
+                    <Spacer height={10} />
+                    <TextInputBox
+                        placeholder=''
+                        value={ein}
+                        setValue={setEin}
+                    />
                     <View style={styles.hrContainer}>
                         <HR height={1} color={Colors.LIGHT_PLACEHOLDER} />
                     </View>
@@ -66,9 +161,10 @@ const TaxInformation = () => {
                         source={{ uri: Images.CELEBRITY_AVATAR_ONE }}
                     />
                     <Text style={styles.infoTitles}>Date</Text>
-                    <Text>2025-12-16</Text>
+                    <Spacer height={10} />
+                    <DateInputBox />
                     <View style={styles.btn}>
-                        <GradientTextButton label='Edit Information' onPress={onPressEditTaxInfo} />
+                        <GradientTextButton label='Edit Information' onPress={getAllCountry} />
                     </View>
                     <Spacer height={20} />
                 </View>
@@ -77,7 +173,7 @@ const TaxInformation = () => {
     )
 }
 
-export default TaxInformation
+export default EditTaxScreen
 
 const styles = StyleSheet.create({
     areaView: {
